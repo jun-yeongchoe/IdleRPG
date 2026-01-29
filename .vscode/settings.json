@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Scarlet_Knight_Idle.sln"
+    "dotnet.defaultSolution": "Idle_Project.sln"
 }
