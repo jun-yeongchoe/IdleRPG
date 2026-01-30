@@ -1,18 +1,18 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static EffectManager Instance { get; private set; }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this; DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
     }
 }
