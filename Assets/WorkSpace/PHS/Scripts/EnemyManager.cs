@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public static EnemyManager instance { get; private set; }
+    public static EnemyManager Instance { get; private set; }
 
     [Header("Player")]
     [SerializeField] private Transform player;
@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        if (Instance == null) Instance = this;
 
         if (player == null)
         {
