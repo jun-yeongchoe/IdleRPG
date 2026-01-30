@@ -34,17 +34,25 @@ public class DBManager : MonoBehaviour
     {
         if (loadedData == null) return;
 
+
+        // 플레이어 접속할 때, 접속종료할 때, 저장/로드 할 데이터를 새로 정의할것. -> 저장 후에 계산으로 출력가능한 데이터는 저장x
+
         // 서버 데이터를 SO에 동기화
         playerStatus.userName = loadedData.userName;
         playerStatus.gold = loadedData.gold;
-        playerStatus.stageLevel = loadedData.stageLevel;
-        playerStatus.attackPower = loadedData.attackPower;
+        playerStatus.jewel = loadedData.jewel;
+        playerStatus.atkPower =loadedData.atkPower;
+        playerStatus.hp =loadedData.hp;
+        playerStatus.atkSpeed =loadedData.atkSpeed;
+        playerStatus.hpGen =loadedData.hpGen;
+        playerStatus.criticalChance =loadedData.criticalChance;
+        playerStatus.criticalDamage =loadedData.criticalDamage;
 
         // UI 텍스트 업데이트
         userNameTxt.text = "UserName : " + playerStatus.userName;
-        userStageLevelTxt.text = "UserStageLevel : " + playerStatus.stageLevel.ToString();
+        userStageLevelTxt.text = "UserJewel : " + playerStatus.jewel.ToString();
         userGoldTxt.text = "UserGold : " + playerStatus.gold.ToString();
-        userAttackTxt.text = "UserAttackPower : " + playerStatus.attackPower.ToString();
+        userAttackTxt.text = "UserAttackPower : " + playerStatus.atkPower.ToString();
         
         Debug.Log($"[로그인 성공] {playerStatus.userName}님의 데이터를 서버에서 불러와 UI에 표시했습니다.");
     }
@@ -89,7 +97,7 @@ public class DBManager : MonoBehaviour
                 else { 
                     Debug.Log("신규 유저입니다. 초기 데이터를 생성합니다.");
                     // 신규 유저는 초기값을 SO에 직접 설정하거나 아래처럼 생성
-                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName, 500, 1, 100);
+                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName, 0,0,10,100,1,7,0,1.2f);
                     SaveUserData(userId, newData);
                     
                     loadedData = newData;
