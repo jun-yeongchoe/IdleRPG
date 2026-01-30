@@ -13,7 +13,7 @@ public class DBManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI userNameTxt, userStageLevelTxt, userGoldTxt, userAttackTxt;
 
     [Header("Data Reference (SO)")]
-    public PlayerStatus playerStatus; // 인스펙터에서 생성한 SO를 꼭 연결하세요!
+    public PlayerStatus playerStatus; 
 
     void Start()
     {
@@ -26,7 +26,7 @@ public class DBManager : MonoBehaviour
         if (isDataLoadComplete)
         {
             isDataLoadComplete = false;
-            SyncDataAndRefreshUI(); // 동기화 및 UI 갱신을 전담하는 함수 호출
+            SyncDataAndRefreshUI(); // 동기화 및 UI 갱신
         }
     }
 
@@ -34,13 +34,13 @@ public class DBManager : MonoBehaviour
     {
         if (loadedData == null) return;
 
-        // 1. 서버 데이터를 SO에 동기화
+        // 서버 데이터를 SO에 동기화
         playerStatus.userName = loadedData.userName;
         playerStatus.gold = loadedData.gold;
         playerStatus.stageLevel = loadedData.stageLevel;
         playerStatus.attackPower = loadedData.attackPower;
 
-        // 2. UI 텍스트 업데이트 (로그인 시 서버 정보를 그대로 반영)
+        // UI 텍스트 업데이트
         userNameTxt.text = "UserName : " + playerStatus.userName;
         userStageLevelTxt.text = "UserStageLevel : " + playerStatus.stageLevel.ToString();
         userGoldTxt.text = "UserGold : " + playerStatus.gold.ToString();
@@ -99,7 +99,7 @@ public class DBManager : MonoBehaviour
         });
     }
 
-    // 기존의 단순 저장 로직 (필요 시 내부 호출용)
+    // 기존 단순 저장 로직 (필요 시 내부 호출용)
     private void SaveUserData(string userId, UserData data)
     {
         string json = JsonUtility.ToJson(data);
