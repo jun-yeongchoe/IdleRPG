@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Google;
@@ -28,36 +28,45 @@ public class GoogleLogin : MonoBehaviour
     void Start()
     {
         // Firebase 의존성 및 초기화
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
-        var dependencyStatus = task.Result;
-        if (dependencyStatus == DependencyStatus.Available) {
-            auth = FirebaseAuth.DefaultInstance;
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        {
+            var dependencyStatus = task.Result;
+            if (dependencyStatus == DependencyStatus.Available)
+            {
+                auth = FirebaseAuth.DefaultInstance;
 
-            // 2. 이미 Firebase에 로그인된 유저가 있는지 확인 (자동 로그인 1단계)
-            if (auth.CurrentUser != null) {
-                user = auth.CurrentUser;
-                isLoginTaskComplete = true; // 메인 스레드 UI 업데이트 신호
-                Debug.Log("Firebase 세션이 남아있어 자동 로그인 되었습니다: " + user.DisplayName);
+                // 2. 이미 Firebase에 로그인된 유저가 있는지 확인 (자동 로그인 1단계)
+                if (auth.CurrentUser != null)
+                {
+                    user = auth.CurrentUser;
+                    isLoginTaskComplete = true; // 메인 스레드 UI 업데이트 신호
+                    Debug.Log("Firebase 세션이 남아있어 자동 로그인 되었습니다: " + user.DisplayName);
+                }
+                else
+                {
+                    // 3. 세션이 없다면 구글 Silent 로그인 시도 (자동 로그인 2단계)
+                    TrySilentGoogleLogin();
+                }
             }
-            else {
-            // 3. 세션이 없다면 구글 Silent 로그인 시도 (자동 로그인 2단계)
-            TrySilentGoogleLogin();
-            }
-        }
-    });
+        });
     }
 
     // 구글 계정 정보를 조용히 가져오는 함수
     private void TrySilentGoogleLogin()
     {
-        GoogleSignInConfiguration config = new GoogleSignInConfiguration {
-            WebClientId = webClientId, RequestIdToken = true, RequestEmail = true
+        GoogleSignInConfiguration config = new GoogleSignInConfiguration
+        {
+            WebClientId = webClientId,
+            RequestIdToken = true,
+            RequestEmail = true
         };
         GoogleSignIn.Configuration = config;
 
         // SignIn 대신 SignInSilently를 사용합니다.
-        GoogleSignIn.DefaultInstance.SignInSilently().ContinueWith(task => {
-            if (!task.IsFaulted && !task.IsCanceled) {
+        GoogleSignIn.DefaultInstance.SignInSilently().ContinueWith(task =>
+        {
+            if (!task.IsFaulted && !task.IsCanceled)
+            {
                 Debug.Log("구글 Silent 로그인 성공! Firebase 인증 시도...");
                 SignInWithFirebase(task.Result.IdToken);
             }
@@ -76,19 +85,26 @@ public class GoogleLogin : MonoBehaviour
 
     public void OnClickGoogleLogin()
     {
-        GoogleSignInConfiguration config = new GoogleSignInConfiguration {
+        GoogleSignInConfiguration config = new GoogleSignInConfiguration
+        {
             WebClientId = webClientId,
             RequestIdToken = true,
             RequestEmail = true
         };
         GoogleSignIn.Configuration = config;
 
-        GoogleSignIn.DefaultInstance.SignIn().ContinueWith(task => {
-            if (task.IsFaulted) {
+        GoogleSignIn.DefaultInstance.SignIn().ContinueWith(task =>
+        {
+            if (task.IsFaulted)
+            {
                 Debug.LogError("구글 로그인 실패");
-            } else if (task.IsCanceled) {
+            }
+            else if (task.IsCanceled)
+            {
                 Debug.Log("구글 로그인 취소");
-            } else {
+            }
+            else
+            {
                 Debug.Log("구글 로그인 성공! Firebase 인증 시도...");
                 SignInWithFirebase(task.Result.IdToken);
             }
@@ -99,8 +115,10 @@ public class GoogleLogin : MonoBehaviour
     {
         Credential credential = GoogleAuthProvider.GetCredential(idToken, null);
 
-        auth.SignInAndRetrieveDataWithCredentialAsync(credential).ContinueWith(task => {
-            if (task.IsFaulted || task.IsCanceled) {
+        auth.SignInAndRetrieveDataWithCredentialAsync(credential).ContinueWith(task =>
+        {
+            if (task.IsFaulted || task.IsCanceled)
+            {
                 Debug.LogError("Firebase 인증 실패");
                 return;
             }
@@ -116,7 +134,7 @@ public class GoogleLogin : MonoBehaviour
 
         loginTxt.text = "Sign In Status : Login";
         // DisplayName 대신 고유 UID를 사용하려면 user.UserId를 쓰세요.
-        userIdTxt.text = "UserId : " + user.DisplayName; 
+        userIdTxt.text = "UserId : " + user.DisplayName;
         userEmailTxt.text = "UserEmail : " + user.Email;
 
         if (user.PhotoUrl != null)
