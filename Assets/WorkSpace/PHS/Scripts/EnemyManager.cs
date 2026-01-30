@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//구조: EnemyManager의 자식으로 늘 EnemySpawner가 존재해야 함
 public class EnemyManager : MonoBehaviour
 {
-    public static EnemyManager Instance { get; private set; }
-
     [Header("Player")]
     [SerializeField] private Transform player;
 
@@ -16,8 +15,6 @@ public class EnemyManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-
         if (player == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");

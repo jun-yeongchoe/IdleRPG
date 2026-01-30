@@ -48,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
             if (enemyPool[i].activeSelf) activeCount++;
         }
 
-        if (activeCount < poolSize)
+        if (activeCount ==0)
         {
             StartCoroutine(NextStage());
         }
@@ -64,10 +64,22 @@ public class EnemySpawner : MonoBehaviour
 
         yield return new WaitForSeconds(respawnInterval);
 
-        Spawn();
+        SpawnWave();
 
         isWaiting = false;
     }
+
+    void SpawnWave()
+    {
+        for (int i = 0; i < poolSize; i++) 
+        {
+            if (!enemyPool[i].activeSelf) 
+            {
+                Spawn();
+            }
+        }
+    }
+
     void Spawn()
     {
         GameObject selectEnemy = null;
