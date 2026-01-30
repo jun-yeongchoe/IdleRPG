@@ -32,14 +32,14 @@ public class GoogleLogin : MonoBehaviour
         if (dependencyStatus == DependencyStatus.Available) {
             auth = FirebaseAuth.DefaultInstance;
 
-            // 2. 이미 Firebase에 로그인된 유저가 있는지 확인 (자동 로그인 1단계)
+            
             if (auth.CurrentUser != null) {
                 user = auth.CurrentUser;
                 isLoginTaskComplete = true; // 메인 스레드 UI 업데이트 신호
                 Debug.Log("Firebase 세션이 남아있어 자동 로그인 되었습니다: " + user.DisplayName);
             }
             else {
-            // 3. 세션이 없다면 구글 Silent 로그인 시도 (자동 로그인 2단계)
+            
             TrySilentGoogleLogin();
             }
         }
@@ -65,7 +65,7 @@ public class GoogleLogin : MonoBehaviour
 
     void Update()
     {
-        // 로그인 작업이 완료되면 메인 스레드인 Update에서 UI를 갱신
+        
         if (isLoginTaskComplete)
         {
             isLoginTaskComplete = false;
@@ -107,16 +107,27 @@ public class GoogleLogin : MonoBehaviour
             }
 
             user = task.Result.User;
-            isLoginTaskComplete = true; // Update 함수에서 UI를 그리도록 신호를 보냄
+            isLoginTaskComplete = true;
         });
     }
 
     private void UpdateUI()
     {
         if (user == null) return;
+        DBManager DBM = GetComponent<DBManager>();
+
+        if (DBM != null)
+        {
+            Debug.Log("신규 유저 혹은 초기 설정을 위해 SO 데이터를 서버에 저장합니다.");
+            DBM.LoadUserData(user.UserId); 
+        }
+        else
+        {
+            Debug.LogError("Hierarchy에 DBManager 오브젝트가 없습니다! 오브젝트를 생성하고 스크립트를 붙여주세요.");
+        }
 
         loginTxt.text = "Sign In Status : Login";
-        // DisplayName 대신 고유 UID를 사용하려면 user.UserId를 쓰세요.
+        
         userIdTxt.text = "UserId : " + user.DisplayName; 
         userEmailTxt.text = "UserEmail : " + user.Email;
 
@@ -136,6 +147,8 @@ public class GoogleLogin : MonoBehaviour
         userEmailTxt.text = "UserEmail : ";
         userIdTxt.text = "UserId : ";
         profileImg.sprite = null;
+
+        if(!loginPanel.activeSelf) loginPanel.SetActive(true);
     }
 
     IEnumerator LoadImage(string imageUri)

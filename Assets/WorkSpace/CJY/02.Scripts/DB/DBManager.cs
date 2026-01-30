@@ -8,7 +8,12 @@ public class DBManager : MonoBehaviour
     private DatabaseReference dbReference;
     private bool isDataLoadComplete = false;
     private UserData loadedData;
-    [SerializeField] TextMeshProUGUI userNameTxt, userStageLevelTxt;
+
+    [Header("UI Reference")]
+    [SerializeField] TextMeshProUGUI userNameTxt, userStageLevelTxt, userGoldTxt, userAttackTxt;
+
+    [Header("Data Reference (SO)")]
+    public PlayerStatus playerStatus; // 인스펙터에서 생성한 SO를 꼭 연결하세요!
 
     void Start()
     {
@@ -17,52 +22,89 @@ public class DBManager : MonoBehaviour
     }
 
     void Update()
-{
-    // 데이터 로드가 완료되면 메인 스레드에서 UI를 업데이트합니다.
-    if (isDataLoadComplete)
     {
-        isDataLoadComplete = false;
-        userNameTxt.text = "UserName : "+ loadedData.userName;
-        userStageLevelTxt.text = "UserStageLevel : "+ loadedData.stageLevel.ToString();
+        if (isDataLoadComplete)
+        {
+            isDataLoadComplete = false;
+            SyncDataAndRefreshUI(); // 동기화 및 UI 갱신을 전담하는 함수 호출
+        }
     }
-}
 
-    // 데이터 저장 (유저 UID 사용)
-    public void SaveUserData(string userId, UserData data)
+    public void SyncDataAndRefreshUI()
     {
+        if (loadedData == null) return;
+
+        // 1. 서버 데이터를 SO에 동기화
+        playerStatus.userName = loadedData.userName;
+        playerStatus.gold = loadedData.gold;
+        playerStatus.stageLevel = loadedData.stageLevel;
+        playerStatus.attackPower = loadedData.attackPower;
+
+        // 2. UI 텍스트 업데이트 (로그인 시 서버 정보를 그대로 반영)
+        userNameTxt.text = "UserName : " + playerStatus.userName;
+        userStageLevelTxt.text = "UserStageLevel : " + playerStatus.stageLevel.ToString();
+        userGoldTxt.text = "UserGold : " + playerStatus.gold.ToString();
+        userAttackTxt.text = "UserAttackPower : " + playerStatus.attackPower.ToString();
+        
+        Debug.Log($"[로그인 성공] {playerStatus.userName}님의 데이터를 서버에서 불러와 UI에 표시했습니다.");
+    }
+
+    // [저장] SO데이터를 서버 저장
+    public void SaveSOData()
+    {
+        string userId = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        if (string.IsNullOrEmpty(userId)) return;
+
+        // SO 데이터를 JSON용 클래스로 변환하여 저장
+        UserData data = playerStatus.ToUserData();
         string json = JsonUtility.ToJson(data);
+
         dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json).ContinueWith(task => {
-            if (task.IsCompleted) Debug.Log("데이터 저장 완료!");
+            if (task.IsCompleted) Debug.Log("서버에 SO 데이터 저장 완료!");
+            else 
+            {
+                Debug.LogError("서버 저장 실패: " + task.Exception);
+            }
         });
     }
 
-    // 데이터 불러오기
+    // [불러오기] 앱 시작 시 서버에서 데이터를 가져와 SO에 담을 때 사용
     public void LoadUserData(string userId)
     {
-        dbReference.Child("users").Child(userId).GetValueAsync().ContinueWith(task => {
-        if (task.IsFaulted) {
-            Debug.LogError("데이터 로드 실패");
-        }
-        else if (task.IsCompleted) {
-            DataSnapshot snapshot = task.Result;
-            
-            if (snapshot.Exists) { // 데이터가 존재하는 경우
-                string json = snapshot.GetRawJsonValue();
-                loadedData = JsonUtility.FromJson<UserData>(json);
-                isDataLoadComplete = true; // UI 업데이트 신호
-            } 
-            else { // 신규 유저인 경우 초기 데이터 생성
-                Debug.Log("신규 유저입니다. 초기 데이터를 생성합니다.");
-                UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName, 0, 1, 10);
-                SaveUserData(userId, newData);
-                
-                // 생성 후 다시 로드하거나 직접 할당
-                loadedData = newData;
-                isDataLoadComplete = true;
-            }
-        }
-    });
+        if (dbReference == null)
+        dbReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        
+        dbReference.Child("users").Child(userId).GetValueAsync().ContinueWith(task => {
+            if (task.IsFaulted) {
+                Debug.LogError("데이터 로드 실패");
+            }
+            else if (task.IsCompleted) {
+                DataSnapshot snapshot = task.Result;
+                
+                if (snapshot.Exists) { 
+                    string json = snapshot.GetRawJsonValue();
+                    loadedData = JsonUtility.FromJson<UserData>(json);
+                    isDataLoadComplete = true; 
+                } 
+                else { 
+                    Debug.Log("신규 유저입니다. 초기 데이터를 생성합니다.");
+                    // 신규 유저는 초기값을 SO에 직접 설정하거나 아래처럼 생성
+                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName, 500, 1, 100);
+                    SaveUserData(userId, newData);
+                    
+                    loadedData = newData;
+                    isDataLoadComplete = true;
+                }
+            }
+        });
+    }
+
+    // 기존의 단순 저장 로직 (필요 시 내부 호출용)
+    private void SaveUserData(string userId, UserData data)
+    {
+        string json = JsonUtility.ToJson(data);
+        dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json).ContinueWith(task => {
+            if (task.IsCompleted) Debug.Log("초기 데이터 저장 완료!");
+        });
     }
 }
