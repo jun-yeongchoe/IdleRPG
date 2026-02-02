@@ -54,4 +54,29 @@ public class DataManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
+
+    public BigInteger GetGoldperSec()
+    {
+        BigInteger baseGold = 10;
+        BigInteger stageBonus = currentStageNum * 5;
+
+        return baseGold + stageBonus;
+    }
+
+    public void AddGold(BigInteger amount)
+    {
+        Gold += amount;
+        if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
+    }
+    public void AddScrap(BigInteger amount)
+    {
+        Scrap += amount;
+        if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
+    }
+
+    public void AddGem(BigInteger amount)
+    {
+        Gem += amount;
+        if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
+    }
 }

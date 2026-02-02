@@ -24,8 +24,7 @@ public class EventManager : MonoBehaviour
 
     public void StartList(string eventName, UnityAction list)
     {
-        UnityAction thisEvent;
-        if (eventDict.TryGetValue(eventName, out thisEvent))
+        if (eventDict.TryGetValue(eventName, out var thisEvent))
         {
             thisEvent += list;
             eventDict[eventName] = thisEvent;
@@ -40,8 +39,7 @@ public class EventManager : MonoBehaviour
     public void StopList(string eventName, UnityAction list)
     {
         if(Instance==null)return;
-        UnityAction thisEvent;
-        if (eventDict.TryGetValue(eventName, out thisEvent)) 
+        if (eventDict.TryGetValue(eventName, out var thisEvent)) 
         { 
             thisEvent -= list;
             eventDict[eventName] = thisEvent;
@@ -50,8 +48,7 @@ public class EventManager : MonoBehaviour
 
     public void TriggerEvent(string eventName)
     {
-        UnityAction thisEvent;
-        if (eventDict.TryGetValue(eventName, out thisEvent))
+        if (eventDict.TryGetValue(eventName, out var thisEvent))
         { 
             thisEvent.Invoke();
         }

@@ -31,7 +31,7 @@ public class SoundManager : MonoBehaviour
         //BGM 플레이어 생성
         if (bgmPlayer == null)
         {
-            GameObject bgmObj = new GameObject("BgmPlayer");
+            GameObject bgmObj = new ("BgmPlayer");
             bgmObj.transform.parent = transform;
             bgmPlayer = bgmObj.AddComponent<AudioSource>();
         }
@@ -39,7 +39,7 @@ public class SoundManager : MonoBehaviour
 
         if (sfxPlayer == null)
         {
-            GameObject sfxObj = new GameObject("SfxPlayer");
+            GameObject sfxObj = new ("SfxPlayer");
             sfxObj.transform.parent = transform;
             sfxPlayer = sfxObj.AddComponent<AudioSource>();
         }
