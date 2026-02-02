@@ -13,7 +13,10 @@ public class EventManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            Instance = this; DontDestroyOnLoad(gameObject);
+            Instance = this; 
+            DontDestroyOnLoad(gameObject);
+
+            eventDict = new Dictionary<string, UnityAction>();
         }
         else
             Destroy(gameObject);
