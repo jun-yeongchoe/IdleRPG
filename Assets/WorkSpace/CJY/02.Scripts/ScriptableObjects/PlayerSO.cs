@@ -4,8 +4,7 @@ using UnityEngine;
 public class PlayerStatus : ScriptableObject
 {
     public string userName;
-    public int gold, jewel, atkPower, hp;
-    public float atkSpeed, hpGen, criticalChance, criticalDamage;
+    public int gold, jewel, atkPower, hp, hpGen, atkSpeed, criticalChance, criticalDamage;
 
     // 서버에 보낼 때 사용할 JSON용 클래스로 변환하는 함수
     public UserData ToUserData()

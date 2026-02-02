@@ -97,7 +97,7 @@ public class DBManager : MonoBehaviour
                 else { 
                     Debug.Log("신규 유저입니다. 초기 데이터를 생성합니다.");
                     // 신규 유저는 초기값을 SO에 직접 설정하거나 아래처럼 생성
-                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName, 0,0,10,100,1,7,0,1.2f);
+                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName, 0,0,1,1,1,1,1,1);
                     SaveUserData(userId, newData);
                     
                     loadedData = newData;
