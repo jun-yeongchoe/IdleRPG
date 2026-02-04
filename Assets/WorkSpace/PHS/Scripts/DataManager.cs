@@ -40,7 +40,8 @@ public class DataManager : MonoBehaviour
     public BigInteger Gem = 0;
 
     //스텟도 변수명 바뀌면 다시 수정할것
-    //JSON으로 저장할지, playerprefs로 저장할지는 팀장이랑 상의 후 정할것
+    //JSON으로 저장예정
+
     [Header("스텟")]
     public int AtkLv = 1;
     public int HpLv = 1;
