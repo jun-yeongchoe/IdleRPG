@@ -326,10 +326,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f517f14f52e573a45b8039f5c5dc2347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 0.3
+  attackRange: 0.7
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1073741824
 --- !u!114 &3173633856893323708
 MonoBehaviour:
   m_ObjectHideFlags: 0
