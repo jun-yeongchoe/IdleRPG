@@ -19,8 +19,8 @@ public class EnemyAttackState : IEnemyState
     {
         if (Time.time - lastAttackTime >= fsm.enemy.stats.attackCooldown)
         {
-            // ¿©±â¼­ ½ÇÁ¦ µ¥¹ÌÁö Ã³¸®
-            Debug.Log("ÇÃ·¹ÀÌ¾î °ø°İ!");
+            // ì—¬ê¸°ì„œ ì‹¤ì œ ë°ë¯¸ì§€ ì²˜ë¦¬
+            Debug.Log("í”Œë ˆì´ì–´ ê³µê²©!");
 
             lastAttackTime = Time.time;
         }
