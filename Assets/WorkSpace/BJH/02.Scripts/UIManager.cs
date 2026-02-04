@@ -11,6 +11,9 @@ public class UIManager : MonoBehaviour
         public GameObject closeIcon;
     }
 
+    [Header("기본 BG 설정")]
+    [SerializeField] private GameObject bgWindow;
+
     [Header("메뉴 세트 설정")]
     [SerializeField] private MenuSet charMenu;
     [SerializeField] private MenuSet partnerMenu;
@@ -40,16 +43,22 @@ public class UIManager : MonoBehaviour
 
     private void ToggleMenu(MenuSet selected)
     {
+        // 이미 켜져있는 메뉴를 눌렀을 때
         if (selected.panel.activeSelf == true)
         {
-            selected.panel.SetActive(false); // 판넬 끄기
-            UpdateIcons(selected, false); // 아이콘 체인지
+            selected.panel.SetActive(false); // 내용물 끄기
+            UpdateIcons(selected, false); // 아이콘 복구
+            bgWindow.SetActive(false); // 배경끄기
         }
+        // 꺼져있는 메뉴를 눌렀을 때
         else
         {
-            AllClose(); // 창 모두 끄기
+            AllClose(); // 전부 닫고 켜기
+            // 배경 온
+            bgWindow.SetActive(true);
+
             selected.panel.SetActive(true); // 판넬 켜기
-            UpdateIcons(selected, true); // 아이콘 체인지
+            UpdateIcons(selected, true); // 아이콘 변경
         }
     }
 
@@ -69,10 +78,10 @@ public class UIManager : MonoBehaviour
         } 
     }
 
-    // 초기상태로
     public void AllClose()
     {
         // 모든 판넬 끄기
+        bgWindow.SetActive(false);
         charMenu.panel.SetActive(false);
         partnerMenu.panel.SetActive(false);
         dungeonMenu.panel.SetActive(false);
