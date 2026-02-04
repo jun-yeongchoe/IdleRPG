@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class GachaTest : MonoBehaviour
 {
+    [Header("CSV")]
+    private string csvUrl = "https://docs.google.com/spreadsheets/d/1nBD0pWXwxWAM0WZP5OcrImMrh5f65wtb0LtI2C-qG9M/export?format=csv&gid=1032686388";
+
     [Header("UI")]
     public TMP_Dropdown levelChoose;
     public TextMeshProUGUI[] result;
@@ -51,7 +54,6 @@ public class GachaTest : MonoBehaviour
     {
         string selectedLevel = $"Level{levelChoose.options[levelChoose.value].text}";
         var task = gachaRef.Child(selectedLevel).GetValueAsync();
-
         yield return new WaitUntil(() => task.IsCompleted);
 
         if (task.IsFaulted)

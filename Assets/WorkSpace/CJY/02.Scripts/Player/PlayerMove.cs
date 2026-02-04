@@ -16,9 +16,15 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void FixedUpdate()
+    public void Move()
     {
         rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
         anim.SetBool("IsWalk", true);
+    }
+
+    public void Stop()
+    {
+        rb.velocity = new Vector2(0, rb.velocity.y);
+        anim.SetBool("IsWalk", false);
     }
 }

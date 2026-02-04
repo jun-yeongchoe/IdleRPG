@@ -3094,6 +3094,7 @@ GameObject:
   - component: {fileID: 1465607406}
   - component: {fileID: 1465607405}
   - component: {fileID: 1465607404}
+  - component: {fileID: 1465607409}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3108,7 +3109,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465607403}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eabd30b8142aa54f9ddf4301ed22fc8, type: 3}
   m_Name: 
@@ -3224,6 +3225,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1465607409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465607403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99fa5fe32a763b498e8cf587cb8e9fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelChoose: {fileID: 1383010480}
+  result:
+  - {fileID: 1727064181}
+  - {fileID: 1774639278}
+  - {fileID: 1002505061}
+  - {fileID: 1964672337}
+  - {fileID: 1608125557}
+  - {fileID: 891087152}
+  - {fileID: 645729556}
+  summon11Btn: {fileID: 680350852}
+  summon35Btn: {fileID: 1922610164}
 --- !u!1 &1508433165
 GameObject:
   m_ObjectHideFlags: 0
