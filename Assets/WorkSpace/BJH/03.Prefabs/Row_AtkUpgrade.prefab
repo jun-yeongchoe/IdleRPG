@@ -389,7 +389,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3543915490213401666}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -7511028138111636870}
+        m_TargetAssemblyTypeName: StatItem, Assembly-CSharp
+        m_MethodName: OnUpgradeButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2805958989204256738
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +414,7 @@ GameObject:
   - component: {fileID: 2036279792277802915}
   - component: {fileID: 3490731694145319680}
   m_Layer: 5
-  m_Name: Text_Stat
+  m_Name: Text_Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -744,6 +756,7 @@ GameObject:
   - component: {fileID: 5272312425775169020}
   - component: {fileID: 5290669538619700609}
   - component: {fileID: 1761894983728383944}
+  - component: {fileID: -7511028138111636870}
   m_Layer: 5
   m_Name: Row_AtkUpgrade
   m_TagString: Untagged
@@ -813,6 +826,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-7511028138111636870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428431689761454997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3897364fbee3d8e4ea76ba8f5a8f7ea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelText: {fileID: 2804814862158051224}
+  valueText: {fileID: 3490731694145319680}
+  costText: {fileID: 4316715328857957790}
+  upgradeButton: {fileID: 6038097707208549648}
+  myType: 0
 --- !u!1 &9076987598769187948
 GameObject:
   m_ObjectHideFlags: 0
