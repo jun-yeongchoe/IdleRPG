@@ -103,8 +103,8 @@ Assets/Import.meta
 
 # Firebase 설정 파일 제외
 Assets/Firebase/
-Assets/Firebase 1/
 Assets/Firebase.meta
+Assets/Firebase 1/
 Assets/Firebase 1.meta
 google-services.json
 GoogleService-Info.plist
