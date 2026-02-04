@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyMoveState : IEnemyState
 {
@@ -8,7 +8,11 @@ public class EnemyMoveState : IEnemyState
     public EnemyMoveState(EnemyFSM fsm)
     {
         this.fsm = fsm;
-        target = GameObject.FindWithTag("Player").transform;
+
+        if (fsm.enemy.enemyManager != null) 
+        {
+            target = fsm.enemy.enemyManager.GetPlayerTransform();
+        }
     }
 
     public void Enter() { }
