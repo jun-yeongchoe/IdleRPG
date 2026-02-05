@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: -6156576690666005702}
   - component: {fileID: 8433320636956060127}
   - component: {fileID: -3556864549064989455}
-  - component: {fileID: -8755154669600367526}
   - component: {fileID: 7354627736071207282}
   m_Layer: 30
   m_Name: EnemyTest 1
@@ -177,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 8433320636956060127}
   fsm: {fileID: -3556864549064989455}
-  enemyManager: {fileID: -8755154669600367526}
+  enemyManager: {fileID: 0}
 --- !u!114 &8433320636956060127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,20 +208,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: -6156576690666005702}
---- !u!114 &-8755154669600367526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3623532317031164209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d6bc253e97579e43bc6c4ac1982381b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  chapterSpawner: []
 --- !u!114 &7354627736071207282
 MonoBehaviour:
   m_ObjectHideFlags: 0
