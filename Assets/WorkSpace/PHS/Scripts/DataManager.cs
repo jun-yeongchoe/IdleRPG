@@ -46,6 +46,8 @@ public class DataManager : MonoBehaviour
     public int CritPerLv = 1;
     public int CritDmgLv = 1;
 
+    public float Shopexp = 0;
+
     //public Dictionary<int,int>InventoryDict=new Dictionary<int,int>();
 
     //public Dictionary<int,int>CompanionDict=new Dictionary<int,int>();
