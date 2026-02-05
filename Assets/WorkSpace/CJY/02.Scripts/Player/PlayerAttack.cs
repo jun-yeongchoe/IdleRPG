@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     private float attackDelayDenominator = 1f;
     private float lastAttackTime = 0f;
     [SerializeField] PlayerStatus playerStatus;
+    [SerializeField] StatBase atkSpeedStat;
 
     [Header("Attack Damage")]
     [SerializeField] PolygonCollider2D weaponCollider;
@@ -31,12 +32,12 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        float attackInterval = attackDelayDenominator / playerStatus.atkSpeed; 
+        float attackInterval = attackDelayDenominator / atkSpeedStat.GetValue(playerStatus.atkSpeed); 
         Debug.Log("Attack Interval: " + attackInterval);
         Debug.Log("Attack Speed: " + playerStatus.atkSpeed);
         if (Time.time - lastAttackTime > attackInterval)
         {
-            anim.SetFloat("attackSpeed", playerStatus.atkSpeed);
+            anim.SetFloat("attackSpeed", atkSpeedStat.GetValue(playerStatus.atkSpeed));
             anim.SetTrigger("swing");
             lastAttackTime = Time.time;
         }

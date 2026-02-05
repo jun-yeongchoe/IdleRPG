@@ -483,6 +483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 11400000, guid: 37cb0038ba2bad74d92c247051a8d303, type: 2}
+  atkSpeedStat: {fileID: 11400000, guid: 2d22c3630fee31546a8ec6083b91fe23, type: 2}
   weaponCollider: {fileID: 6106144703540373542}
 --- !u!1 &8479594075610017237
 GameObject:
