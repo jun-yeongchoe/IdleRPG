@@ -4975,6 +4975,7 @@ GameObject:
   - component: {fileID: 701403556}
   - component: {fileID: 701403559}
   - component: {fileID: 701403558}
+  - component: {fileID: 701403560}
   m_Layer: 5
   m_Name: Panel_TopInfo
   m_TagString: Untagged
@@ -5084,6 +5085,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 51
   m_TargetDisplay: 0
+--- !u!114 &701403560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701403554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e4c5e5094fb9474684a25499addf4fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStatus: {fileID: 11400000, guid: 37cb0038ba2bad74d92c247051a8d303, type: 2}
+  goldText: {fileID: 1843399465}
+  gemText: {fileID: 1984138252}
 --- !u!1 &712282433
 GameObject:
   m_ObjectHideFlags: 0

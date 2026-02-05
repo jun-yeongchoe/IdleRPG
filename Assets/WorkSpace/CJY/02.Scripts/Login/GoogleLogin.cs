@@ -114,7 +114,7 @@ public class GoogleLogin : MonoBehaviour
     private void UpdateUI()
     {
         if (user == null) return;
-        DBManager DBM = GetComponent<DBManager>();
+        DBManager DBM = FindObjectOfType<DBManager>();
 
         if (DBM != null)
         {

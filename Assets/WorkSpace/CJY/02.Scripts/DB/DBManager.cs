@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DBManager : MonoBehaviour
 {
+    public static DBManager Instance;
+
     private DatabaseReference dbReference;
     private bool isDataLoadComplete = false;
     private UserData loadedData;
@@ -14,6 +16,16 @@ public class DBManager : MonoBehaviour
 
     [Header("Data Reference (SO)")]
     public PlayerStatus playerStatus; 
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
 
     void Start()
     {
@@ -28,6 +40,23 @@ public class DBManager : MonoBehaviour
             isDataLoadComplete = false;
             SyncDataAndRefreshUI(); // 동기화 및 UI 갱신
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveSOData();
+    }
+
+    
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus) SaveSOData();
+    }
+
+    
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause) SaveSOData();
     }
 
     public void SyncDataAndRefreshUI()
@@ -67,7 +96,12 @@ public class DBManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
 
         dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json).ContinueWith(task => {
-            if (task.IsCompleted) Debug.Log("서버에 SO 데이터 저장 완료!");
+            if (task.IsCompleted) 
+            {
+                UserData currentData = playerStatus.ToUserData();
+                SaveUserData(userId, currentData); // 내부 저장 로직 호출
+                Debug.Log("서버에 SO 데이터 저장 완료!");
+            }
             else 
             {
                 Debug.LogError("서버 저장 실패: " + task.Exception);
@@ -96,7 +130,7 @@ public class DBManager : MonoBehaviour
                 else { 
                     Debug.Log("신규 유저입니다. 초기 데이터를 생성합니다.");
                     // 신규 유저는 초기값을 SO에 직접 설정하거나 아래처럼 생성
-                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName,0,0,1,1,1,1,1,1);
+                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName,0,0,1,1,1,1,1,1,1,1,1);
                     SaveUserData(userId, newData);
                     
                     loadedData = newData;
