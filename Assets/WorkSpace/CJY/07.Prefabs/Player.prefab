@@ -202,11 +202,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.44745412, y: -0.26521322}
+    - - {x: 0.3444945, y: 0.044396162}
+      - {x: 0.44745412, y: -0.26521322}
       - {x: 0.8598215, y: -0.19598004}
-      - {x: 0.9204553, y: -0.13633686}
-      - {x: 0.8349838, y: -0.10571952}
-      - {x: 0.43073097, y: -0.21408196}
+      - {x: 0.90743774, y: -0.13344409}
+      - {x: 0.7201158, y: 0.19594662}
+      - {x: 0.39094192, y: 0.488747}
+      - {x: 0.2152188, y: 0.20247844}
   m_UseDelaunayMesh: 0
 --- !u!114 &8426181591589838175
 MonoBehaviour:
@@ -221,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 11400000, guid: 37cb0038ba2bad74d92c247051a8d303, type: 2}
+  atkStat: {fileID: 11400000, guid: 42b647f56a171d1428a5f58482fb99ab, type: 2}
 --- !u!1 &6386593519790834441
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f517f14f52e573a45b8039f5c5dc2347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 0.7
+  attackRange: 1.5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1073741824

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwordCollider : MonoBehaviour
 {
     [SerializeField] PlayerStatus playerStatus;
+    [SerializeField] StatBase atkStat;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,7 +14,7 @@ public class SwordCollider : MonoBehaviour
             Enemy enemy = collision.GetComponent<Enemy>();
             if (enemy != null)
             {
-                float damage = playerStatus.atkPower;
+                float damage = atkStat.GetValue(playerStatus.atkPower);
                 enemy.TakeDamage(damage);
                 Debug.Log("딜 : " + damage + " 적 : " + collision.name);
             }
