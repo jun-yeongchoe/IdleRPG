@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/WorkSpace/CJY/01.Scenes/LoginTest.unity
-    guid: a438f885121e09247bbf821192e8a74d
+    path: Assets/WorkSpace/Build/1st_Build/01.Scenes/Login Scene_1st.unity
+    guid: 3586ae7b02f5b6c4b96fba72229350fd
   - enabled: 1
-    path: Assets/WorkSpace/CJY/01.Scenes/GatchaSystem_test.unity
-    guid: 82d145d913330c84da8f0e96277325f3
+    path: Assets/WorkSpace/Build/1st_Build/01.Scenes/Game Scene_1st.unity
+    guid: e3ee321d1775855469a2185a3ee9e0a2
   m_configObjects: {}

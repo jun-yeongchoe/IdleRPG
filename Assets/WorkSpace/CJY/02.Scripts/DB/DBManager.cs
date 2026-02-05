@@ -39,7 +39,7 @@ public class DBManager : MonoBehaviour
         // 서버 데이터를 SO에 동기화
         playerStatus.userName = loadedData.userName;
         playerStatus.gold = loadedData.gold;
-        playerStatus.jewel = loadedData.jewel;
+        playerStatus.gem = loadedData.gem;
         playerStatus.atkPower =loadedData.atkPower;
         playerStatus.hp =loadedData.hp;
         playerStatus.atkSpeed =loadedData.atkSpeed;
@@ -49,7 +49,7 @@ public class DBManager : MonoBehaviour
 
         // UI 텍스트 업데이트
         userNameTxt.text = "UserName : " + playerStatus.userName;
-        userStageLevelTxt.text = "UserJewel : " + playerStatus.jewel.ToString();
+        userStageLevelTxt.text = "UserJewel : " + playerStatus.gem.ToString();
         userGoldTxt.text = "UserGold : " + playerStatus.gold.ToString();
         userAttackTxt.text = "UserAttackPower : " + playerStatus.atkPower.ToString();
         
@@ -96,7 +96,7 @@ public class DBManager : MonoBehaviour
                 else { 
                     Debug.Log("신규 유저입니다. 초기 데이터를 생성합니다.");
                     // 신규 유저는 초기값을 SO에 직접 설정하거나 아래처럼 생성
-                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName, 0,0,1,1,1,1,1,1);
+                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName,0,0,1,1,1,1,1,1);
                     SaveUserData(userId, newData);
                     
                     loadedData = newData;

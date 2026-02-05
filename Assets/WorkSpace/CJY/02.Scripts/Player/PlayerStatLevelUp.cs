@@ -20,7 +20,10 @@ public class PlayerStatLevelUp : MonoBehaviour
     [SerializeField] Button atk_p_b, hp_b, hp_g_b, atk_s_b, crit_p_b, crit_d_b;
 
     [SerializeField] StatBase[] statBases;
+    public PlayerStatus playerStatus;
 
+
+    // 기본값 1로되어있는데, 이걸 현재 로그인된 userid의 레벨로 불러와야함.
     private ReactiveProperty<int> atk_p_level = new ReactiveProperty<int>(1), 
     hp_level = new ReactiveProperty<int>(1), 
     hp_g_level = new ReactiveProperty<int>(1), 
@@ -32,6 +35,13 @@ public class PlayerStatLevelUp : MonoBehaviour
 
     void Start()
     {
+        atk_p_level.Value = playerStatus.atkPower;
+        hp_level.Value = playerStatus.hp;
+        hp_g_level.Value = playerStatus.hpGen;
+        atk_s_level.Value = playerStatus.atkSpeed;
+        crit_p_level.Value = playerStatus.criticalChance;
+        crit_d_level.Value = playerStatus.criticalDamage;
+
         atk_p_b.onClick.AddListener(() => OnClickLevelUp(StatType.Atk));
         hp_b.onClick.AddListener(() => OnClickLevelUp(StatType.Hp));
         hp_g_b.onClick.AddListener(() => OnClickLevelUp(StatType.HpRegen));
@@ -69,7 +79,7 @@ public class PlayerStatLevelUp : MonoBehaviour
             case StatType.HpRegen:hp_g_level.Value++; break;
             case StatType.AtkSpeed:atk_s_level.Value++; break;
             case StatType.CritChance:
-                if(crit_p_level.Value >=1000) 
+                if(crit_p_level.Value >=statBases[4].limitLevel) 
                 {
                     Debug.Log("이미 만렙");
                     break;

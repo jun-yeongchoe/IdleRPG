@@ -9,4 +9,9 @@ public class GoGacha : MonoBehaviour
     {
         SceneManager.LoadScene("GatchaSystem_test");
     }
+
+    public void OnClickGoMain()
+    {
+        SceneManager.LoadScene("Game Scene_1st");
+    }
 }
