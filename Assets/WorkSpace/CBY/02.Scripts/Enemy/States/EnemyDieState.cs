@@ -11,11 +11,7 @@ public class EnemyDieState : IEnemyState
 
     public void Enter()
     {
-        //if (DataManager.Instance != null)
-        //{ 
-        //    DataManager.Instance.AddGold();
-        //}
-        fsm.gameObject.SetActive(false);
+        fsm.enemy.Die();
     }
 
     public void Update() { }

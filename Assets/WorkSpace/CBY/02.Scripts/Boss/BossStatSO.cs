@@ -3,18 +3,30 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Boss/Boss Stat")]
 public class BossStatSO : ScriptableObject
 {
-    //±âº» ½ºÅÈ
+<<<<<<< feat/CBY
+    // ë³´ìŠ¤ ê¸°ë³¸ ìŠ¤íƒ¯
+=======
+    //ê¸°ë³¸ ìŠ¤íƒ¯
+>>>>>>> dev
     [Header("Base Stats")]
     public float baseHp = 3000f;
     public float baseAttack = 50f;
     public float baseMoveSpeed = 0.8f;
 
-    // ÀüÅõ °ü·Ã ½ºÅÈ
+<<<<<<< feat/CBY
+    // ë³´ìŠ¤ ì „íˆ¬ ê´€ë ¨ ìŠ¤íƒ¯
+=======
+    // ì „íˆ¬ ê´€ë ¨ ìŠ¤íƒ¯
+>>>>>>> dev
     [Header("Combat")]
     public float attackRange = 2.5f;
     public float attackCooldown = 2.5f;
 
-    // ½ºÅ×ÀÌÁö¸¶´Ù Áõ°¡ ½ºÅÈ
+<<<<<<< feat/CBY
+    // ë³´ìŠ¤ ìŠ¤í…Œì´ì§€ ë‹¹ ì¦ê°€ ìŠ¤íƒ¯
+=======
+    // ìŠ¤í…Œì´ì§€ë§ˆë‹¤ ì¦ê°€ ìŠ¤íƒ¯
+>>>>>>> dev
     [Header("Stage Scaling")]
     public float hpPerStage = 300f;
     public float attackPerStage = 5f;

@@ -37,4 +37,8 @@ public class EnemyFSM : MonoBehaviour
     {
         currentState?.Update();
     }
+<<<<<<< feat/CBY
 }
+=======
+}
+>>>>>>> dev
