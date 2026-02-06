@@ -32,12 +32,13 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        float attackInterval = attackDelayDenominator / atkSpeedStat.GetValue(playerStatus.atkSpeed); 
+        // float attackInterval = attackDelayDenominator / atkSpeedStat.GetValue(playerStatus.atkSpeed); 
+        float attackInterval = attackDelayDenominator / PlayerStat.instance.atkSpeed;
         Debug.Log("Attack Interval: " + attackInterval);
         Debug.Log("Attack Speed: " + playerStatus.atkSpeed);
         if (Time.time - lastAttackTime > attackInterval)
         {
-            anim.SetFloat("attackSpeed", atkSpeedStat.GetValue(playerStatus.atkSpeed));
+            // anim.SetFloat("attackSpeed", atkSpeedStat.GetValue(playerStatus.atkSpeed));
             anim.SetTrigger("swing");
             lastAttackTime = Time.time;
         }
