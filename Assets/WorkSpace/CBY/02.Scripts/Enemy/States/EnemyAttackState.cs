@@ -38,9 +38,4 @@ public class EnemyAttackState : IEnemyState
     }
 
     public void Exit() { }
-<<<<<<< feat/CBY
 }
-
-=======
-}
->>>>>>> dev

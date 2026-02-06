@@ -38,8 +38,4 @@ public class BossStats : MonoBehaviour
         Debug.Log("Boss Defeated!");
         gameObject.SetActive(false);
     }
-<<<<<<< feat/CBY
 }
-=======
-}
->>>>>>> dev
