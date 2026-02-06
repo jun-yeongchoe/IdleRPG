@@ -48,11 +48,11 @@ public class DataManager : MonoBehaviour
 
     public float Shopexp = 0;
 
-    //public Dictionary<int,int>InventoryDict=new Dictionary<int,int>();
+    public Dictionary<int, int> InventoryDict = new Dictionary<int, int>();
 
-    //public Dictionary<int,int>CompanionDict=new Dictionary<int,int>();
+    public Dictionary<int, int> CompanionDict = new Dictionary<int, int>();
 
-    //public Dictionary<int,int>SkillDict=new Dictionary<int,int>();
+    public Dictionary<int, int> SkillDict = new Dictionary<int, int>();
 
     private void Awake()
     {
@@ -109,6 +109,10 @@ public class DataManager : MonoBehaviour
         if (PlayerPrefs.HasKey("LastExitTime"))
             data.LastExitTime = PlayerPrefs.GetString("LastExitTime");
 
+        data.InventoryList = DictToList(InventoryDict);
+        data.CompanionList = DictToList(CompanionDict);
+        data.SkillList = DictToList(SkillDict);
+
         return JsonUtility.ToJson(data);
     }
 
@@ -137,8 +141,35 @@ public class DataManager : MonoBehaviour
             PlayerPrefs.Save();
         }
 
+        InventoryDict = ListToDict(data.InventoryList);
+        InventoryDict = ListToDict(data.InventoryList);
+        InventoryDict = ListToDict(data.InventoryList);
+
         Debug.Log("데이터 로드 완료!");
         if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
+    }
+
+    private List<ItemSaveData> DictToList(Dictionary<int, int> dict)
+    {
+        List<ItemSaveData> list = new List<ItemSaveData>();
+        foreach (var pair in dict)
+        { 
+            list.Add(new ItemSaveData { id=pair.Key,value=pair.Value});
+        }
+        return list;
+    }
+
+    private Dictionary<int, int> ListToDict(List<ItemSaveData> list)
+    { 
+        Dictionary<int, int> dict=new Dictionary<int, int>();
+        if(list==null)return dict;
+
+        foreach (var item in list) 
+        { 
+            if(!dict.ContainsKey(item.id))
+                dict.Add(item.id, item.value);
+        }
+        return dict;
     }
 }
 
@@ -160,7 +191,13 @@ public class GameDataDTO
 
     public string LastExitTime;
 
-    //public List<ItemSaveData>
-    //public List<ItemSaveData>
-    //public List<ItemSaveData>
+    public List<ItemSaveData> InventoryList;
+    public List<ItemSaveData> CompanionList;
+    public List<ItemSaveData> SkillList;
+}
+[System.Serializable]
+public class ItemSaveData
+{
+    public int id;
+    public int value;
 }
