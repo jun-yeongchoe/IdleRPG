@@ -108,7 +108,20 @@ public class EnemySpawner : MonoBehaviour
         if (bossPrefab != null)
         {
             activeBoss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
-            //보스 스텟 초기화도 여기서 작업 예정
+            
+            BossStats boss=activeBoss.GetComponent<BossStats>();
+
+            if (boss != null)
+            {
+                boss.InitByStage();
+                Debug.Log("보스 스텟 초기화 완료");
+            }
+            else
+            {
+                Debug.LogError("BossStats연결이 정상적으로 이루어지지 않았습니다!");
+            }
+
+            activeBoss.SetActive(true);
         }
     }
 
