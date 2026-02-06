@@ -3,15 +3,14 @@ using System.Collections;
 
 public class BossController : MonoBehaviour
 {
-    public BossStat stat;
+    public BossStats stats; // º¸½º ½ºÅÈ ÂüÁ¶
 
-    [Header("ì•„ì´í…œ ë“œë¡­")]
-    public GameObject[] dropItems;   // ë“œë¡­ ê°€ëŠ¥í•œ ì•„ì´í…œ í”„ë¦¬íŒ¹
+    [Header("¾ÆÀÌÅÛ µå·Ó")]
+    public GameObject[] dropItems;
     [Range(0f, 1f)]
-    public float dropChance = 1.0f;  // 1 = ë¬´ì¡°ê±´ ë“œë¡­
+    public float dropChance = 1.0f;
     public int dropCount = 1;
 
-    private float currentHP;
     private bool isActing;
     private bool isDead;
 
@@ -27,7 +26,9 @@ public class BossController : MonoBehaviour
 
     private void Start()
     {
-        currentHP = stat.maxHP;
+        // ½ºÅÈ ÃÊ±âÈ­ (½ºÅ×ÀÌÁö ±âÁØ)
+        stats.InitByStage();
+
         ChangeState(BossState.Idle);
     }
 
@@ -48,9 +49,11 @@ public class BossController : MonoBehaviour
             case BossState.Idle:
                 yield return Idle();
                 break;
+
             case BossState.Move:
                 yield return Move();
                 break;
+
             case BossState.Attack:
                 yield return Attack();
                 break;
@@ -62,6 +65,7 @@ public class BossController : MonoBehaviour
 
     private IEnumerator Idle()
     {
+        // Àá±ñ ´ë±â
         yield return new WaitForSeconds(0.8f);
     }
 
@@ -72,7 +76,8 @@ public class BossController : MonoBehaviour
 
         while (timer < moveTime)
         {
-            transform.Translate(Vector3.left * stat.moveSpeed * Time.deltaTime);
+            // BossStatsÀÇ ÀÌµ¿¼Óµµ »ç¿ë
+            transform.Translate(Vector3.left * stats.moveSpeed * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
         }
@@ -80,8 +85,10 @@ public class BossController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        Debug.Log("ë³´ìŠ¤ ê³µê²©! ë°ë¯¸ì§€: " + stat.attackDamage);
-        yield return new WaitForSeconds(stat.attackCooldown);
+        // ½ÇÁ¦ °ø°İ ÆÇÁ¤Àº BossAttack ÂÊÀ¸·Î ºĞ¸® °¡´É
+        Debug.Log($"º¸½º °ø°İ! µ¥¹ÌÁö: {stats.attack}");
+
+        yield return new WaitForSeconds(stats.attackCooldown);
     }
 
     private void DecideNextState()
@@ -96,17 +103,16 @@ public class BossController : MonoBehaviour
             ChangeState(BossState.Idle);
     }
 
+    // ¿ÜºÎ¿¡¼­ µ¥¹ÌÁö µé¾î¿Ã ¶§ È£Ãâ
     public void TakeDamage(float damage)
     {
         if (isDead) return;
 
-        currentHP -= damage;
+        stats.TakeDamage(damage);
 
-        if (currentHP <= 0)
-        {
-            currentHP = 0;
+        // BossStatsÀÇ HP¸¦ ±âÁØÀ¸·Î »ç¸Á ÆÇ´Ü
+        if (stats.hp <= 0)
             Die();
-        }
     }
 
     private void Die()
@@ -116,7 +122,7 @@ public class BossController : MonoBehaviour
 
         DropItems();
 
-        Debug.Log("ë³´ìŠ¤ ì‚¬ë§");
+        Debug.Log("º¸½º »ç¸Á");
 
         Destroy(gameObject);
     }
@@ -138,4 +144,3 @@ public class BossController : MonoBehaviour
         }
     }
 }
-
