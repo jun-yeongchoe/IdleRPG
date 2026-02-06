@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DBManager : MonoBehaviour
 {
+    public static DBManager Instance;
+
     private DatabaseReference dbReference;
     private bool isDataLoadComplete = false;
     private UserData loadedData;
@@ -14,6 +16,16 @@ public class DBManager : MonoBehaviour
 
     [Header("Data Reference (SO)")]
     public PlayerStatus playerStatus; 
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
 
     void Start()
     {
@@ -30,6 +42,23 @@ public class DBManager : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        SaveSOData();
+    }
+
+    
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus) SaveSOData();
+    }
+
+    
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause) SaveSOData();
+    }
+
     public void SyncDataAndRefreshUI()
     {
         if (loadedData == null) return;
@@ -39,7 +68,7 @@ public class DBManager : MonoBehaviour
         // 서버 데이터를 SO에 동기화
         playerStatus.userName = loadedData.userName;
         playerStatus.gold = loadedData.gold;
-        playerStatus.jewel = loadedData.jewel;
+        playerStatus.gem = loadedData.gem;
         playerStatus.atkPower =loadedData.atkPower;
         playerStatus.hp =loadedData.hp;
         playerStatus.atkSpeed =loadedData.atkSpeed;
@@ -49,7 +78,7 @@ public class DBManager : MonoBehaviour
 
         // UI 텍스트 업데이트
         userNameTxt.text = "UserName : " + playerStatus.userName;
-        userStageLevelTxt.text = "UserJewel : " + playerStatus.jewel.ToString();
+        userStageLevelTxt.text = "UserJewel : " + playerStatus.gem.ToString();
         userGoldTxt.text = "UserGold : " + playerStatus.gold.ToString();
         userAttackTxt.text = "UserAttackPower : " + playerStatus.atkPower.ToString();
         
@@ -67,7 +96,12 @@ public class DBManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
 
         dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json).ContinueWith(task => {
-            if (task.IsCompleted) Debug.Log("서버에 SO 데이터 저장 완료!");
+            if (task.IsCompleted) 
+            {
+                UserData currentData = playerStatus.ToUserData();
+                SaveUserData(userId, currentData); // 내부 저장 로직 호출
+                Debug.Log("서버에 SO 데이터 저장 완료!");
+            }
             else 
             {
                 Debug.LogError("서버 저장 실패: " + task.Exception);
@@ -96,7 +130,7 @@ public class DBManager : MonoBehaviour
                 else { 
                     Debug.Log("신규 유저입니다. 초기 데이터를 생성합니다.");
                     // 신규 유저는 초기값을 SO에 직접 설정하거나 아래처럼 생성
-                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName, 0,0,1,1,1,1,1,1);
+                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName,0,0,1,1,1,1,1,1,1,1,1);
                     SaveUserData(userId, newData);
                     
                     loadedData = newData;

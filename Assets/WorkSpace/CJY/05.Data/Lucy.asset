@@ -14,5 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userName: Lucy
   gold: 0
-  stageLevel: 1
-  attackPower: 100
+  gem: 0
+  atkPower: 1
+  hp: 1
+  hpGen: 1
+  atkSpeed: 1
+  criticalChance: 0
+  criticalDamage: 0
+  invenShopExp: 0
+  skillShopExp: 0
+  partnerShopExp: 0
