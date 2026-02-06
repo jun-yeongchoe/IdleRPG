@@ -37,7 +37,8 @@ public class PlayerStatLoaderFromGoogleSheets : MonoBehaviour
 
     void ParseCSV(string csvText)
     {
-        string[] lines = csvText.Split('\n');
+        string removedText = csvText.Replace("\r", "");
+        string[] lines = removedText.Split('\n');
         playerStatDataList.Clear();
 
         for(int i = 1; i < lines.Length; i++)
@@ -47,22 +48,40 @@ public class PlayerStatLoaderFromGoogleSheets : MonoBehaviour
 
             string[] values = lines[i].Split(',');
 
-            PlayerStatData_CSV data = new PlayerStatData_CSV
+            foreach(var v in values)
             {
-                ID = int.Parse(values[0]),
-                StatName = values[1].Trim(),
-                BaseValue = float.Parse(values[2]),
-                GrowthPerLevel = float.Parse(values[3]),
-                StartCost = float.Parse(values[4]),
-                CostGrowthRate = float.Parse(values[5]),
-                LimitLevel = int.Parse(values[6]),
-                UnlockCondition = values[7].Trim() == "" ? 0 : int.Parse(values[7]),
-                UnlockLevel = int.Parse(values[8])
-            };
+                Debug.Log(v);
+            }
 
-            playerStatDataList.Add(data);
+            PlayerStatData_CSV stat = new PlayerStatData_CSV();
+            stat.ID = ParseIntOnly(values[0]);
+            stat.StatName = values[1];
+            stat.BaseValue = float.Parse(values[2]);
+            stat.GrowthPerLevel = float.Parse(values[3]);
+            stat.StartCost = float.Parse(values[4]);
+            stat.CostGrowthRate = float.Parse(values[5]);
+
+            stat.LimitLevel = ParseIntOnly(values[6]);
+            stat.UnlockCondition = ParseIntOnly(values[7]);
+            stat.UnlockLevel = ParseIntOnly(values[8]);
+
+            playerStatDataList.Add(stat);
         }
     }
+
+    int ParseIntOnly(string s)
+{
+    if (string.IsNullOrWhiteSpace(s)) return 0;
+    
+    // 숫자 이외의 모든 문자(공백, \r, \n 등)를 제거합니다.
+    string digitsOnly = System.Text.RegularExpressions.Regex.Replace(s, @"[^\d]", "");
+    
+    if (int.TryParse(digitsOnly, out int result))
+    {
+        return result;
+    }
+    return 0;
+}
 
     public PlayerStatData_CSV GetStat(string statName)
     {
