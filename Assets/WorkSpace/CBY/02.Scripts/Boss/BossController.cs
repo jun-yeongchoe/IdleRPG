@@ -1,12 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
-public class SimpleBossController : MonoBehaviour
+public class BossController : MonoBehaviour
 {
     public BossStat stat;
 
+    [Header("ì•„ì´í…œ ë“œë¡­")]
+    public GameObject[] dropItems;   // ë“œë¡­ ê°€ëŠ¥í•œ ì•„ì´í…œ í”„ë¦¬íŒ¹
+    [Range(0f, 1f)]
+    public float dropChance = 1.0f;  // 1 = ë¬´ì¡°ê±´ ë“œë¡­
+    public int dropCount = 1;
+
     private float currentHP;
     private bool isActing;
+    private bool isDead;
 
     private enum BossState
     {
@@ -26,7 +33,7 @@ public class SimpleBossController : MonoBehaviour
 
     private void ChangeState(BossState newState)
     {
-        if (isActing || currentState == BossState.Dead) return;
+        if (isActing || isDead) return;
 
         currentState = newState;
         StartCoroutine(StateRoutine());
@@ -41,11 +48,9 @@ public class SimpleBossController : MonoBehaviour
             case BossState.Idle:
                 yield return Idle();
                 break;
-
             case BossState.Move:
                 yield return Move();
                 break;
-
             case BossState.Attack:
                 yield return Attack();
                 break;
@@ -75,20 +80,14 @@ public class SimpleBossController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        Debug.Log("º¸½º °ø°İ! µ¥¹ÌÁö: " + stat.attackDamage);
+        Debug.Log("ë³´ìŠ¤ ê³µê²©! ë°ë¯¸ì§€: " + stat.attackDamage);
         yield return new WaitForSeconds(stat.attackCooldown);
     }
 
     private void DecideNextState()
     {
-        if (currentHP <= 0)
-        {
-            currentState = BossState.Dead;
-            Debug.Log("º¸½º »ç¸Á");
-            return;
-        }
+        if (isDead) return;
 
-        // ´Ü¼ø ·çÇÁ ±¸Á¶
         if (currentState == BossState.Idle)
             ChangeState(BossState.Move);
         else if (currentState == BossState.Move)
@@ -99,13 +98,44 @@ public class SimpleBossController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (isDead) return;
+
         currentHP -= damage;
 
         if (currentHP <= 0)
         {
             currentHP = 0;
-            currentState = BossState.Dead;
-            Debug.Log("º¸½º »ç¸Á Ã³¸®");
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        isDead = true;
+        currentState = BossState.Dead;
+
+        DropItems();
+
+        Debug.Log("ë³´ìŠ¤ ì‚¬ë§");
+
+        Destroy(gameObject);
+    }
+
+    private void DropItems()
+    {
+        if (dropItems.Length == 0) return;
+
+        for (int i = 0; i < dropCount; i++)
+        {
+            if (Random.value > dropChance) continue;
+
+            GameObject item = dropItems[Random.Range(0, dropItems.Length)];
+
+            Vector3 dropPos = transform.position;
+            dropPos.x += Random.Range(-0.5f, 0.5f);
+
+            Instantiate(item, dropPos, Quaternion.identity);
         }
     }
 }
+
