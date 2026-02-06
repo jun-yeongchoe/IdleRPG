@@ -142,8 +142,8 @@ public class DataManager : MonoBehaviour
         }
 
         InventoryDict = ListToDict(data.InventoryList);
-        InventoryDict = ListToDict(data.InventoryList);
-        InventoryDict = ListToDict(data.InventoryList);
+        CompanionDict = ListToDict(data.CompanionList);
+        SkillDict = ListToDict(data.SkillList);
 
         Debug.Log("데이터 로드 완료!");
         if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
