@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Lucy
   m_EditorClassIdentifier: 
   userName: Lucy
-  gold: 0
+  gold: 8245
   gem: 0
-  atkPower: 2
-  hp: 2
+  atkPower: 55
+  hp: 57
   hpGen: 2
-  atkSpeed: 2
+  atkSpeed: 9
   criticalChance: 2
   criticalDamage: 2
   invenShopExp: 0

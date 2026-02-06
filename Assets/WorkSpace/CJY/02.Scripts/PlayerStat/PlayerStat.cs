@@ -32,12 +32,18 @@ public class PlayerStat : MonoBehaviour
         atkSpeed = playerStatus.GetAtkSpeed();
         criticalChance = playerStatus.GetCriticalChance();
         criticalDamage = playerStatus.GetCriticalDamage();
+
     }
 
 
     // 타 클래스에서 호출하여 값 갱신
     public void SetAttackPower() => atkPower = playerStatus.GetAtkPower();
-    public void SetHP() => hp = playerStatus.GetHP();
+    public void SetHP() 
+    {
+        hp = playerStatus.GetHP(); 
+        GetComponent<PlayerHP>().RefreshHP();
+    }
+    
     public void SetHPGen() => hpGen = playerStatus.GetHPGen();
     public void SetAtkSpeed() => atkSpeed = playerStatus.GetAtkSpeed();
     public void SetCriticalChance() => criticalChance = playerStatus.GetCriticalChance();
