@@ -15,12 +15,12 @@ MonoBehaviour:
   userName: Lucy
   gold: 0
   gem: 0
-  atkPower: 1
-  hp: 1
-  hpGen: 1
-  atkSpeed: 1
-  criticalChance: 0
-  criticalDamage: 0
+  atkPower: 2
+  hp: 2
+  hpGen: 2
+  atkSpeed: 2
+  criticalChance: 2
+  criticalDamage: 2
   invenShopExp: 0
   skillShopExp: 0
   partnerShopExp: 0
