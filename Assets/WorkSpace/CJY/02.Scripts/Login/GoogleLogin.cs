@@ -26,13 +26,20 @@ public class GoogleLogin : MonoBehaviour
 
     void Start()
     {
+        GoogleSignInConfiguration config = new GoogleSignInConfiguration {
+            WebClientId = webClientId,
+            RequestIdToken = true,
+            RequestEmail = true
+        };
+        
+        GoogleSignIn.Configuration = config;
+
         // Firebase 의존성 및 초기화
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
         var dependencyStatus = task.Result;
         if (dependencyStatus == DependencyStatus.Available) {
             auth = FirebaseAuth.DefaultInstance;
 
-            
             if (auth.CurrentUser != null) {
                 user = auth.CurrentUser;
                 isLoginTaskComplete = true; // 메인 스레드 UI 업데이트 신호
@@ -49,11 +56,6 @@ public class GoogleLogin : MonoBehaviour
     // 구글 계정 정보를 조용히 가져오는 함수
     private void TrySilentGoogleLogin()
     {
-        GoogleSignInConfiguration config = new GoogleSignInConfiguration {
-            WebClientId = webClientId, RequestIdToken = true, RequestEmail = true
-        };
-        GoogleSignIn.Configuration = config;
-
         // SignIn 대신 SignInSilently를 사용합니다.
         GoogleSignIn.DefaultInstance.SignInSilently().ContinueWith(task => {
             if (!task.IsFaulted && !task.IsCanceled) {
@@ -77,13 +79,6 @@ public class GoogleLogin : MonoBehaviour
 
     public void OnClickGoogleLogin()
     {
-        GoogleSignInConfiguration config = new GoogleSignInConfiguration {
-            WebClientId = webClientId,
-            RequestIdToken = true,
-            RequestEmail = true
-        };
-        GoogleSignIn.Configuration = config;
-
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(task => {
             if (task.IsFaulted) {
                 Debug.LogError("구글 로그인 실패");
