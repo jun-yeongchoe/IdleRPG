@@ -10,9 +10,16 @@ public class EnemySpawner : MonoBehaviour
     public float spawnRadius = 1.0f;
     public int poolSize = 5;
 
+    [Header("보스 설정")]
+    public GameObject bossPrefab;
+    private GameObject activeBoss;
+
     private GameObject[] enemyPool;
 
     private bool isWaiting=false;
+
+    private int currentWave = 0;
+    private const int maxNormalWave = 5;
 
     private void Awake()
     {
@@ -28,12 +35,11 @@ public class EnemySpawner : MonoBehaviour
     private void OnEnable()
     {
         isWaiting = false;
+        currentWave = 0;
+        activeBoss = null;
         for (int i = 0; i < poolSize; i++)
         {
-            if (!enemyPool[i].activeSelf)
-            {
-                Spawn();
-            }
+            if (!enemyPool[i].activeSelf) Spawn();
         }
     }
 
@@ -41,6 +47,14 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
        if(isWaiting) return;
+
+        if (activeBoss != null)
+        {
+            if (activeBoss.activeSelf) return;
+            StartCoroutine(BossClearRoutine());
+            activeBoss = null;
+            return;
+        }
 
         int activeCount = 0;
         for (int i = 0; i < poolSize; i++) 
@@ -50,23 +64,52 @@ public class EnemySpawner : MonoBehaviour
 
         if (activeCount ==0)
         {
-            StartCoroutine(NextStage());
+            StartCoroutine(CheckNextWave());
         }
     }
-    private IEnumerator NextStage()
+    private IEnumerator CheckNextWave()
+    {
+        isWaiting = true;
+        yield return new WaitForSeconds(respawnInterval);
+
+        currentWave++;
+
+        if (currentWave < 5)
+        {
+            SpawnWave();
+        }
+        else
+        {
+            SpawnBoss();
+        }
+
+        isWaiting = false;
+    }
+
+    private IEnumerator BossClearRoutine()
     {
         isWaiting = true;
 
         if (DataManager.Instance != null)
-        { 
+        {
             DataManager.Instance.currentStageNum++;
         }
 
         yield return new WaitForSeconds(respawnInterval);
 
+        currentWave = 0;
         SpawnWave();
 
         isWaiting = false;
+    }
+
+    void SpawnBoss()
+    {
+        if (bossPrefab != null)
+        {
+            activeBoss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
+            //보스 스텟 초기화도 여기서 작업 예정
+        }
     }
 
     void SpawnWave()
@@ -97,9 +140,12 @@ public class EnemySpawner : MonoBehaviour
         Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
         selectEnemy.transform.position = transform.position+new Vector3(randomPos.x, randomPos.y,0);
 
-        //스테이지 맞춰서 스텟 초기화해주는거 여기 추가하기
+        EnemyStats stat = selectEnemy.GetComponent<EnemyStats>();
+        if (stat != null)
+        {
+            stat.InitByStage();
+        }
 
         selectEnemy.SetActive(true);
     }
-    
 }

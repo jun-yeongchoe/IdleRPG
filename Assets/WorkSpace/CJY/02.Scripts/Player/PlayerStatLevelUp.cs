@@ -68,7 +68,14 @@ public class PlayerStatLevelUp : MonoBehaviour
             case StatType.Hp:hp_level.Value++; break;
             case StatType.HpRegen:hp_g_level.Value++; break;
             case StatType.AtkSpeed:atk_s_level.Value++; break;
-            case StatType.CritChance:crit_p_level.Value++; break;
+            case StatType.CritChance:
+                if(crit_p_level.Value >=1000) 
+                {
+                    Debug.Log("이미 만렙");
+                    break;
+                }
+                crit_p_level.Value++; 
+                break;
             case StatType.CritDamage:crit_d_level.Value++; break;
         }
     }

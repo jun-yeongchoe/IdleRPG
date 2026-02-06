@@ -34,7 +34,6 @@ public class DBManager : MonoBehaviour
     {
         if (loadedData == null) return;
 
-
         // 플레이어 접속할 때, 접속종료할 때, 저장/로드 할 데이터를 새로 정의할것. -> 저장 후에 계산으로 출력가능한 데이터는 저장x
 
         // 서버 데이터를 SO에 동기화

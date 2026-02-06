@@ -33,17 +33,26 @@ public class DataManager : MonoBehaviour
         return (BackGroundType)index;
     }
 
-    //경제 변수 이름 바뀌면 다시 수정할것
     [Header("경제")]
     public BigInteger Gold = 0;
     public BigInteger Scrap = 0;
     public BigInteger Gem = 0;
 
-    //스텟도 변수명 바뀌면 다시 수정할것
-    //JSON으로 저장할지, playerprefs로 저장할지는 팀장이랑 상의 후 정할것
     [Header("스텟")]
     public int AtkLv = 1;
     public int HpLv = 1;
+    public int RecoverLv = 1;
+    public int AtSpeedLv = 1;
+    public int CritPerLv = 1;
+    public int CritDmgLv = 1;
+
+    public float Shopexp = 0;
+
+    //public Dictionary<int,int>InventoryDict=new Dictionary<int,int>();
+
+    //public Dictionary<int,int>CompanionDict=new Dictionary<int,int>();
+
+    //public Dictionary<int,int>SkillDict=new Dictionary<int,int>();
 
     private void Awake()
     {
@@ -79,4 +88,79 @@ public class DataManager : MonoBehaviour
         Gem += amount;
         if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
     }
+
+    public string SendJson()
+    {
+        GameDataDTO data=new GameDataDTO();
+
+        data.Stage=currentStageNum;
+
+        data.Gold = Gold.ToString();
+        data.Scrap = Scrap.ToString();
+        data.Gem = Gem.ToString();
+
+        data.AtkLv = AtkLv;
+        data.HpLv = HpLv;
+        data.RecoverLv = RecoverLv;
+        data.AtSpeedLv = AtSpeedLv;
+        data.CritPerLv = CritPerLv;
+        data.CritDmgLv = CritDmgLv;
+
+        if (PlayerPrefs.HasKey("LastExitTime"))
+            data.LastExitTime = PlayerPrefs.GetString("LastExitTime");
+
+        return JsonUtility.ToJson(data);
+    }
+
+    public void LoadJson(string jsonString) 
+    {
+        if (string.IsNullOrEmpty(jsonString)) return;
+
+        GameDataDTO data = JsonUtility.FromJson<GameDataDTO>(jsonString);
+
+        currentStageNum = data.Stage;
+
+        BigInteger.TryParse(data.Gold, out Gold);
+        BigInteger.TryParse(data.Scrap, out Scrap);
+        BigInteger.TryParse(data.Gem, out Gem);
+
+        AtkLv = data.AtkLv;
+        HpLv = data.HpLv;
+        RecoverLv = data.RecoverLv;
+        AtSpeedLv = data.AtSpeedLv;
+        CritPerLv = data.CritPerLv;
+        CritDmgLv = data.CritDmgLv;
+
+        if (!string.IsNullOrEmpty(data.LastExitTime))
+        {
+            PlayerPrefs.SetString("LastExitTime", data.LastExitTime);
+            PlayerPrefs.Save();
+        }
+
+        Debug.Log("데이터 로드 완료!");
+        if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
+    }
+}
+
+[System.Serializable]
+public class GameDataDTO
+{
+    public int Stage;
+
+    public string Gold;
+    public string Scrap;
+    public string Gem;
+
+    public int AtkLv;
+    public int HpLv;
+    public int RecoverLv;
+    public int AtSpeedLv;
+    public int CritPerLv;
+    public int CritDmgLv;
+
+    public string LastExitTime;
+
+    //public List<ItemSaveData>
+    //public List<ItemSaveData>
+    //public List<ItemSaveData>
 }

@@ -1,14 +1,17 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     public EnemyStats stats;
     public EnemyFSM fsm;
 
+    public EnemyManager enemyManager;
+
     private void Awake()
     {
         stats = GetComponent<EnemyStats>();
         fsm = GetComponent<EnemyFSM>();
+        enemyManager = GetComponentInParent<EnemyManager>();
     }
 
     private void OnEnable()

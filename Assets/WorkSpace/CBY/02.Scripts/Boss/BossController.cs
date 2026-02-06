@@ -5,10 +5,10 @@ public class BossController : MonoBehaviour
 {
     public BossStat stat;
 
-    [Header("¾ÆÀÌÅÛ µå·Ó")]
-    public GameObject[] dropItems;   // µå·Ó °¡´ÉÇÑ ¾ÆÀÌÅÛ ÇÁ¸®ÆÕ
+    [Header("ì•„ì´í…œ ë“œë¡­")]
+    public GameObject[] dropItems;   // ë“œë¡­ ê°€ëŠ¥í•œ ì•„ì´í…œ í”„ë¦¬íŒ¹
     [Range(0f, 1f)]
-    public float dropChance = 1.0f;  // 1 = ¹«Á¶°Ç µå·Ó
+    public float dropChance = 1.0f;  // 1 = ë¬´ì¡°ê±´ ë“œë¡­
     public int dropCount = 1;
 
     private float currentHP;
@@ -80,7 +80,7 @@ public class BossController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        Debug.Log("º¸½º °ø°İ! µ¥¹ÌÁö: " + stat.attackDamage);
+        Debug.Log("ë³´ìŠ¤ ê³µê²©! ë°ë¯¸ì§€: " + stat.attackDamage);
         yield return new WaitForSeconds(stat.attackCooldown);
     }
 
@@ -116,7 +116,7 @@ public class BossController : MonoBehaviour
 
         DropItems();
 
-        Debug.Log("º¸½º »ç¸Á");
+        Debug.Log("ë³´ìŠ¤ ì‚¬ë§");
 
         Destroy(gameObject);
     }
