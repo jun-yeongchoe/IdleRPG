@@ -3,9 +3,15 @@ using System.Collections;
 
 public class BossController : MonoBehaviour
 {
-    public BossStats stats; // º¸½º ½ºÅÈ ÂüÁ¶
+<<<<<<< feat/CBY
+    public BossStats stats; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    [Header("¾ÆÀÌÅÛ µå·Ó")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½")]
+=======
+    public BossStats stats; // ë³´ìŠ¤ ìŠ¤íƒ¯ ì°¸ì¡°
+
+    [Header("ì•„ì´í…œ ë“œë¡­")]
+>>>>>>> dev
     public GameObject[] dropItems;
     [Range(0f, 1f)]
     public float dropChance = 1.0f;
@@ -26,7 +32,11 @@ public class BossController : MonoBehaviour
 
     private void Start()
     {
-        // ½ºÅÈ ÃÊ±âÈ­ (½ºÅ×ÀÌÁö ±âÁØ)
+<<<<<<< feat/CBY
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+=======
+        // ìŠ¤íƒ¯ ì´ˆê¸°í™” (ìŠ¤í…Œì´ì§€ ê¸°ì¤€)
+>>>>>>> dev
         stats.InitByStage();
 
         ChangeState(BossState.Idle);
@@ -65,7 +75,11 @@ public class BossController : MonoBehaviour
 
     private IEnumerator Idle()
     {
-        // Àá±ñ ´ë±â
+<<<<<<< feat/CBY
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+=======
+        // ì ê¹ ëŒ€ê¸°
+>>>>>>> dev
         yield return new WaitForSeconds(0.8f);
     }
 
@@ -76,7 +90,11 @@ public class BossController : MonoBehaviour
 
         while (timer < moveTime)
         {
-            // BossStatsÀÇ ÀÌµ¿¼Óµµ »ç¿ë
+<<<<<<< feat/CBY
+            // BossStatsï¿½ï¿½ ï¿½Ìµï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½
+=======
+            // BossStatsì˜ ì´ë™ì†ë„ ì‚¬ìš©
+>>>>>>> dev
             transform.Translate(Vector3.left * stats.moveSpeed * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
@@ -85,8 +103,13 @@ public class BossController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        // ½ÇÁ¦ °ø°İ ÆÇÁ¤Àº BossAttack ÂÊÀ¸·Î ºĞ¸® °¡´É
-        Debug.Log($"º¸½º °ø°İ! µ¥¹ÌÁö: {stats.attack}");
+<<<<<<< feat/CBY
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ BossAttack ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: {stats.attack}");
+=======
+        // ì‹¤ì œ ê³µê²© íŒì •ì€ BossAttack ìª½ìœ¼ë¡œ ë¶„ë¦¬ ê°€ëŠ¥
+        Debug.Log($"ë³´ìŠ¤ ê³µê²©! ë°ë¯¸ì§€: {stats.attack}");
+>>>>>>> dev
 
         yield return new WaitForSeconds(stats.attackCooldown);
     }
@@ -103,14 +126,22 @@ public class BossController : MonoBehaviour
             ChangeState(BossState.Idle);
     }
 
-    // ¿ÜºÎ¿¡¼­ µ¥¹ÌÁö µé¾î¿Ã ¶§ È£Ãâ
+<<<<<<< feat/CBY
+    // ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½
+=======
+    // ì™¸ë¶€ì—ì„œ ë°ë¯¸ì§€ ë“¤ì–´ì˜¬ ë•Œ í˜¸ì¶œ
+>>>>>>> dev
     public void TakeDamage(float damage)
     {
         if (isDead) return;
 
         stats.TakeDamage(damage);
 
-        // BossStatsÀÇ HP¸¦ ±âÁØÀ¸·Î »ç¸Á ÆÇ´Ü
+<<<<<<< feat/CBY
+        // BossStatsï¿½ï¿½ HPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½
+=======
+        // BossStatsì˜ HPë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì‚¬ë§ íŒë‹¨
+>>>>>>> dev
         if (stats.hp <= 0)
             Die();
     }
@@ -122,7 +153,7 @@ public class BossController : MonoBehaviour
 
         DropItems();
 
-        Debug.Log("º¸½º »ç¸Á");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
 
         Destroy(gameObject);
     }
