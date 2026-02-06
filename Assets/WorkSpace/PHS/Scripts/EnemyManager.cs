@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//구조: EnemyManager의 자식으로 늘 EnemySpawner가 존재해야 함
 public class EnemyManager : MonoBehaviour
 {
     [Header("Player")]
@@ -22,7 +21,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    // 업데이트에서 스테이지 변경체크
     void Update()
     {
         CheckStage();

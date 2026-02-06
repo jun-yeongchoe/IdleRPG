@@ -17,22 +17,23 @@ public class EnemyAttackState : IEnemyState
 
     public void Update()
     {
-        if (Time.time - lastAttackTime >= fsm.enemy.stats.attackCooldown)
-        {
-            // 여기서 실제 데미지 처리
-            Debug.Log("플레이어 공격!");
+        Transform target = fsm.target;
+        if (target == null || fsm.enemy?.stats == null) return;
 
-            lastAttackTime = Time.time;
-        }
+        Vector3 diff = target.position - fsm.transform.position;
+        float sqrDist = diff.sqrMagnitude;
+        float range = fsm.enemy.stats.attackRange;
 
-        float dist = Vector2.Distance(
-            fsm.transform.position,
-            GameObject.FindWithTag("Player").transform.position
-        );
-
-        if (dist > fsm.enemy.stats.attackRange)
+        if (sqrDist > range * range)
         {
             fsm.ChangeState(EnemyStateType.Move);
+            return;
+        }
+
+        if (Time.time - lastAttackTime >= fsm.enemy.stats.attackCooldown)
+        {
+            fsm.enemy.Attack();
+            lastAttackTime = Time.time;
         }
     }
 

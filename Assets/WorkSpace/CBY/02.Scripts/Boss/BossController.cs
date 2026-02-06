@@ -3,15 +3,14 @@ using System.Collections;
 
 public class BossController : MonoBehaviour
 {
-    public BossStat stat;
+    public BossStats stats; // 보스 스탯 참조
 
     [Header("아이템 드롭")]
-    public GameObject[] dropItems;   // 드롭 가능한 아이템 프리팹
+    public GameObject[] dropItems;
     [Range(0f, 1f)]
-    public float dropChance = 1.0f;  // 1 = 무조건 드롭
+    public float dropChance = 1.0f;
     public int dropCount = 1;
 
-    private float currentHP;
     private bool isActing;
     private bool isDead;
 
@@ -27,7 +26,9 @@ public class BossController : MonoBehaviour
 
     private void Start()
     {
-        currentHP = stat.maxHP;
+        // 스탯 초기화 (스테이지 기준)
+        stats.InitByStage();
+
         ChangeState(BossState.Idle);
     }
 
@@ -48,9 +49,11 @@ public class BossController : MonoBehaviour
             case BossState.Idle:
                 yield return Idle();
                 break;
+
             case BossState.Move:
                 yield return Move();
                 break;
+
             case BossState.Attack:
                 yield return Attack();
                 break;
@@ -62,6 +65,7 @@ public class BossController : MonoBehaviour
 
     private IEnumerator Idle()
     {
+        // 잠깐 대기
         yield return new WaitForSeconds(0.8f);
     }
 
@@ -72,7 +76,8 @@ public class BossController : MonoBehaviour
 
         while (timer < moveTime)
         {
-            transform.Translate(Vector3.left * stat.moveSpeed * Time.deltaTime);
+            // BossStats의 이동속도 사용
+            transform.Translate(Vector3.left * stats.moveSpeed * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
         }
@@ -80,8 +85,10 @@ public class BossController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        Debug.Log("보스 공격! 데미지: " + stat.attackDamage);
-        yield return new WaitForSeconds(stat.attackCooldown);
+        // 실제 공격 판정은 BossAttack 쪽으로 분리 가능
+        Debug.Log($"보스 공격! 데미지: {stats.attack}");
+
+        yield return new WaitForSeconds(stats.attackCooldown);
     }
 
     private void DecideNextState()
@@ -96,17 +103,16 @@ public class BossController : MonoBehaviour
             ChangeState(BossState.Idle);
     }
 
+    // 외부에서 데미지 들어올 때 호출
     public void TakeDamage(float damage)
     {
         if (isDead) return;
 
-        currentHP -= damage;
+        stats.TakeDamage(damage);
 
-        if (currentHP <= 0)
-        {
-            currentHP = 0;
+        // BossStats의 HP를 기준으로 사망 판단
+        if (stats.hp <= 0)
             Die();
-        }
     }
 
     private void Die()
@@ -138,4 +144,3 @@ public class BossController : MonoBehaviour
         }
     }
 }
-

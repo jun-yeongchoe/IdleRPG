@@ -1,42 +1,40 @@
 using UnityEngine;
-using System.Collections.Generic;
-
-public enum EnemyStateType
-{
-    Idle,
-    Move,
-    Attack,
-    Die
-}
 
 public class EnemyFSM : MonoBehaviour
 {
-    Dictionary<EnemyStateType, IEnemyState> states;
-    IEnemyState currentState;
-
     public Enemy enemy;
+    public Transform target;
 
-    private void Awake()
+    private IEnemyState currentState;
+
+    public void Init(Enemy enemy, EnemyManager manager)
     {
-        enemy = GetComponent<Enemy>();
-
-        states = new Dictionary<EnemyStateType, IEnemyState>()
-        {
-            { EnemyStateType.Move, new EnemyMoveState(this) },
-            { EnemyStateType.Attack, new EnemyAttackState(this) },
-            { EnemyStateType.Die, new EnemyDieState(this) }
-        };
-    }
-
-    private void Update()
-    {
-        currentState?.Update();
+        this.enemy = enemy;
+        target = manager.GetPlayerTransform();
     }
 
     public void ChangeState(EnemyStateType type)
     {
         currentState?.Exit();
-        currentState = states[type];
+
+        switch (type)
+        {
+            case EnemyStateType.Move:
+                currentState = new EnemyMoveState(this);
+                break;
+            case EnemyStateType.Attack:
+                currentState = new EnemyAttackState(this);
+                break;
+            case EnemyStateType.Die:
+                currentState = new EnemyDieState(this);
+                break;
+        }
+
         currentState.Enter();
+    }
+
+    private void Update()
+    {
+        currentState?.Update();
     }
 }
