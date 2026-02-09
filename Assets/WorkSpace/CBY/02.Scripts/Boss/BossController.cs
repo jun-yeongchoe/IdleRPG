@@ -126,7 +126,7 @@ public class BossController : MonoBehaviour
 
         Destroy(gameObject);
     }
-
+    
     private void DropItems()
     {
         if (dropItems.Length == 0) return;
