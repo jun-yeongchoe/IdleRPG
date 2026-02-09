@@ -1,3 +1,4 @@
+using System.Collections;
 using Firebase.Auth;
 using Firebase.Database;
 using TMPro;
@@ -17,6 +18,11 @@ public class DBManager : MonoBehaviour
     [Header("Data Reference (SO)")]
     public PlayerStatus playerStatus; 
 
+    private string tempJsonData;
+
+    [SerializeField] GameObject loadingPanel;
+    bool isProcessing = false;
+
     void Awake()
     {
         if (Instance == null)
@@ -31,6 +37,13 @@ public class DBManager : MonoBehaviour
     {
         // 데이터베이스 루트 참조 가져오기
         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+
+        // DataManager 연동 
+        string userId = FirebaseAuth.DefaultInstance.CurrentUser?.UserId;
+        if (!string.IsNullOrEmpty(userId))
+        {
+            StartCoroutine(LoadUserDataCo(userId));
+        }
     }
 
     void Update()
@@ -92,8 +105,12 @@ public class DBManager : MonoBehaviour
         if (string.IsNullOrEmpty(userId)) return;
 
         // SO 데이터를 JSON용 클래스로 변환하여 저장
-        UserData data = playerStatus.ToUserData();
-        string json = JsonUtility.ToJson(data);
+        // UserData data = playerStatus.ToUserData(); // 기존
+        // string json = JsonUtility.ToJson(data);
+
+        string json = DataManager.Instance.SendJson();
+
+         if (dbReference == null)
 
         dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json).ContinueWith(task => {
             if (task.IsCompleted) 
@@ -109,35 +126,37 @@ public class DBManager : MonoBehaviour
         });
     }
 
-    // [불러오기] 앱 시작 시 서버에서 데이터를 가져와 SO에 담을 때 사용
+    //[불러오기] 앱 시작 시 서버에서 데이터를 가져와 SO에 담을 때 사용
     public void LoadUserData(string userId)
     {
-        if (dbReference == null)
-        dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+        // if (dbReference == null)
+        // dbReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        dbReference.Child("users").Child(userId).GetValueAsync().ContinueWith(task => {
-            if (task.IsFaulted) {
-                Debug.LogError("데이터 로드 실패");
-            }
-            else if (task.IsCompleted) {
-                DataSnapshot snapshot = task.Result;
+        // dbReference.Child("users").Child(userId).GetValueAsync().ContinueWith(task => {
+        //     if (task.IsFaulted) {
+        //         Debug.LogError("데이터 로드 실패");
+        //     }
+        //     else if (task.IsCompleted) {
+        //         DataSnapshot snapshot = task.Result;
                 
-                if (snapshot.Exists) { 
-                    string json = snapshot.GetRawJsonValue();
-                    loadedData = JsonUtility.FromJson<UserData>(json);
-                    isDataLoadComplete = true; 
-                } 
-                else { 
-                    Debug.Log("신규 유저입니다. 초기 데이터를 생성합니다.");
-                    // 신규 유저는 초기값을 SO에 직접 설정하거나 아래처럼 생성
-                    UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName,0,0,1,1,1,1,1,1,1,1,1);
-                    SaveUserData(userId, newData);
+        //         if (snapshot.Exists) { 
+        //             string json = snapshot.GetRawJsonValue();
+        //             loadedData = JsonUtility.FromJson<UserData>(json);
+        //             isDataLoadComplete = true; 
+        //         } 
+        //         else { 
+        //             Debug.Log("신규 유저입니다. 초기 데이터를 생성합니다.");
+        //             // 신규 유저는 초기값을 SO에 직접 설정하거나 아래처럼 생성
+        //             UserData newData = new UserData(FirebaseAuth.DefaultInstance.CurrentUser.DisplayName,0,0,1,1,1,1,1,1,1,1,1);
+        //             SaveUserData(userId, newData);
                     
-                    loadedData = newData;
-                    isDataLoadComplete = true;
-                }
-            }
-        });
+        //             loadedData = newData;
+        //             isDataLoadComplete = true;
+        //         }
+        //     }
+        // }); --> 기존
+
+        StartCoroutine(LoadUserDataCo(userId));
     }
 
     // 기존 단순 저장 로직 (필요 시 내부 호출용)
@@ -148,4 +167,37 @@ public class DBManager : MonoBehaviour
             if (task.IsCompleted) Debug.Log("초기 데이터 저장 완료!");
         });
     }
+
+    IEnumerator LoadUserDataCo(string userId)
+    {
+        if(loadingPanel != null) loadingPanel.SetActive(true);
+        isProcessing = false;
+
+        var task = dbReference.Child("users").Child(userId).GetValueAsync();
+        yield return new WaitUntil(() => task.IsCompleted);
+
+        if (task.IsFaulted)
+        {
+            Debug.LogError("데이터 로드 실패");
+        }
+        else if (task.IsCompleted)
+        {
+            DataSnapshot snapshot = task.Result;
+            if (snapshot.Exists)
+            {
+                tempJsonData = snapshot.GetRawJsonValue();
+            }
+            else
+            {
+                Debug.Log("신규 유저 : 초기 데이터 생성");
+                tempJsonData = DataManager.Instance.SendJson();
+                dbReference.Child("users").Child(userId).SetRawJsonValueAsync(tempJsonData);
+            }
+
+            DataManager.Instance.LoadJson(tempJsonData);
+            SyncDataAndRefreshUI();
+        }
+
+        if(loadingPanel != null) loadingPanel.SetActive(false);
+    } 
 }
