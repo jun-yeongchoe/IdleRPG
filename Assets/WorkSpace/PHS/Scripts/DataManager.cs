@@ -24,6 +24,8 @@ public class DataManager : MonoBehaviour
     //배경 개수
     public int backgroundCount = 3;
 
+    public int[] EquipSlot=new int[4];
+
     //계산 로직(배경 순환: 10스테이지=1챕터, 매 챕터 클리어시 배경 전환을 위한 함수)
     public BackGroundType BackgroundIndex()
     { 
@@ -113,6 +115,8 @@ public class DataManager : MonoBehaviour
         data.CompanionList = DictToList(CompanionDict);
         data.SkillList = DictToList(SkillDict);
 
+        data.EquipSlot=EquipSlot;
+
         return JsonUtility.ToJson(data);
     }
 
@@ -145,7 +149,16 @@ public class DataManager : MonoBehaviour
         CompanionDict = ListToDict(data.CompanionList);
         SkillDict = ListToDict(data.SkillList);
 
-        Debug.Log("데이터 로드 완료!");
+        if (data.EquipSlot != null && data.EquipSlot.Length == 4)
+        {
+            EquipSlot = data.EquipSlot;
+        }
+        else
+        {
+            EquipSlot = new int[4];
+        }
+
+            Debug.Log("데이터 로드 완료!");
         if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
     }
 
@@ -171,6 +184,15 @@ public class DataManager : MonoBehaviour
         }
         return dict;
     }
+
+    public void EquipItem(int slotIndex, int itemID)
+    { 
+        if(slotIndex<0||slotIndex>=4)return;
+
+        EquipSlot[slotIndex] = itemID;
+
+        SendJson();
+    }
 }
 
 [System.Serializable]
@@ -194,6 +216,8 @@ public class GameDataDTO
     public List<ItemSaveData> InventoryList;
     public List<ItemSaveData> CompanionList;
     public List<ItemSaveData> SkillList;
+
+    public int[] EquipSlot;
 }
 [System.Serializable]
 public class ItemSaveData
