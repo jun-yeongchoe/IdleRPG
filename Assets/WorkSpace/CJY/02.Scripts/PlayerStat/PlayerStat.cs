@@ -1,34 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
+
 using UnityEngine;
+
+
+// 플레이어 스탯
+// 추후 추가될 스킬에서도 atkPower를 참조해야함.
 
 public class PlayerStat : MonoBehaviour
 {
+    public static PlayerStat instance{get; private set;}
+
     [SerializeField] PlayerStatus playerStatus;
+    public float atkPower, hp, hpGen, atkSpeed, criticalChance, criticalDamage;
 
-    void Update()
+    void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        if(instance == null)
         {
-            Debug.Log("Player Stat Data:");
-            Debug.Log("Attack Power Level: " + playerStatus.atkPower);
-            Debug.Log("HP Level: " + playerStatus.hp);
-            Debug.Log("HP Regen Level: " + playerStatus.hpGen);
-            Debug.Log("Attack Speed Level: " + playerStatus.atkSpeed);
-            Debug.Log("Critical Chance Level: " + playerStatus.criticalChance);
-            Debug.Log("Critical Damage Level: " + playerStatus.criticalDamage);
+            instance = this;
         }
-
-        if(Input.GetKeyDown(KeyCode.K))
+        else
         {
-            Debug.Log("User Info:");
-            Debug.Log("Attack Power: " + playerStatus.GetAtkPower());
-            Debug.Log("HP: " + playerStatus.GetHP());
-            Debug.Log("HP Regen: " + playerStatus.GetHPGen());
-            Debug.Log("Attack Speed: " + playerStatus.GetAtkSpeed());
-            Debug.Log("Critical Chance: " + playerStatus.GetCriticalChance());
-            Debug.Log("Critical Damage: " + playerStatus.GetCriticalDamage());
+            Destroy(gameObject);
         }
     }
+
+    void Start()
+    {
+        atkPower = playerStatus.GetAtkPower();
+        hp = playerStatus.GetHP();
+        hpGen = playerStatus.GetHPGen();
+        atkSpeed = playerStatus.GetAtkSpeed();
+        criticalChance = playerStatus.GetCriticalChance();
+        criticalDamage = playerStatus.GetCriticalDamage();
+
+    }
+
+
+    // 타 클래스에서 호출하여 값 갱신
+    public void SetAttackPower() => atkPower = playerStatus.GetAtkPower();
+    public void SetHP() 
+    {
+        hp = playerStatus.GetHP(); 
+        GetComponent<PlayerHP>().RefreshHP();
+    }
+    
+    public void SetHPGen() => hpGen = playerStatus.GetHPGen();
+    public void SetAtkSpeed() => atkSpeed = playerStatus.GetAtkSpeed();
+    public void SetCriticalChance() => criticalChance = playerStatus.GetCriticalChance();
+    public void SetCriticalDamage() => criticalDamage = playerStatus.GetCriticalDamage();
+
+
 }

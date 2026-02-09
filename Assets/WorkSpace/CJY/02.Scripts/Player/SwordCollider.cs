@@ -14,7 +14,8 @@ public class SwordCollider : MonoBehaviour
             Enemy enemy = collision.GetComponent<Enemy>();
             if (enemy != null)
             {
-                float damage = atkStat.GetValue(playerStatus.atkPower);
+                // float damage = atkStat.GetValue(playerStatus.atkPower);
+                float damage = PlayerStat.instance.atkPower;
                 enemy.TakeDamage(damage);
                 Debug.Log("딜 : " + damage + " 적 : " + collision.name);
             }
