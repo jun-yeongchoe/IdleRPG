@@ -190,8 +190,11 @@ public class DataManager : MonoBehaviour
         if(slotIndex<0||slotIndex>=4)return;
 
         EquipSlot[slotIndex] = itemID;
+    }
 
-        SendJson();
+    public void UnEquiptItem(int slotIndex) 
+    { 
+        EquipItem(slotIndex, 0);
     }
 }
 
