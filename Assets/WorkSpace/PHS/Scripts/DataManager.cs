@@ -24,6 +24,8 @@ public class DataManager : MonoBehaviour
     //배경 개수
     public int backgroundCount = 3;
 
+    public int[] EquipSlot=new int[4];
+
     //계산 로직(배경 순환: 10스테이지=1챕터, 매 챕터 클리어시 배경 전환을 위한 함수)
     public BackGroundType BackgroundIndex()
     { 
@@ -48,11 +50,11 @@ public class DataManager : MonoBehaviour
 
     public float Shopexp = 0;
 
-    //public Dictionary<int,int>InventoryDict=new Dictionary<int,int>();
+    public Dictionary<int, int> InventoryDict = new Dictionary<int, int>();
 
-    //public Dictionary<int,int>CompanionDict=new Dictionary<int,int>();
+    public Dictionary<int, int> CompanionDict = new Dictionary<int, int>();
 
-    //public Dictionary<int,int>SkillDict=new Dictionary<int,int>();
+    public Dictionary<int, int> SkillDict = new Dictionary<int, int>();
 
     private void Awake()
     {
@@ -109,6 +111,12 @@ public class DataManager : MonoBehaviour
         if (PlayerPrefs.HasKey("LastExitTime"))
             data.LastExitTime = PlayerPrefs.GetString("LastExitTime");
 
+        data.InventoryList = DictToList(InventoryDict);
+        data.CompanionList = DictToList(CompanionDict);
+        data.SkillList = DictToList(SkillDict);
+
+        data.EquipSlot=EquipSlot;
+
         return JsonUtility.ToJson(data);
     }
 
@@ -137,8 +145,56 @@ public class DataManager : MonoBehaviour
             PlayerPrefs.Save();
         }
 
-        Debug.Log("데이터 로드 완료!");
+        InventoryDict = ListToDict(data.InventoryList);
+        CompanionDict = ListToDict(data.CompanionList);
+        SkillDict = ListToDict(data.SkillList);
+
+        if (data.EquipSlot != null && data.EquipSlot.Length == 4)
+        {
+            EquipSlot = data.EquipSlot;
+        }
+        else
+        {
+            EquipSlot = new int[4];
+        }
+
+            Debug.Log("데이터 로드 완료!");
         if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
+    }
+
+    private List<ItemSaveData> DictToList(Dictionary<int, int> dict)
+    {
+        List<ItemSaveData> list = new List<ItemSaveData>();
+        foreach (var pair in dict)
+        { 
+            list.Add(new ItemSaveData { id=pair.Key,value=pair.Value});
+        }
+        return list;
+    }
+
+    private Dictionary<int, int> ListToDict(List<ItemSaveData> list)
+    { 
+        Dictionary<int, int> dict=new Dictionary<int, int>();
+        if(list==null)return dict;
+
+        foreach (var item in list) 
+        { 
+            if(!dict.ContainsKey(item.id))
+                dict.Add(item.id, item.value);
+        }
+        return dict;
+    }
+
+    public void EquipItem(int slotIndex, int itemID)
+    { 
+        if(slotIndex<0||slotIndex>=4)return;
+
+        EquipSlot[slotIndex] = itemID;
+    }
+
+    public void UnEquiptItem(int slotIndex) 
+    { 
+        EquipItem(slotIndex, 0);
     }
 }
 
@@ -160,7 +216,15 @@ public class GameDataDTO
 
     public string LastExitTime;
 
-    //public List<ItemSaveData>
-    //public List<ItemSaveData>
-    //public List<ItemSaveData>
+    public List<ItemSaveData> InventoryList;
+    public List<ItemSaveData> CompanionList;
+    public List<ItemSaveData> SkillList;
+
+    public int[] EquipSlot;
+}
+[System.Serializable]
+public class ItemSaveData
+{
+    public int id;
+    public int value;
 }
