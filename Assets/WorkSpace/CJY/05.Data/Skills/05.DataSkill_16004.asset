@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98df6771231e6ed4184965d458bc85f4, type: 3}
+  m_Name: 05.DataSkill_16004
+  m_EditorClassIdentifier: 
+  ID: 16004
+  Name_KR: "\uC740\uD558\uC758 \uD30C\uD3B8"
+  Name_EN: Galaxy Shards
+  Rank: Celestial
+  Skill_Type: Active
+  Damage_Coef: 1
+  Cooltime: 90
+  Effect_Prefab: FX_GalaxyShard
