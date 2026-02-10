@@ -1,3 +1,5 @@
+using System.Numerics;
+
 [System.Serializable]
 public class UserData
 {
@@ -13,11 +15,13 @@ public class UserData
     //수정해야할 포인트 : UserData, DGBManager, PlayerSO, DB
     public string userName;
     //골드, 보석, 스탯 레벨
-    public int gold, gem, atkPower, hp, hpGen, atkSpeed, criticalChance, criticalDamage;
+    
+    public BigInteger gold, gem;
+    public int atkPower, hp, hpGen, atkSpeed, criticalChance, criticalDamage;
 
     public float invenShopExp, skillShopExp, partnerShopExp;
 
-    public UserData(string name, int gold, int gem, int atkPower, int hp, int hpGen, int atkSp, int crtChance, int crtDmg, float invenExp, float skillExp, float partnerExp)
+    public UserData(string name, BigInteger gold, BigInteger gem, int atkPower, int hp, int hpGen, int atkSp, int crtChance, int crtDmg, float invenExp, float skillExp, float partnerExp)
     {
         this.userName = name;
         this.gold = gold;
