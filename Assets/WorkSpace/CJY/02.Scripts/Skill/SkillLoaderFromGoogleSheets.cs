@@ -12,7 +12,7 @@ using System.IO;
 public class SkillLoaderFromGoogleSheets
 {
     private const string csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRyDVW3msTQbFIC8alNBIsTJ54oBNKmlY1-RY5yF-xkKVKORx_-haqwvcTx9jHJfJ9ds5DbWlPsVigp/pub?gid=442380314&single=true&output=csv";
-    private const string savePath = "Assets/WorkSpace/CJY/05.Data/Skills";
+    private const string savePath = "Assets/WorkSpace/CJY/05.Data/Skills/";
 
     
    static SkillLoaderFromGoogleSheets()
