@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02166007af8a88f44a972cfb04e9d883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 0
-  hp: 0
-  attack: 0
-  moveSpeed: 0
-  attackRange: 0
+  maxHp: 1000
+  hp: 100
+  attack: 15
+  moveSpeed: 1.5
+  attackRange: 0.5
   attackCooldown: 0
