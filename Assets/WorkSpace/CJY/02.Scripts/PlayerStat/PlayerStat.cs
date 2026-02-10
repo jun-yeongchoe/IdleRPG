@@ -49,5 +49,27 @@ public class PlayerStat : MonoBehaviour
     public void SetCriticalChance() => criticalChance = playerStatus.GetCriticalChance();
     public void SetCriticalDamage() => criticalDamage = playerStatus.GetCriticalDamage();
 
+    public void EquipStatUpdate(EquipmentData_CSV equipment, int equipmentLevel)
+    {
+        // 레벨 1일 때 100%, 레벨 2일 때 101% ...
+        float finalBonusValue = equipment.Value * (1.0f + (equipmentLevel - 1) * 0.1f);
+
+        if (equipment.ID <= 3999)
+        {
+            atkPower *= finalBonusValue;
+        }
+        else if (equipment.ID <= 6999)
+        {
+            hp *= finalBonusValue;
+            GetComponent<PlayerHP>().RefreshHP();
+        }
+        else if (equipment.ID <= 9999)
+        {
+            atkPower *= finalBonusValue;
+            hp *= finalBonusValue;
+            GetComponent<PlayerHP>().RefreshHP();
+        }
+    }
+
 
 }
