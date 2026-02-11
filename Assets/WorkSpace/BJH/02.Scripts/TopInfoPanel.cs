@@ -1,44 +1,32 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using TMPro;
 using System.Numerics;
 
 public class TopInfoPanel : MonoBehaviour
 {
-    [Header("UI ¿¬°á")]
-    public TextMeshProUGUI goldText; // °ñµå ÅØ½ºÆ®
-    public TextMeshProUGUI gemText; // ´ÙÀÌ¾Æ ÅØ½ºÆ®
+    [Header("UI ì—°ê²°")]
+    public TextMeshProUGUI goldText; //ê³¨ë“œ í…ìŠ¤íŠ¸
+    public TextMeshProUGUI gemText; //ë‹¤ì´ì•„ í…ìŠ¤íŠ¸
 
-    // º¯È­ °¨Áö¿ë
-    private BigInteger lastGold = -1;
-    private BigInteger lastGem = -1;
-
-    void Update()
+    void Start()
     {
-        if (DataManager.Instance == null) return;
+        if (EventManager.Instance != null)
+            EventManager.Instance.StartList("CurrencyChange", UpdateCurrencyUI);
 
-        // ÀçÈ­ °¡Á®¿À±â
-        BigInteger currentGold = DataManager.Instance.Gold;
-        BigInteger currentGem = DataManager.Instance.Gem;
-
-        // °ñµå º¯È­
-        if (currentGold != lastGold)
-        {
-            lastGold = currentGold; // °»½Å
-
-            goldText.text = FormatBigInt(currentGold);
-        }
-
-        // ´ÙÀÌ¾Æ º¯È­
-        if (currentGem != lastGem)
-        {
-            lastGem = currentGem;
-
-            gemText.text = FormatBigInt(currentGem);
-        }
+        UpdateCurrencyUI();
     }
 
-    private string FormatBigInt(BigInteger value)
+    private void OnDestroy()
     {
-        return value.ToString("N0");
+        if (EventManager.Instance != null)
+            EventManager.Instance.StopList("CurrencyChange", UpdateCurrencyUI);
+    }
+
+    void UpdateCurrencyUI()
+    { 
+        if(DataManager.Instance == null) return;
+
+        goldText.text = DataManager.Instance.Gold.ToCurren();
+        gemText.text = DataManager.Instance.Gem.ToCurren();
     }
 }

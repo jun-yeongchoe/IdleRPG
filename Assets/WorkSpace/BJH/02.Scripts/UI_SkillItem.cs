@@ -1,72 +1,45 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class UI_SkillItem : MonoBehaviour
 {
-    [Header("UI ¿¬°á")]
-    public Image iconImage; // ½ºÅ³ ¾ÆÀÌÄÜ
-    public TextMeshProUGUI levelText; // LV
-    public TextMeshProUGUI expText; // °æÇèÄ¡
-    public Image expBarFill; // °ÔÀÌÁö
-    public GameObject equippedMark; // ÀåÂøÁß Ç¥½Ã
+    [Header("UI ì—°ê²°")]
+    public Image iconImage; //ìŠ¤í‚¬ ì•„ì´ì½˜
+    public TextMeshProUGUI levelText; //LV
+    public GameObject equippedMark; //ì¥ì°©ì¤‘ í‘œì‹œ
 
-    // ½ºÅ³ µ¥ÀÌÅÍ
+    // ìŠ¤í‚¬ ë°ì´í„°
     private SkillData mySkillData;
 
-    // ÀÓ½Ã µ¥ÀÌÅÍ
-    private int currentLevel = 1;
-    private int currentExp = 0;
-    private int maxExp = 2; // ·¹º§¾÷¿¡ ÇÊ¿äÇÑ °³¼ö
-
-    public void Init(SkillData data)
+    public void Init(SkillData data, int level, bool isEquipped)
     {
         mySkillData = data;
 
         if (mySkillData != null)
         {
             iconImage.sprite = mySkillData.skillIcon;
-            UpdateUI(); // UI ±×¸®±â
         }
+        UpdateUI(level, isEquipped);
     }
 
-    // UI °»½Å
-    public void UpdateUI()
+    // UI ê°±ì‹ 
+    public void UpdateUI(int level, bool isEquipped)
     {
-        // ÅØ½ºÆ® °»½Å
-        levelText.text = $"Lv.{currentLevel}";
-        expText.text = $"{currentExp} / {maxExp}";
+        levelText.text = $"LV.{level}";
 
-        // °ÔÀÌÁö ¹Ù °»½Å
-        float progress = (float)currentExp / maxExp;
-        expBarFill.fillAmount = progress;
+        if (equippedMark != null)
+            equippedMark.SetActive(isEquipped);
     }
 
-    public void AddExp()
-    {
-        currentExp++; // 1°³ È¹µæ
-
-        // ·¹º§¾÷ Á¶°Ç ´Ş¼º?
-        if (currentExp >= maxExp)
-        {
-            LevelUp();
-        }
-
-        UpdateUI(); // ¹Ù²ï °ªÀ¸·Î È­¸é °»½Å
-    }
-
-    void LevelUp()
-    {
-        currentExp = 0; // °æÇèÄ¡ ÃÊ±âÈ­
-        currentLevel++; // ·¹º§ ¾÷
-        maxExp = maxExp * 2; // ´ÙÀ½ ·¾¾÷ÀÇ ÃÖ´ë °æÇèÄ¡¾ç
-
-    }
-
-    // ¹öÆ° Å¬¸¯ ½Ã ½ÇÇàÇÒ ÇÔ¼ö
+    //ë²„íŠ¼ í´ë¦­ ì‹œ ì‹¤í–‰í•  í•¨ìˆ˜
     public void OnClickItem()
     {
-        // ÆË¾÷ °ü¸®ÀÚ È£Ãâ
-        SkillInfoPopup.Instance.Open(mySkillData, false);
+        //íŒì—… ê´€ë¦¬ì í˜¸ì¶œ
+        if(SkillInfoPopup.Instance!=null && mySkillData!=null)
+        { 
+            //ì¼ë‹¨ falseë¡œ ë‘ê³  ìŠ¤í‚¬ ë§¤ë‹ˆì € ì—°ê²°ì‹œ ìˆ˜ì •ì˜ˆì •
+            SkillInfoPopup.Instance.Open(mySkillData,false);
+        }
     }
 }
