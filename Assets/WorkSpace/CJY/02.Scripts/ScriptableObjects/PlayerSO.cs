@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerStatus", menuName = "ScriptableObjects/PlayerStatus")]
@@ -7,7 +8,7 @@ public class PlayerStatus : ScriptableObject
 
     [Header("User Info")]
     public string userName;
-    public int gold, gem;
+    public BigInteger gold = 10000, gem;
 
     [Header("Player Stats Levels")]
     public int atkPower, hp, hpGen, atkSpeed, criticalChance, criticalDamage;
@@ -21,7 +22,7 @@ public class PlayerStatus : ScriptableObject
     {
         csvLoader = loader;
     }
-
+    
     public float GetAtkPower() => CalculateStat("Attack", atkPower);
     public float GetHP() => CalculateStat("HP", hp);
     public float GetHPGen() => CalculateStat("HPRegen", hpGen);

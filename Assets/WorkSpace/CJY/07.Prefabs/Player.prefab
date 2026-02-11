@@ -257,6 +257,37 @@ Transform:
   - {fileID: 7453460719024483097}
   m_Father: {fileID: 566942721400821031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6534768555324955112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 639740253637664850}
+  m_Layer: 0
+  m_Name: SkilFirelPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &639740253637664850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6534768555324955112}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 566942721400821031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6820830875522472369
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +306,8 @@ GameObject:
   - component: {fileID: 2746113460464288609}
   - component: {fileID: 3173633856893323708}
   - component: {fileID: 4424191912007471470}
+  - component: {fileID: -340424713038154798}
+  - component: {fileID: 3965258938845342612}
   m_Layer: 31
   m_Name: Player
   m_TagString: Player
@@ -296,6 +329,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 222827789391152902}
+  - {fileID: 639740253637664850}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2310323673246903170
@@ -455,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb7ea1a1693a1e44af8497217322a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatus: {fileID: 11400000, guid: 37cb0038ba2bad74d92c247051a8d303, type: 2}
+  playerStatus: {fileID: 11400000, guid: 585433539f289e347bc407191b0cd5f3, type: 2}
   atkPower: 0
   hp: 0
   hpGen: 0
@@ -503,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d442496b8d39b40a1eec1d051db1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatus: {fileID: 11400000, guid: 37cb0038ba2bad74d92c247051a8d303, type: 2}
+  playerStatus: {fileID: 11400000, guid: 585433539f289e347bc407191b0cd5f3, type: 2}
   atkSpeedStat: {fileID: 11400000, guid: 2d22c3630fee31546a8ec6083b91fe23, type: 2}
   weaponCollider: {fileID: 6106144703540373542}
 --- !u!114 &4424191912007471470
@@ -520,6 +554,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerStatDataList: []
   isLoaded: 0
+--- !u!114 &-340424713038154798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820830875522472369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370a1d629dd1a9c4888f0c6f2dc8a6f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _BindingPoints:
+  - Type: 3
+    Point: {fileID: 639740253637664850}
+--- !u!114 &3965258938845342612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820830875522472369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e9b53c087e71254bba0bb30969c1995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Anim: {fileID: 1359257482746744299}
+  _BindingPoints: {fileID: -340424713038154798}
+  _Target: {fileID: 0}
 --- !u!1 &8479594075610017237
 GameObject:
   m_ObjectHideFlags: 0
