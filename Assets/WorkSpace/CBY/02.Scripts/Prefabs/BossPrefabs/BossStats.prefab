@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a11a2b3cbf82d2408254ae73b87e403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statData: {fileID: 0}
+  statData: {fileID: 11400000, guid: 98dee33981bfaa0489c5e0c2b1a8d568, type: 2}
   maxHp: 10000
   hp: 1500
   attack: 400
