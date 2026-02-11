@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    // 업데이트에서 스테이지 변경체크
+    //업데이트에서 스테이지 변경체크
     void Update()
     {
         CheckStage();
