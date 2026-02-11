@@ -8,4 +8,7 @@ public class SkillData : ScriptableObject
     public float cooldownTime; // 쿨타임
     public float durationTime; // 지속시간 (0이면 즉발)
     public bool isUnlocked; // 해금 여부 (테스트용)
+
+    [TextArea]
+    public string skillDesc;
 }
