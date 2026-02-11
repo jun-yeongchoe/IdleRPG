@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b03e242f0ea8d44afccf714a525a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatus: {fileID: 11400000, guid: 37cb0038ba2bad74d92c247051a8d303, type: 2}
+  playerStatus: {fileID: 11400000, guid: f35726ab70213794eab43e0fc747ae24, type: 2}
   atkStat: {fileID: 11400000, guid: 42b647f56a171d1428a5f58482fb99ab, type: 2}
 --- !u!1 &6386593519790834441
 GameObject:
@@ -308,6 +308,7 @@ GameObject:
   - component: {fileID: 4424191912007471470}
   - component: {fileID: -340424713038154798}
   - component: {fileID: 3965258938845342612}
+  - component: {fileID: 2194156081758486820}
   m_Layer: 31
   m_Name: Player
   m_TagString: Player
@@ -489,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb7ea1a1693a1e44af8497217322a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatus: {fileID: 11400000, guid: 585433539f289e347bc407191b0cd5f3, type: 2}
+  playerStatus: {fileID: 11400000, guid: f35726ab70213794eab43e0fc747ae24, type: 2}
   atkPower: 0
   hp: 0
   hpGen: 0
@@ -537,7 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d442496b8d39b40a1eec1d051db1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatus: {fileID: 11400000, guid: 585433539f289e347bc407191b0cd5f3, type: 2}
+  playerStatus: {fileID: 11400000, guid: f35726ab70213794eab43e0fc747ae24, type: 2}
   atkSpeedStat: {fileID: 11400000, guid: 2d22c3630fee31546a8ec6083b91fe23, type: 2}
   weaponCollider: {fileID: 6106144703540373542}
 --- !u!114 &4424191912007471470
@@ -584,6 +585,20 @@ MonoBehaviour:
   _Anim: {fileID: 1359257482746744299}
   _BindingPoints: {fileID: -340424713038154798}
   _Target: {fileID: 0}
+--- !u!114 &2194156081758486820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820830875522472369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a0c28f60e55d34b841931f65f7ada8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHP: 0
+  maxHP: 0
 --- !u!1 &8479594075610017237
 GameObject:
   m_ObjectHideFlags: 0
