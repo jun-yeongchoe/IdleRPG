@@ -14,6 +14,9 @@ public class BossController : MonoBehaviour
     private bool isActing;
     private bool isDead;
 
+    // ★ 추가: 보스 사망 콜백 (보스러쉬용)
+    public System.Action onDead;
+
     private enum BossState
     {
         Idle,
@@ -26,10 +29,15 @@ public class BossController : MonoBehaviour
 
     private void Start()
     {
-        // 스탯 초기화 (스테이지 기준)
+        // 스탯 초기화 (일반 스테이지용)
         stats.InitByStage();
-
         ChangeState(BossState.Idle);
+    }
+
+    // ★ 추가: 보스러쉬 매니저에서 호출
+    public void Init(System.Action deadCallback)
+    {
+        onDead = deadCallback;
     }
 
     private void ChangeState(BossState newState)
@@ -65,7 +73,6 @@ public class BossController : MonoBehaviour
 
     private IEnumerator Idle()
     {
-        // 잠깐 대기
         yield return new WaitForSeconds(0.8f);
     }
 
@@ -76,7 +83,6 @@ public class BossController : MonoBehaviour
 
         while (timer < moveTime)
         {
-            // BossStats의 이동속도 사용
             transform.Translate(Vector3.left * stats.moveSpeed * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
@@ -85,9 +91,7 @@ public class BossController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        // 실제 공격 판정은 BossAttack 쪽으로 분리 가능
         Debug.Log($"보스 공격! 데미지: {stats.attack}");
-
         yield return new WaitForSeconds(stats.attackCooldown);
     }
 
@@ -110,7 +114,6 @@ public class BossController : MonoBehaviour
 
         stats.TakeDamage(damage);
 
-        // BossStats의 HP를 기준으로 사망 판단
         if (stats.hp <= 0)
             Die();
     }
@@ -124,9 +127,10 @@ public class BossController : MonoBehaviour
 
         Debug.Log("보스 사망");
 
+        onDead?.Invoke();   // ★ 추가: 보스러쉬 매니저에게 알림
         Destroy(gameObject);
     }
-    
+
     private void DropItems()
     {
         if (dropItems.Length == 0) return;
