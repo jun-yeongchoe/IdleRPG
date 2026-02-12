@@ -18,6 +18,22 @@ public class SkillManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        if (DataManager.Instance != null)
+        {
+            System.Array.Copy(DataManager.Instance.SkillSlot, equippedSkillIndexes, equippedSkillIndexes.Length);
+        }
+    }
+
+    public void SyncToDataManager()
+    {
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.SkillSlot = equippedSkillIndexes;
+        }
+    }
+
     public SkillData GetSkillAt(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= equippedSkillIndexes.Length) return null;

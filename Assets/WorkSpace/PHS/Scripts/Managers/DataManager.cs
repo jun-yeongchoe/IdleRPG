@@ -25,6 +25,7 @@ public class DataManager : MonoBehaviour
     public int backgroundCount = 3;
 
     public int[] EquipSlot=new int[4];
+    public int[] SkillSlot = new int[5];
 
     //계산 로직(배경 순환: 10스테이지=1챕터, 매 챕터 클리어시 배경 전환을 위한 함수)
     public BackGroundType BackgroundIndex()
@@ -116,6 +117,7 @@ public class DataManager : MonoBehaviour
         data.SkillList = DictToList(SkillDict);
 
         data.EquipSlot=EquipSlot;
+        data.SkillSlot = SkillSlot;
 
         return JsonUtility.ToJson(data);
     }
@@ -158,7 +160,16 @@ public class DataManager : MonoBehaviour
             EquipSlot = new int[4];
         }
 
-            Debug.Log("데이터 로드 완료!");
+        if (data.SkillSlot != null && data.SkillSlot.Length == 5)
+        {
+            SkillSlot = data.SkillSlot;
+        }
+        else
+        {
+            SkillSlot = new int[] { 0, 1, 2, -1, -1 };
+        }
+
+        Debug.Log("데이터 로드 완료!");
         if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
     }
 
@@ -221,6 +232,7 @@ public class GameDataDTO
     public List<ItemSaveData> SkillList;
 
     public int[] EquipSlot;
+    public int[] SkillSlot;
 }
 [System.Serializable]
 public class ItemSaveData
