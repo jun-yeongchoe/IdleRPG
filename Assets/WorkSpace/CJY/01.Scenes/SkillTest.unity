@@ -392,6 +392,71 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1001 &1213466535
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 299115461176464559, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_Name
+      value: EffectManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246953650903416873, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 39.086727
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246953650903416873, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.301795
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246953650903416873, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1520602
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246953650903416873, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246953650903416873, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246953650903416873, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246953650903416873, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246953650903416873, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246953650903416873, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246953650903416873, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146524654225839066, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 4258341324361696382, guid: 46b18078ebe1d564d90a15de681cfb0e, type: 3}
+    - target: {fileID: 3146524654225839066, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
+      propertyPath: effectName
+      value: EarthBeam
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c6f4298f3c2a95a40bd8398813e38e6a, type: 3}
 --- !u!114 &1386611864 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3965258938845342612, guid: 1a6874204bb04bb4ba7f6e898c00c5f0, type: 3}
@@ -636,3 +701,4 @@ SceneRoots:
   - {fileID: 1418863729}
   - {fileID: 1387413128}
   - {fileID: 707048033}
+  - {fileID: 1213466535}
