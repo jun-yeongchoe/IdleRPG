@@ -1,87 +1,86 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillSlot : MonoBehaviour
 {
-    [Header("½½·Ô ¼³Á¤")]
-    // ÇØ±İ ½ºÅ×ÀÌÁö ¼³Á¤
+    [Header("ìŠ¬ë¡¯ ì„¤ì •")]
+    // í•´ê¸ˆ ìŠ¤í…Œì´ì§€ ì„¤ì •
     public int unlockStage = 1;
 
-    [Header("ÀåÂøµÈ ½ºÅ³ È®ÀÎ¿ë")]
+    [Header("ì¥ì°©ëœ ìŠ¤í‚¬ í™•ì¸ìš©")]
     public SkillData skillData;
 
-    // ½½·Ô ÇØ±İ ¿©ºÎ
+    // ìŠ¬ë¡¯ í•´ê¸ˆ ì—¬ë¶€
     public bool isSlotUnlocked = false;
 
-    [Header("UI ¿¬°á")]
-    public Image iconImage; // ½ºÅ³ ¾ÆÀÌÄÜ ÀÌ¹ÌÁö
-    public Image backgroundImage; // ¹è°æ ÀÌ¹ÌÁö
-    public Image durationCover; // Áö¼Ó½Ã°£ °ü·Ã
-    public Image cooldownCover; // ÄğÅ¸ÀÓ °ü·Ã
-    public GameObject lockObj; // ¶ô»óÅÂ °ü·Ã
+    [Header("UI ì—°ê²°")]
+    public Image iconImage; // ìŠ¤í‚¬ ì•„ì´ì½˜ ì´ë¯¸ì§€
+    public Image backgroundImage; // ë°°ê²½ ì´ë¯¸ì§€
+    public Image durationCover; // ì§€ì†ì‹œê°„ ê´€ë ¨
+    public Image cooldownCover; // ì¿¨íƒ€ì„ ê´€ë ¨
+    public GameObject lockObj; // ë½ìƒíƒœ ê´€ë ¨
 
-    private float currentTimer = 0f; // ÇöÀç ³²Àº ½Ã°£ (Áö¼Ó½Ã°£ or ÄğÅ¸ÀÓ)
-    private bool isDurationState = false; // ÇöÀç Áö¼Ó½Ã°£Áß?
-    private bool isCooldownState = false; // ÇöÀç ÄğÅ¸ÀÓÁß?
+    private float currentTimer = 0f; // í˜„ì¬ ë‚¨ì€ ì‹œê°„ (ì§€ì†ì‹œê°„ or ì¿¨íƒ€ì„)
+    private bool isDurationState = false; // í˜„ì¬ ì§€ì†ì‹œê°„ì¤‘?
+    private bool isCooldownState = false; // í˜„ì¬ ì¿¨íƒ€ì„ì¤‘?
 
     public void RefreshSlotState()
     {
-        // ÀÓ½Ã ¸Å´ÏÀú¿¡ ÇØ±İÁ¶°Ç ´Ş¼º ¿©ºÎ È®ÀÎ
-        if (MockDataHub.Instance != null)
+        if (SkillManager.Instance != null)
         {
-            isSlotUnlocked = MockDataHub.Instance.IsSlotUnlocked(unlockStage);
+            isSlotUnlocked = SkillManager.Instance.IsSlotUnlocked(unlockStage);
         }
         else
         {
-            // ¸Å´ÏÀú°¡ ¾øÀ¸¸é ÀÏ´Ü Àá±İ
+            // ë§¤ë‹ˆì €ê°€ ì—†ìœ¼ë©´ ì¼ë‹¨ ì ê¸ˆ
             isSlotUnlocked = false;
         }
 
-        // ¶ô UI Å°°Å³ª ²ô±â
+        // ë½ UI í‚¤ê±°ë‚˜ ë„ê¸°
         if (lockObj != null) lockObj.SetActive(!isSlotUnlocked);
 
-        // Àá±è »óÅÂ¶ó¸é ¸ğµÎ ÃÊ±âÈ­
+        // ì ê¹€ ìƒíƒœë¼ë©´ ëª¨ë‘ ì´ˆê¸°í™”
         if (!isSlotUnlocked)
         {
-            if (iconImage != null) iconImage.gameObject.SetActive(false); // ¾ÆÀÌÄÜ ¼û±è
-            if (backgroundImage != null) backgroundImage.color = Color.white; // ¹è°æ»ö º¹±¸
-            if (durationCover != null) durationCover.gameObject.SetActive(false); // Áö¼Ó½Ã°£ ¼û±è
-            if (cooldownCover != null) cooldownCover.fillAmount = 0; // ÄğÅ¸ÀÓ ÃÊ±âÈ­
+            if (iconImage != null) iconImage.gameObject.SetActive(false); // ì•„ì´ì½˜ ìˆ¨ê¹€
+            if (backgroundImage != null) backgroundImage.color = Color.white; // ë°°ê²½ìƒ‰ ë³µêµ¬
+            if (durationCover != null) durationCover.gameObject.SetActive(false); // ì§€ì†ì‹œê°„ ìˆ¨ê¹€
+            if (cooldownCover != null) cooldownCover.fillAmount = 0; // ì¿¨íƒ€ì„ ì´ˆê¸°í™”
 
-            // º¯¼öµéµµ ¸®¼Â
+            // ë³€ìˆ˜ë“¤ë„ ë¦¬ì…‹
             isDurationState = false;
             isCooldownState = false;
             currentTimer = 0;
         }
         else
         {
-            // ÇØ±İÇß´Ù¸é µ¥ÀÌÅÍ »óÅÂ¿¡ µû¶ó Ãâ·Â
+            // í•´ê¸ˆí–ˆë‹¤ë©´ ë°ì´í„° ìƒíƒœì— ë”°ë¼ ì¶œë ¥
             if (iconImage != null)
             {
-                // ½ºÅ³ µ¥ÀÌÅÍ°¡ ÀÖÀ¸¸é ¾ÆÀÌÄÜÀ» ÄÑ°í, ¾øÀ¸¸é ²û
+                // ìŠ¤í‚¬ ë°ì´í„°ê°€ ìˆìœ¼ë©´ ì•„ì´ì½˜ì„ ì¼œê³ , ì—†ìœ¼ë©´ ë”
                 iconImage.gameObject.SetActive(skillData != null);
 
-                // ÀÌ¹ÌÁö°¡ ºüÁ®ÀÖÀ» ¼ö ÀÖÀ¸´Ï, ´Ù½Ã ³Ö¾îÁÜ
+                // ì´ë¯¸ì§€ê°€ ë¹ ì ¸ìˆì„ ìˆ˜ ìˆìœ¼ë‹ˆ, ë‹¤ì‹œ ë„£ì–´ì¤Œ
                 if (skillData != null) iconImage.sprite = skillData.skillIcon;
             }
         }
     }
 
-    // Åø¹Ù¿¡¼­ ½½·Ô¿¡ µ¥ÀÌÅÍ ³Ö¾îÁÖ´Â
+    // íˆ´ë°”ì—ì„œ ìŠ¬ë¡¯ì— ë°ì´í„° ë„£ì–´ì£¼ëŠ”
     public void SetSkill(SkillData data)
     {
-        skillData = data; // µ¥ÀÌÅÍ¸¦ ³» º¯¼ö¿¡ ÀúÀå
+        skillData = data; // ë°ì´í„°ë¥¼ ë‚´ ë³€ìˆ˜ì— ì €ì¥
 
-        // µ¥ÀÌÅÍ°¡ µé¾î¿À¸é ÀÏ´Ü Àû¿ë
+        // ë°ì´í„°ê°€ ë“¤ì–´ì˜¤ë©´ ì¼ë‹¨ ì ìš©
         if (skillData != null && iconImage != null)
         {
             iconImage.sprite = skillData.skillIcon;
         }
 
-        // Àá±İÀÌ¸é ¼û±è, ÇØ±İÀÌ¸é ³ëÃâ
+        // ì ê¸ˆì´ë©´ ìˆ¨ê¹€, í•´ê¸ˆì´ë©´ ë…¸ì¶œ
         RefreshSlotState();
 
-        // ÇØ±İ »óÅÂ¿¡¼­ »õ·Î¿î ½ºÅ³ Âø¿ë½Ã Àç½ÃÀÛ
+        // í•´ê¸ˆ ìƒíƒœì—ì„œ ìƒˆë¡œìš´ ìŠ¤í‚¬ ì°©ìš©ì‹œ ì¬ì‹œì‘
         if (isSlotUnlocked && skillData != null)
         {
             currentTimer = 0;
@@ -93,80 +92,80 @@ public class SkillSlot : MonoBehaviour
         }
     }
 
-    // ¿ÀÅä±â´É¿ë È®ÀÎ
+    // ì˜¤í† ê¸°ëŠ¥ìš© í™•ì¸
     public bool IsReady()
     {
-        // Àá°ÜÀÖ°Å³ª, ½ºÅ³ µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é »ç¿ë ºÒ°¡
+        // ì ê²¨ìˆê±°ë‚˜, ìŠ¤í‚¬ ë°ì´í„°ê°€ ì—†ìœ¼ë©´ ì‚¬ìš© ë¶ˆê°€
         if (!isSlotUnlocked || skillData == null) return false;
 
-        // Áö¼Ó½Ã°£ ÁßÀÌ°Å³ª, ÄğÅ¸ÀÓ ÁßÀÌ¸é »ç¿ë ºÒ°¡
+        // ì§€ì†ì‹œê°„ ì¤‘ì´ê±°ë‚˜, ì¿¨íƒ€ì„ ì¤‘ì´ë©´ ì‚¬ìš© ë¶ˆê°€
         return !isDurationState && !isCooldownState;
     }
 
-    // ½ºÅ³ »ç¿ë ÇÔ¼ö
+    // ìŠ¤í‚¬ ì‚¬ìš© í•¨ìˆ˜
     public void UseSkill()
     {
-        if (!IsReady()) return; // ÁØºñ ¾È µÆÀ¸¸é ¹«½Ã
+        if (!IsReady()) return; // ì¤€ë¹„ ì•ˆ ëìœ¼ë©´ ë¬´ì‹œ
 
-        // Áö¼Ó½Ã°£ ÀÖ´Â ½ºÅ³
+        // ì§€ì†ì‹œê°„ ìˆëŠ” ìŠ¤í‚¬
         if (skillData.durationTime > 0)
         {
-            isDurationState = true; // Áö¼Ó »óÅÂ ½ÃÀÛ
-            currentTimer = skillData.durationTime; // Å¸ÀÌ¸Ó ¼³Á¤
+            isDurationState = true; // ì§€ì† ìƒíƒœ ì‹œì‘
+            currentTimer = skillData.durationTime; // íƒ€ì´ë¨¸ ì„¤ì •
 
-            // ÀÏ´Ü ÄÚµå·Î ¿¬Ãâ. ³ë¶õ»ö 
+            // ì¼ë‹¨ ì½”ë“œë¡œ ì—°ì¶œ. ë…¸ë€ìƒ‰ 
             backgroundImage.color = Color.yellow;
             durationCover.fillAmount = 1.0f;
             durationCover.gameObject.SetActive(true);
         }
-        // Áï¹ß ½ºÅ³
+        // ì¦‰ë°œ ìŠ¤í‚¬
         else
         {
-            StartCooldown(); // ¹Ù·Î ÄğÅ¸ÀÓ ½ÃÀÛ
+            StartCooldown(); // ë°”ë¡œ ì¿¨íƒ€ì„ ì‹œì‘
         }
     }
 
-    // Å¸ÀÌ¸Ó °è»ê
+    // íƒ€ì´ë¨¸ ê³„ì‚°
     void Update()
     {
-        // Àá°ÜÀÖ°Å³ª ½ºÅ³ÀÌ ¾øÀ¸¸é °è»êÇÒ ÇÊ¿ä ¾øÀ½
+        // ì ê²¨ìˆê±°ë‚˜ ìŠ¤í‚¬ì´ ì—†ìœ¼ë©´ ê³„ì‚°í•  í•„ìš” ì—†ìŒ
         if (!isSlotUnlocked || skillData == null) return;
 
-        // Áö¼Ó½Ã°£ ÁßÀÏ‹š
+        // ì§€ì†ì‹œê°„ ì¤‘ì¼ë–„
         if (isDurationState)
         {
-            currentTimer -= Time.deltaTime; // ½Ã°£ Èå¸§
-            durationCover.fillAmount = currentTimer / skillData.durationTime; // UI ¿¬Ãâ °»½Å
+            currentTimer -= Time.deltaTime; // ì‹œê°„ íë¦„
+            durationCover.fillAmount = currentTimer / skillData.durationTime; // UI ì—°ì¶œ ê°±ì‹ 
 
-            // Áö¼Ó½Ã°£ Á¾·á½Ã
+            // ì§€ì†ì‹œê°„ ì¢…ë£Œì‹œ
             if (currentTimer <= 0)
             {
-                isDurationState = false; // Áö¼Ó »óÅÂ ³¡
-                StartCooldown(); // ÄğÅ¸ÀÓ ½ÃÀÛ
+                isDurationState = false; // ì§€ì† ìƒíƒœ ë
+                StartCooldown(); // ì¿¨íƒ€ì„ ì‹œì‘
             }
         }
-        // ÄğÅ¸ÀÓ ÁßÀÏ¶§
+        // ì¿¨íƒ€ì„ ì¤‘ì¼ë•Œ
         else if (isCooldownState)
         {
-            currentTimer -= Time.deltaTime; // ½Ã°£ Èå¸§
-            cooldownCover.fillAmount = currentTimer / skillData.cooldownTime; // UI ¿¬Ãâ °»½Å
+            currentTimer -= Time.deltaTime; // ì‹œê°„ íë¦„
+            cooldownCover.fillAmount = currentTimer / skillData.cooldownTime; // UI ì—°ì¶œ ê°±ì‹ 
 
-            // ÄğÅ¸ÀÓ Á¾·á½Ã
+            // ì¿¨íƒ€ì„ ì¢…ë£Œì‹œ
             if (currentTimer <= 0)
             {
-                isCooldownState = false; // ÄğÅ¸ÀÓ ³¡
-                cooldownCover.fillAmount = 0; // ºñ¿ì±â
+                isCooldownState = false; // ì¿¨íƒ€ì„ ë
+                cooldownCover.fillAmount = 0; // ë¹„ìš°ê¸°
             }
         }
     }
 
-    // ÄğÅ¸ÀÓ ½ÃÀÛ
+    // ì¿¨íƒ€ì„ ì‹œì‘
     private void StartCooldown()
     {
         isCooldownState = true;
         currentTimer = skillData.cooldownTime;
 
-        // UI ¿ø»óº¹±¸ ¹× ÄğÅ¸ÀÓ ¹Ù ¼¼ÆÃ
+        // UI ì›ìƒë³µêµ¬ ë° ì¿¨íƒ€ì„ ë°” ì„¸íŒ…
         backgroundImage.color = Color.white;
         durationCover.gameObject.SetActive(false);
         cooldownCover.fillAmount = 1.0f;

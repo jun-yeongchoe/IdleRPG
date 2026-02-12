@@ -33,8 +33,6 @@ public class SkillManager : MonoBehaviour
     {
         if (DataManager.Instance == null) return false;
 
-        // DataManager의 현재 스테이지와 비교
-        // (DataManager에 Stage 변수가 있다고 가정. 없으면 추가 필요)
         return DataManager.Instance.currentStageNum >= unlockStage;
     }
 
@@ -43,6 +41,7 @@ public class SkillManager : MonoBehaviour
         get
         {
             if (DataManager.Instance == null) return 1;
+
             return DataManager.Instance.currentStageNum;
         }
     }
