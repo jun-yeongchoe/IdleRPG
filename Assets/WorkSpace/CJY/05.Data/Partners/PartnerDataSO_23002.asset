@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
+  m_Name: PartnerDataSO_23002
+  m_EditorClassIdentifier: 
+  ID: 23002
+  Name_KR: "\uCC9C\uB465 \uC694\uC815"
+  Name_EN: Thunder Fairy
+  itemRank: 3
+  itemType: 0
+  Icon: {fileID: 0}
+  BaseComposeCount: 6
+  BaseStatBoost: 0
+  StatPerLevel: 0.04
+  AttackDamage: 1200
+  AttackSpeed: 1.6
+  PrefabPath: Partner/Epic_Fairy
+  Description: "\uBC88\uAC1C \uC904\uAE30\uB85C \uCCB4\uC778 \uACF5\uACA9"

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21286aa56eefec5409a09974d477b081, type: 3}
+  m_Name: SkillDataSo_11003
+  m_EditorClassIdentifier: 
+  ID: 11003
+  Name_KR: "\uD658\uC601 \uBCA0\uAE30"
+  Name_EN: Phantom Slash
+  itemRank: 1
+  itemType: 0
+  Icon: {fileID: 0}
+  BaseComposeCount: 10
+  BaseStatBoost: 0
+  StatPerLevel: 0.02
+  skillTargetType: 0
+  StrikeCount: 3
+  Damage_Coef: 1
+  Cooltime: 6
+  EffectPrefabName: FX_PhantomSlash
+  SplashRadius: 2
