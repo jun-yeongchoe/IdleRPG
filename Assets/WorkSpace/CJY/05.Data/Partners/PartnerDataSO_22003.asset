@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
+  m_Name: PartnerDataSO_22003
+  m_EditorClassIdentifier: 
+  ID: 22003
+  Name_KR: "\uC11C\uB9AC \uC218\uC815"
+  Name_EN: Frost Crystal
+  itemRank: 2
+  itemType: 0
+  Icon: {fileID: 0}
+  BaseComposeCount: 8
+  BaseStatBoost: 0
+  StatPerLevel: 0.03
+  AttackDamage: 600
+  AttackSpeed: 0.5
+  PrefabPath: Partner/Rare_Ice
+  Description: "\uACE0\uC815\uB41C \uC704\uCE58\uC5D0\uC11C \uC5BC\uC74C \uD30C\uD3B8
+    \uBC1C\uC0AC"

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c3d2aaa80db5343a081d2590387a68, type: 3}
+  m_Name: EquipmentDataSO_4001
+  m_EditorClassIdentifier: 
+  ID: 4001
+  Name_KR: "\uAC00\uC8FD \uAC11\uC637"
+  Name_EN: leather_armor
+  itemRank: 0
+  itemType: 0
+  Icon: {fileID: 0}
+  BaseComposeCount: 12
+  BaseStatBoost: 0.1
+  StatPerLevel: 0.01
+  equipmentType: 1
+  Value: 1.08
+  Description: "\uAC00\uBCCD\uACE0 \uD65C\uB3D9\uD558\uAE30 \uD3B8\uD55C \uAC11\uC637\uC785\uB2C8\uB2E4."

@@ -144,6 +144,7 @@ public class DBManager : MonoBehaviour
         }
 
         // SO 데이터를 JSON용 클래스로 변환하여 저장
+        
         // UserData data = playerStatus.ToUserData(); // 기존
         // string json = JsonUtility.ToJson(data);
 
