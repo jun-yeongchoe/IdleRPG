@@ -14,7 +14,7 @@ public class BossController : MonoBehaviour
     private bool isActing;
     private bool isDead;
 
-    // ★ 추가: 보스 사망 콜백 (보스러쉬용)
+    //보스 사망 콜백 (보스러쉬용)
     public System.Action onDead;
 
     private enum BossState
@@ -34,7 +34,7 @@ public class BossController : MonoBehaviour
         ChangeState(BossState.Idle);
     }
 
-    // ★ 추가: 보스러쉬 매니저에서 호출
+    //보스러쉬 매니저에서 호출
     public void Init(System.Action deadCallback)
     {
         onDead = deadCallback;
@@ -127,7 +127,7 @@ public class BossController : MonoBehaviour
 
         Debug.Log("보스 사망");
 
-        onDead?.Invoke();   // ★ 추가: 보스러쉬 매니저에게 알림
+        onDead?.Invoke();   //보스러쉬 매니저에게 알림
         Destroy(gameObject);
     }
 
