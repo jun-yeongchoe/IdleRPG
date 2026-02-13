@@ -40,6 +40,15 @@ public class GoogleLogin : MonoBehaviour
         if (dependencyStatus == DependencyStatus.Available) {
             auth = FirebaseAuth.DefaultInstance;
 
+            if(DBManager.Instance != null)
+            {
+                Debug.Log("DBManager 인스턴스가 존재합니다.");
+            }
+            else
+            {
+                Debug.LogError("DBManager 인스턴스가 존재하지 않습니다. Hierarchy에 DBManager 오브젝트를 생성하고 스크립트를 붙여주세요.");
+            }
+
             if (auth.CurrentUser != null) {
                 user = auth.CurrentUser;
                 isLoginTaskComplete = true; // 메인 스레드 UI 업데이트 신호
@@ -109,12 +118,11 @@ public class GoogleLogin : MonoBehaviour
     private void UpdateUI()
     {
         if (user == null) return;
-        DBManager DBM = FindObjectOfType<DBManager>();
 
-        if (DBM != null)
+        if (DBManager.Instance != null)
         {
             Debug.Log("신규 유저 혹은 초기 설정을 위해 SO 데이터를 서버에 저장합니다.");
-            DBM.LoadUserData(user.UserId); 
+            DBManager.Instance.LoadUserData(user.UserId); 
         }
         else
         {

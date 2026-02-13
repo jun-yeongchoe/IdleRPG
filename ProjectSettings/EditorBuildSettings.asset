@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/WorkSpace/Build/1st_Build/01.Scenes/Login Scene_1st.unity
-    guid: 3586ae7b02f5b6c4b96fba72229350fd
+    path: Assets/WorkSpace/Build/build_test(1st_Build_Base)/01.Scenes/Login Scene_1st.unity
+    guid: 92f5fd59312de9c44bd126955fb9f22b
   - enabled: 1
-    path: Assets/WorkSpace/Build/1st_Build/01.Scenes/Game Scene_1st.unity
-    guid: e3ee321d1775855469a2185a3ee9e0a2
+    path: Assets/WorkSpace/Build/build_test(1st_Build_Base)/01.Scenes/Game Scene_1st.unity
+    guid: 07fb61c21ec1173468bf08d4bd3b5e71
   m_configObjects: {}

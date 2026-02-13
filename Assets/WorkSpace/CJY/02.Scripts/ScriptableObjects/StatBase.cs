@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,5 +15,5 @@ public class StatBase : ScriptableObject
     public int limitLevel = -1;
 
     public float GetValue(int level) => baseValue + (level -1) * valueIncre;
-    public float GetCost(int level) => Mathf.CeilToInt(baseCost + (level -1) * costIncre);
+    public double GetCost(int level) => baseCost + (double)(level -1) * costIncre;
 }

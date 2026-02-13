@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 
@@ -9,8 +10,8 @@ public class CoinDisplay : MonoBehaviour
     [SerializeField] PlayerStatus playerStatus;
     [SerializeField] TextMeshProUGUI goldText, gemText;
 
-    private ReactiveProperty<int> gold = new ReactiveProperty<int>(1), 
-    gem = new ReactiveProperty<int>(1);    
+    private ReactiveProperty<BigInteger> gold = new ReactiveProperty<BigInteger>(1), 
+    gem = new ReactiveProperty<BigInteger>(1);    
     
     void Start()
     {
@@ -22,12 +23,12 @@ public class CoinDisplay : MonoBehaviour
 
         UpdateCoinDisplay();
     }
-    private void OnChangedValue1(int obj)
+    private void OnChangedValue1(BigInteger obj)
     {
         playerStatus.gold = gold.Value;
         goldText.text = playerStatus.gold.ToString();
     }
-    private void OnChangedValue2(int obj)
+    private void OnChangedValue2(BigInteger obj)
     {
         playerStatus.gem = gem.Value;
         gemText.text = playerStatus.gem.ToString();

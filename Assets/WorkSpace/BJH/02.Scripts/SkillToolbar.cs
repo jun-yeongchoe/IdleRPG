@@ -1,80 +1,80 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class SkillToolbar : MonoBehaviour
 {
-    [Header("¿ÀÅä ¹öÆ° UI")]
-    public Button autoButton; // Å¬¸¯ÇÒ ¹öÆ°
-    public TextMeshProUGUI autoText; // ¹öÆ° ¾ÈÀÇ ±ÛÀÚ (AUTO / AUTO ON)
-    public Image autoButtonImage; // ¹öÆ° ¹è°æ ÀÌ¹ÌÁö (º»Ã¼µµ »ó°ü¾øÀ½)
+    [Header("ì˜¤í†  ë²„íŠ¼ UI")]
+    public Button autoButton; // í´ë¦­í•  ë²„íŠ¼
+    public TextMeshProUGUI autoText; // ë²„íŠ¼ ì•ˆì˜ ê¸€ì (AUTO / AUTO ON)
+    public Image autoButtonImage; // ë²„íŠ¼ ë°°ê²½ ì´ë¯¸ì§€ (ë³¸ì²´ë„ ìƒê´€ì—†ìŒ)
 
-    [Header("½½·Ô ¿¬°á")]
-    public SkillSlot[] skillSlots; // ½½·Ô ¼ø¼­´ë·Î
+    [Header("ìŠ¬ë¡¯ ì—°ê²°")]
+    public SkillSlot[] skillSlots; // ìŠ¬ë¡¯ ìˆœì„œëŒ€ë¡œ
 
-    private bool isAutoMode = false; // ¿ÀÅä¸ğµå »ç¿ë ¿©ºÎ
+    private bool isAutoMode = false; // ì˜¤í† ëª¨ë“œ ì‚¬ìš© ì—¬ë¶€
 
-    private int lastCheckStage = -1; // ¸¶Áö¸· È®ÀÎÇÑ ½ºÅ×ÀÌÁö
-    private SkillData[] cachedSkills; // ¸¶Áö¸· È®ÀÎÇÑ ½ºÅ³¸ñ·Ï
+    private int lastCheckStage = -1; // ë§ˆì§€ë§‰ í™•ì¸í•œ ìŠ¤í…Œì´ì§€
+    private SkillData[] cachedSkills; // ë§ˆì§€ë§‰ í™•ì¸í•œ ìŠ¤í‚¬ëª©ë¡
 
     void Start()
     {
-        // ºñ±³¿ë ½ºÅ³ ¹è¿­ »ı¼º
+        // ë¹„êµìš© ìŠ¤í‚¬ ë°°ì—´ ìƒì„±
         cachedSkills = new SkillData[skillSlots.Length];
 
-        // 1È¸ ÃÊ±«È­
+        // 1íšŒ ì´ˆê´´í™”
         InitSlots();
 
-        // ¿ÀÅä ¹öÆ° ±â´É ¿¬°á
+        // ì˜¤í†  ë²„íŠ¼ ê¸°ëŠ¥ ì—°ê²°
         autoButton.onClick.AddListener(OnAutoButtonClicked);
-        UpdateAutoButtonUI(); // ¹öÆ° »ö±ò ÃÊ±âÈ­
+        UpdateAutoButtonUI(); // ë²„íŠ¼ ìƒ‰ê¹” ì´ˆê¸°í™”
     }
 
-    // °ÔÀÓ ½ÃÀÛ½Ã ¸Å´ÏÀú¿¡ µ¥ÀÌÅÍ¸¦ ½½·Ô¿¡ ÅõÀÔ
+    // ê²Œì„ ì‹œì‘ì‹œ ë§¤ë‹ˆì €ì— ë°ì´í„°ë¥¼ ìŠ¬ë¡¯ì— íˆ¬ì…
     void InitSlots()
     {
-        if (MockDataHub.Instance == null) return;
+        if (SkillManager.Instance == null) return;
 
         for (int i = 0; i < skillSlots.Length; i++)
         {
-            // i ¹øÂ° ½ºÅ³ ¿ä±¸
-            SkillData data = MockDataHub.Instance.GetSkillAt(i);
+            // i ë²ˆì§¸ ìŠ¤í‚¬ ìš”êµ¬
+            SkillData data = SkillManager.Instance.GetSkillAt(i);
 
-            // ½½·Ô¿¡ ÅõÀÔ
+            // ìŠ¬ë¡¯ì— íˆ¬ì…
             skillSlots[i].SetSkill(data);
 
-            // ÇöÀç ½ºÅ³ ±â¾ï ÀúÀå (ºñ±³¿ë)
+            // í˜„ì¬ ìŠ¤í‚¬ ê¸°ì–µ ì €ì¥ (ë¹„êµìš©)
             cachedSkills[i] = data;
         }
     }
 
     void Update()
     {
-        if (MockDataHub.Instance != null)
+        if (SkillManager.Instance != null)
         {
-            int currentStage = MockDataHub.Instance.currentStage;
+            int currentStage = SkillManager.Instance.currentStage;
 
-            // ½ºÅ×ÀÌÁö º¯°æ °¨Áö
+            // ìŠ¤í…Œì´ì§€ ë³€ê²½ ê°ì§€
             if (currentStage != lastCheckStage)
             {
-                lastCheckStage = currentStage; // »õ·Î¿î ½ºÅ×ÀÌÁö ¹øÈ£ ±â¾ï
+                lastCheckStage = currentStage; // ìƒˆë¡œìš´ ìŠ¤í…Œì´ì§€ ë²ˆí˜¸ ê¸°ì–µ
 
-                // ÇØ±İ ¤¸Á¶°Ç ÀçÈ®ÀÎ
+                // í•´ê¸ˆ ã…ˆì¡°ê±´ ì¬í™•ì¸
                 foreach (var slot in skillSlots) slot.RefreshSlotState();
             }
 
             for (int i = 0; i < skillSlots.Length; i++)
             {
-                // ÇöÀç ¸Å´ÏÀú ½ºÅ³ È®ÀÎ
-                SkillData managerSkill = MockDataHub.Instance.GetSkillAt(i);
+                // í˜„ì¬ ë§¤ë‹ˆì € ìŠ¤í‚¬ í™•ì¸
+                SkillData managerSkill = SkillManager.Instance.GetSkillAt(i);
 
-                // ºñ±³ ÈÄ ´Ù¸¥Áö ¿©ºÎ
+                // ë¹„êµ í›„ ë‹¤ë¥¸ì§€ ì—¬ë¶€
                 if (managerSkill != cachedSkills[i])
                 {
-                    // ½½·Ô¿¡ »õ ½ºÅ³ ÀåÂø ¹İ¿µ
+                    // ìŠ¬ë¡¯ì— ìƒˆ ìŠ¤í‚¬ ì¥ì°© ë°˜ì˜
                     skillSlots[i].SetSkill(managerSkill);
 
-                    // ÀúÀå°ø°£µµ ¾÷µ¥ÀÌÆ®
+                    // ì €ì¥ê³µê°„ë„ ì—…ë°ì´íŠ¸
                     cachedSkills[i] = managerSkill;
                 }
             }
@@ -84,32 +84,32 @@ public class SkillToolbar : MonoBehaviour
         {
             foreach (var slot in skillSlots)
             {
-                // ÁØºñµÇ¸é ½ÇÇà
+                // ì¤€ë¹„ë˜ë©´ ì‹¤í–‰
                 if (slot.IsReady()) slot.UseSkill();
             }
         }
     }
 
-    // ¿ÀÅä ¹öÆ° Å¬¸¯ ½Ã ½ÇÇàµÇ´Â ÇÔ¼ö
+    // ì˜¤í†  ë²„íŠ¼ í´ë¦­ ì‹œ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜
     void OnAutoButtonClicked()
     {
-        isAutoMode = !isAutoMode; // ¿Â¿ÀÇÁ ÀüÈ¯
-        UpdateAutoButtonUI(); // ¹öÆ° °»½Å
+        isAutoMode = !isAutoMode; // ì˜¨ì˜¤í”„ ì „í™˜
+        UpdateAutoButtonUI(); // ë²„íŠ¼ ê°±ì‹ 
     }
 
-    // ¿ÀÅä¹öÆ° ¿¬Ãâ ÄÚµå·Î ÀÏ´Ü ´ëÃ¼
+    // ì˜¤í† ë²„íŠ¼ ì—°ì¶œ ì½”ë“œë¡œ ì¼ë‹¨ ëŒ€ì²´
     void UpdateAutoButtonUI()
     {
         if (isAutoMode)
         {
-            // ÄÑÁø»çì
+            // ì¼œì§„ì‚¬ì•¹
             autoText.text = "AUTO ON";
             autoText.color = Color.yellow;
             autoButtonImage.color = Color.white;
         }
         else
         {
-            // ²¨Áü»óÅÂ
+            // êº¼ì§ìƒíƒœ
             autoText.text = "AUTO";
             autoText.color = Color.white;
             autoButtonImage.color = new Color(0.7f, 0.7f, 0.7f, 1f);

@@ -1,9 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Numerics;
 
 public class PlayerStatLevelUp : MonoBehaviour
 {
@@ -51,14 +52,26 @@ public class PlayerStatLevelUp : MonoBehaviour
         crit_p_level.AddAction(OnChangedLevel5);
         crit_d_level.AddAction(OnChangedLevel6);
 
-        atk_p_level.Value = playerStatus.atkPower;
-        hp_level.Value = playerStatus.hp;
-        hp_g_level.Value = playerStatus.hpGen;
-        atk_s_level.Value = playerStatus.atkSpeed;
-        crit_p_level.Value = playerStatus.criticalChance;
-        crit_d_level.Value = playerStatus.criticalDamage;
+        if (DataManager.Instance!=null)
+        {
+            atk_p_level.Value = DataManager.Instance.AtkLv;
+            hp_level.Value = DataManager.Instance.HpLv;
+            hp_g_level.Value = DataManager.Instance.RecoverLv;
+            atk_s_level.Value = DataManager.Instance.AtSpeedLv;
+            crit_p_level.Value = DataManager.Instance.CritPerLv;
+            crit_d_level.Value = DataManager.Instance.CritDmgLv;
+        }
+        else
+        {
+            atk_p_level.Value = playerStatus.atkPower;
+            hp_level.Value = playerStatus.hp;
+            hp_g_level.Value = playerStatus.hpGen;
+            atk_s_level.Value = playerStatus.atkSpeed;
+            crit_p_level.Value = playerStatus.criticalChance;
+            crit_d_level.Value = playerStatus.criticalDamage;
+        }
 
-        StartCoroutine(WaitForDataLoadAndUIRefresh());
+            StartCoroutine(WaitForDataLoadAndUIRefresh());
 
     }
 
@@ -87,34 +100,52 @@ public class PlayerStatLevelUp : MonoBehaviour
 
     public void OnClickLevelUp(StatType type)
     {
-        int cost = GetCurrentCost(type);
+        BigInteger cost = GetCurrentCost(type);
 
-        if (playerStatus.gold < cost)
+        if (DataManager.Instance.Gold < cost)
         {
             Debug.Log("골드가 부족합니다!");
             return;
         }
 
         // 골드 차감 및 레벨업
-        playerStatus.gold -= cost;
+        DataManager.Instance.AddGold(-cost);
         coinDisplay.UpdateCoinDisplay();
 
         switch (type)
         {
-            case StatType.Atk: atk_p_level.Value++; break;
-            case StatType.Hp:hp_level.Value++; break;
-            case StatType.HpRegen:hp_g_level.Value++; break;
-            case StatType.AtkSpeed:atk_s_level.Value++; break;
+            case StatType.Atk:
+                DataManager.Instance.AtkLv++;
+                atk_p_level.Value= DataManager.Instance.AtkLv; 
+                break;
+            case StatType.Hp:
+                DataManager.Instance.HpLv++;
+                hp_level.Value= DataManager.Instance.HpLv; 
+                break;
+            case StatType.HpRegen:
+                DataManager.Instance.RecoverLv++;
+                hp_g_level.Value= DataManager.Instance.RecoverLv; 
+                break;
+            case StatType.AtkSpeed:
+                DataManager.Instance.AtSpeedLv++;
+                atk_s_level.Value=DataManager.Instance.AtSpeedLv; 
+                break;
             case StatType.CritChance:
-                if(crit_p_level.Value >=1000) 
+                if(DataManager.Instance.CritPerLv >= 1000) 
                 {
                     Debug.Log("이미 만렙");
                     break;
                 }
-                crit_p_level.Value++; 
+                DataManager.Instance.CritPerLv++;
+                crit_p_level.Value= DataManager.Instance.CritPerLv; 
                 break;
-            case StatType.CritDamage:crit_d_level.Value++; break;
+            case StatType.CritDamage:
+                DataManager.Instance.CritDmgLv++;
+                crit_d_level.Value= DataManager.Instance.CritDmgLv; 
+                break;
         }
+
+        if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("StatChange");
     }
 
     private void LevelUIRefresh()
@@ -179,16 +210,16 @@ public class PlayerStatLevelUp : MonoBehaviour
     }
     #endregion
 
-    private int GetCurrentCost(StatType type)
+    private BigInteger GetCurrentCost(StatType type)
     {
         return type switch
         {
-            StatType.Atk => playerStatus.GetAtkCost(),
-            StatType.Hp => playerStatus.GetHPCost(),
-            StatType.HpRegen => playerStatus.GetHPGenCost(),
-            StatType.AtkSpeed => playerStatus.GetAtkSpeedCost(),
-            StatType.CritChance => playerStatus.GetCritChanceCost(),
-            StatType.CritDamage => playerStatus.GetCritDamageCost(),
+            StatType.Atk => (BigInteger)playerStatus.GetAtkCost(),
+            StatType.Hp => (BigInteger)playerStatus.GetHPCost(),
+            StatType.HpRegen => (BigInteger)playerStatus.GetHPGenCost(),
+            StatType.AtkSpeed => (BigInteger)playerStatus.GetAtkSpeedCost(),
+            StatType.CritChance => (BigInteger)playerStatus.GetCritChanceCost(),
+            StatType.CritDamage => (BigInteger)playerStatus.GetCritDamageCost(),
             _ => 0
         };
     }
