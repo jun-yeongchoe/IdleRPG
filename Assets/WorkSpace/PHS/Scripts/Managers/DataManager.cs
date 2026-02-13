@@ -25,12 +25,13 @@ public class DataManager : MonoBehaviour
     public int backgroundCount = 3;
 
     public int[] EquipSlot=new int[4];
+    public int[] SkillSlot = new int[5];
 
     //계산 로직(배경 순환: 10스테이지=1챕터, 매 챕터 클리어시 배경 전환을 위한 함수)
     public BackGroundType BackgroundIndex()
     { 
         int chapterNum = (currentStageNum-1)/StageCount;    //1~10는 0, 11~20은 1챕터 이런식
-        int index= chapterNum%backgroundCount;                  //11, 111, 10001 등등 커져도 문제x
+        int index= chapterNum%backgroundCount;              //11, 111, 10001 등등 커져도 문제x
 
         return (BackGroundType)index;
     }
@@ -48,13 +49,19 @@ public class DataManager : MonoBehaviour
     public int CritPerLv = 1;
     public int CritDmgLv = 1;
 
-    public float Shopexp = 0;
+    [Header("던전 입장권 (매일 리셋 대상)")]
+    public int GoldDungeonTicket = 2;
+    public int BossRushTicket = 2;
+    public int DwarfKingTicket = 2;
 
     public Dictionary<int, int> InventoryDict = new Dictionary<int, int>();
 
     public Dictionary<int, int> CompanionDict = new Dictionary<int, int>();
 
     public Dictionary<int, int> SkillDict = new Dictionary<int, int>();
+
+    public int[] ShopLevels = new int[3] { 1, 1, 1 };
+    public int[] ShopExps = new int[3] { 0, 0, 0 };
 
     private void Awake()
     {
@@ -116,6 +123,15 @@ public class DataManager : MonoBehaviour
         data.SkillList = DictToList(SkillDict);
 
         data.EquipSlot=EquipSlot;
+        data.SkillSlot = SkillSlot;
+
+        data.GoldDungeonTicket = GoldDungeonTicket;
+        data.BossRushTicket = BossRushTicket;
+        data.DwarfKingTicket = DwarfKingTicket;
+
+        data.ShopLevels = ShopLevels;
+        data.ShopExps = ShopExps;
+        data.SkillDict = DictToList(SkillDict);
 
         return JsonUtility.ToJson(data);
     }
@@ -158,7 +174,29 @@ public class DataManager : MonoBehaviour
             EquipSlot = new int[4];
         }
 
-            Debug.Log("데이터 로드 완료!");
+        if (data.SkillSlot != null && data.SkillSlot.Length == 5)
+        {
+            SkillSlot = data.SkillSlot;
+        }
+        else
+        {
+            SkillSlot = new int[] { 0, 1, 2, -1, -1 };
+        }
+
+        if (data.GoldDungeonTicket != -1) GoldDungeonTicket = data.GoldDungeonTicket;
+        else GoldDungeonTicket = 2;
+
+        if (data.BossRushTicket != -1) BossRushTicket = data.BossRushTicket;
+        else BossRushTicket = 2;
+
+        if (data.DwarfKingTicket != -1) DwarfKingTicket = data.DwarfKingTicket;
+        else DwarfKingTicket = 2;
+
+        if (data.ShopLevels != null && data.ShopLevels.Length == 3) ShopLevels = data.ShopLevels;
+        if (data.ShopExps != null && data.ShopExps.Length == 3) ShopExps = data.ShopExps;
+        SkillDict = ListToDict(data.SkillDict);
+
+        Debug.Log("데이터 로드 완료!");
         if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
     }
 
@@ -220,7 +258,16 @@ public class GameDataDTO
     public List<ItemSaveData> CompanionList;
     public List<ItemSaveData> SkillList;
 
+    public int GoldDungeonTicket = -1;
+    public int BossRushTicket = -1;
+    public int DwarfKingTicket = -1;
+
     public int[] EquipSlot;
+    public int[] SkillSlot;
+
+    public int[] ShopLevels;
+    public int[] ShopExps;
+    public List<ItemSaveData> SkillDict;
 }
 [System.Serializable]
 public class ItemSaveData

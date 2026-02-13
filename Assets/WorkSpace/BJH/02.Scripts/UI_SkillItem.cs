@@ -37,9 +37,24 @@ public class UI_SkillItem : MonoBehaviour
     {
         //팝업 관리자 호출
         if(SkillInfoPopup.Instance!=null && mySkillData!=null)
-        { 
-            //일단 false로 두고 스킬 매니저 연결시 수정예정
-            SkillInfoPopup.Instance.Open(mySkillData,false);
+        {
+            bool isEquipped = false;
+
+            if (SkillManager.Instance != null)
+            {
+                int myIndex = SkillManager.Instance.allSkills.IndexOf(mySkillData);
+
+                for (int i = 0; i < SkillManager.Instance.equippedSkillIndexes.Length; i++)
+                {
+                    if (SkillManager.Instance.equippedSkillIndexes[i] == myIndex)
+                    {
+                        isEquipped = true;
+                        break;
+                    }
+                }
+
+                SkillInfoPopup.Instance.Open(mySkillData, isEquipped);
+            }
         }
     }
 }
