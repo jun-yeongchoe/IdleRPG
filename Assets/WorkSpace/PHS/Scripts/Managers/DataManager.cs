@@ -131,7 +131,6 @@ public class DataManager : MonoBehaviour
 
         data.ShopLevels = ShopLevels;
         data.ShopExps = ShopExps;
-        data.SkillDict = DictToList(SkillDict);
 
         return JsonUtility.ToJson(data);
     }
@@ -194,7 +193,6 @@ public class DataManager : MonoBehaviour
 
         if (data.ShopLevels != null && data.ShopLevels.Length == 3) ShopLevels = data.ShopLevels;
         if (data.ShopExps != null && data.ShopExps.Length == 3) ShopExps = data.ShopExps;
-        SkillDict = ListToDict(data.SkillDict);
 
         Debug.Log("데이터 로드 완료!");
         if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
@@ -267,7 +265,6 @@ public class GameDataDTO
 
     public int[] ShopLevels;
     public int[] ShopExps;
-    public List<ItemSaveData> SkillDict;
 }
 [System.Serializable]
 public class ItemSaveData
