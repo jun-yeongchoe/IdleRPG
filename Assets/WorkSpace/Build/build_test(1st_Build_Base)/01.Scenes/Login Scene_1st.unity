@@ -3376,6 +3376,7 @@ MonoBehaviour:
   userIdTxt: {fileID: 2021978526}
   userEmailTxt: {fileID: 1235416291}
   loadingTxt: {fileID: 1551621672}
+  Username: {fileID: 275899560}
   profileImg: {fileID: 1454369272}
   loginPanel: {fileID: 1866720550}
 --- !u!114 &1733296125
