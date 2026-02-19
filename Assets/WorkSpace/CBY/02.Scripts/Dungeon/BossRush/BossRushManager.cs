@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class BossRushManager : MonoBehaviour
 {
@@ -15,7 +14,7 @@ public class BossRushManager : MonoBehaviour
     private int currentIndex = 0;
     private int defeatedCount = 0;
 
-    private BossController currentBoss;
+    private BossFSM currentBoss;
 
     private void Start()
     {
@@ -31,6 +30,8 @@ public class BossRushManager : MonoBehaviour
 
     private void SpawnNextBoss()
     {
+        if (bossPrefabs.Length == 0) return;
+
         GameObject bossObj;
 
         if (infiniteMode)
@@ -56,8 +57,12 @@ public class BossRushManager : MonoBehaviour
             );
         }
 
-        currentBoss = bossObj.GetComponent<BossController>();
-        currentBoss.Init(OnBossDead);
+        currentBoss = bossObj.GetComponent<BossFSM>();
+
+        if (currentBoss != null)
+        {
+            currentBoss.OnBossDeadCallback = OnBossDead;
+        }
 
         currentIndex++;
         BossRushUI.Instance.UpdateBossInfo(currentIndex, bossPrefabs.Length);

@@ -26,6 +26,7 @@ public class BossStats : MonoBehaviour
         hp = maxHp;
     }
 
+    //보스가 데미지를 입는 함수
     public void TakeDamage(float damage)
     {
         hp -= damage;
