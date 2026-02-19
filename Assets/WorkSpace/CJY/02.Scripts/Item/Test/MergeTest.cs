@@ -36,16 +36,16 @@ public class MergeTest : MonoBehaviour
         if (dict == null) return;
 
         if (dict.ContainsKey(id))
-            dict[id] += count;
+            dict[id].value += count;
         else
-            dict[id] = count;
+            dict[id].value = count;
 
         // level은 처음이라면 1로 초기화 (임시)
         if (!ItemMergeHandler.instance.tempItemLevels.ContainsKey(id))
             ItemMergeHandler.instance.tempItemLevels[id] = 1;
     }
 
-    private Dictionary<int, int> GetDict(ItemMergeHandler.ItemType type)
+    private Dictionary<int, ItemSaveData> GetDict(ItemMergeHandler.ItemType type)
     {
         var dm = DataManager.Instance;
         return type switch
@@ -60,7 +60,7 @@ public class MergeTest : MonoBehaviour
     private void UpdateDisplay()
     {
         var dict = GetDict(itemType);
-        currentCount = dict != null && dict.TryGetValue(testItemId, out int c) ? c : 0;
+        currentCount = dict != null && dict.TryGetValue(testItemId, out ItemSaveData c) ? c.value : 0;
         currentLevel = ItemMergeHandler.instance.GetLevel(testItemId, itemType);
 
         Debug.Log($"[현재 상태] ID: {testItemId} / 개수: {currentCount} / 레벨: {currentLevel}");

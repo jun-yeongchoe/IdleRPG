@@ -30,8 +30,8 @@ public class ItemMergeHandler : MonoBehaviour
         if (itemId <= 0) return false;
 
         var dm = DataManager.Instance;
-        Dictionary<int, int> targetDict = GetCountDictionary(itemType);
-        if (targetDict == null || !targetDict.TryGetValue(itemId, out int count) || count <= 0)
+        Dictionary<int, ItemSaveData> targetDict = GetItemDataDictionary(itemType);
+        if (targetDict == null || !targetDict.TryGetValue(itemId, out ItemSaveData current) || current.value <= 0)
         {
             Debug.Log($"아이템 없음 : {itemId} ({itemType})");
             return false;
@@ -40,17 +40,17 @@ public class ItemMergeHandler : MonoBehaviour
         int currentLevel = GetLevel(itemId, itemType);
         int needCount = GetRequiredMergeCount(itemId, currentLevel);
 
-        if (count < needCount)
+        if (current.value < needCount)
         {
-            Debug.Log($"합성 불가 - 필요 {needCount}개 / 보유 {count}개 (Lv {currentLevel})");
+            Debug.Log($"합성 불가 - 필요 {needCount}개 / 보유 {current.value}개 (Lv {currentLevel})");
             return false;
         }
 
         // 합성 성공
-        targetDict[itemId] = count - needCount;
+        targetDict[itemId].value = current.value - needCount;
         SetLevel(itemId, itemType, currentLevel + 1);
 
-        if (targetDict[itemId] <= 0)
+        if (targetDict[itemId].value <= 0)
         {
             targetDict.Remove(itemId);
             tempItemLevels.Remove(itemId);  // 임시 level도 정리
@@ -121,31 +121,17 @@ public class ItemMergeHandler : MonoBehaviour
     {
         // 미래 버전에서 사용할 코드 (주석 처리)
         
-        // var dict = GetItemDataDictionary(itemType);
-        // if (dict != null && dict.TryGetValue(itemId, out var data))
-        // return Mathf.Max(1, data.level);
+        var dict = GetItemDataDictionary(itemType);
+        if (dict != null && dict.TryGetValue(itemId, out ItemSaveData data)) return Mathf.Max(1, data.level);
+        else return 1;
         
-
         // 현재 임시 방식
-        tempItemLevels.TryGetValue(itemId, out int level);
-        return Mathf.Max(1, level);
+        // tempItemLevels.TryGetValue(itemId, out int level);
+        // return Mathf.Max(1, level);
     }
 
     // 현재 개수를 관리하는 딕셔너리 반환 (임시)
-    private Dictionary<int, int> GetCountDictionary(ItemType itemType)
-    {
-        var dm = DataManager.Instance;
-        return itemType switch
-        {
-            ItemType.Inventory  => dm.InventoryDict,
-            ItemType.Companion  => dm.CompanionDict,
-            ItemType.Skill      => dm.SkillDict,
-            _                   => null
-        };
-    }
-
-    // 미래에 Dictionary<int, ItemSaveData> 가 되었을 때 사용할 헬퍼
-    // private Dictionary<int, ItemSaveData> GetItemDataDictionary(ItemType itemType)
+    // private Dictionary<int, int> GetCountDictionary(ItemType itemType)
     // {
     //     var dm = DataManager.Instance;
     //     return itemType switch
@@ -157,6 +143,19 @@ public class ItemMergeHandler : MonoBehaviour
     //     };
     // }
 
+    // 미래에 Dictionary<int, ItemSaveData> 가 되었을 때 사용할 헬퍼
+    private Dictionary<int, ItemSaveData> GetItemDataDictionary(ItemType itemType)
+    {
+        var dm = DataManager.Instance;
+        return itemType switch
+        {
+            ItemType.Inventory  => dm.InventoryDict,
+            ItemType.Companion  => dm.CompanionDict,
+            ItemType.Skill      => dm.SkillDict,
+            _                   => null
+        };
+    }
+
     public enum ItemType
     {
         Inventory,
@@ -166,17 +165,17 @@ public class ItemMergeHandler : MonoBehaviour
 
     private void SetLevel(int itemId, ItemType itemType, int newLevel)
     {
-        // 미래 버전에서 사용할 코드 (주석 처리)
+        // 미래 버전에서 사용할 코드
         
-        // var dict = GetItemDataDictionary(itemType);
-        // if (dict != null && dict.TryGetValue(itemId, out var data))
-        // {
-        //     data.level = newLevel;
-        //     return;
-        // }
+        var dict = GetItemDataDictionary(itemType);
+        if (dict != null && dict.TryGetValue(itemId, out var data))
+        {
+            data.level = newLevel;
+            return;
+        }
         
         // 현재 임시 방식
-        tempItemLevels[itemId] = newLevel;
+        // tempItemLevels[itemId] = newLevel;
     }
 
     // 세이브/로드 관련 (나중에 ItemSaveData.level로 옮길 때 참고)
