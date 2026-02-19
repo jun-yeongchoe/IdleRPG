@@ -68,6 +68,13 @@ public class ShopManager : MonoBehaviour
             if (results.ContainsKey(itemID)) results[itemID]++;
             else results.Add(itemID, 1);
         }
+
+        Debug.Log($"[{type}] {count}회 뽑기 완료! 경험치 +{count} 증가");
+
+        if (GachaResultPopup.Instance != null)
+        {
+            GachaResultPopup.Instance.ShowResult(results);
+        }
     }
 
     private int GetIDByGrade(ShopType type, int grade)

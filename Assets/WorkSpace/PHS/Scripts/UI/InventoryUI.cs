@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class UIInventory : MonoBehaviour
+public class InventoryUI : MonoBehaviour
 {
     public enum TabType { Equipment, Skill, Companion }
 
@@ -13,7 +13,7 @@ public class UIInventory : MonoBehaviour
 
     [Header("슬롯 생성 구역")]
     public Transform contentTarget;
-    public GameObject slotPrefab;   //UIItem 프리팹
+    public GameObject slotPrefab;   //ItemUI 프리팹
 
     [Header("선택/장착 정보 패널")]
     public GameObject infoPanel;             //아이템 누르면 뜰 정보창
@@ -45,7 +45,7 @@ public class UIInventory : MonoBehaviour
         foreach (var pair in targetDict)
         {
             GameObject slotObj = Instantiate(slotPrefab, contentTarget);
-            UIItem slot = slotObj.GetComponent<UIItem>();
+            ItemUI slot = slotObj.GetComponent<ItemUI>();
 
             if (slot != null)
             {

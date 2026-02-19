@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class UIItem : MonoBehaviour
+public class ItemUI : MonoBehaviour
 {
     [Header("UI 연결")]
     public TextMeshProUGUI idText;
