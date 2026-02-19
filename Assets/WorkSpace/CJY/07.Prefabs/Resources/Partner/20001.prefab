@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -2485349035617348811}
   - component: {fileID: 402941788318495400}
   - component: {fileID: 3939889500155032835}
+  - component: {fileID: 2134382365188561698}
   m_Layer: 29
   m_Name: 20001
   m_TagString: Partner
@@ -144,6 +145,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+--- !u!114 &2134382365188561698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555772747579014937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41770be6567c2444d967298a14ea7f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partnerData:
+    ID: 0
+    Name_KR: 
+    Name_EN: 
+    Rank: 
+    Atk_Damage: 0
+    Atk_Speed: 0
+    Base_ComposeStat: 0
+    Stat_Per_Lv: 0
+    Prefab_Path: 
+    Description_KR: 
+  currentAtkDamage: 0
+  currentAtkSpeed: 0
 --- !u!1 &1182003339295917604
 GameObject:
   m_ObjectHideFlags: 0

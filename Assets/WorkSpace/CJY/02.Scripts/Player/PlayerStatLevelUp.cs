@@ -102,6 +102,11 @@ public class PlayerStatLevelUp : MonoBehaviour
     {
         BigInteger cost = GetCurrentCost(type);
 
+        Debug.Log($"[LevelUp] StatType: {type}");
+        Debug.Log($"[LevelUp] Current Gold: {DataManager.Instance.Gold}");        
+        Debug.Log($"[LevelUp] Required Cost: {cost}");
+        Debug.Log($"[LevelUp] Gold >= Cost ? {DataManager.Instance.Gold >= cost}");
+
         if (DataManager.Instance.Gold < cost)
         {
             Debug.Log("골드가 부족합니다!");
