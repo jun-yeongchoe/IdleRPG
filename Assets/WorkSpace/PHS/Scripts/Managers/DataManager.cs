@@ -54,11 +54,11 @@ public class DataManager : MonoBehaviour
     public int BossRushTicket = 2;
     public int DwarfKingTicket = 2;
 
-    public Dictionary<int, int> InventoryDict = new Dictionary<int, int>();
+    public Dictionary<int, ItemSaveData> InventoryDict = new Dictionary<int, ItemSaveData>();
 
-    public Dictionary<int, int> CompanionDict = new Dictionary<int, int>();
+    public Dictionary<int, ItemSaveData> CompanionDict = new Dictionary<int, ItemSaveData>();
 
-    public Dictionary<int, int> SkillDict = new Dictionary<int, int>();
+    public Dictionary<int, ItemSaveData> SkillDict = new Dictionary<int, ItemSaveData>();
 
     public int[] ShopLevels = new int[3] { 1, 1, 1 };
     public int[] ShopExps = new int[3] { 0, 0, 0 };
@@ -198,25 +198,29 @@ public class DataManager : MonoBehaviour
         if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("CurrencyChange");
     }
 
-    private List<ItemSaveData> DictToList(Dictionary<int, int> dict)
+    private List<ItemSaveData> DictToList(Dictionary<int, ItemSaveData> dict)
     {
         List<ItemSaveData> list = new List<ItemSaveData>();
+        if (dict == null) return list;
+
         foreach (var pair in dict)
-        { 
-            list.Add(new ItemSaveData { id=pair.Key,value=pair.Value});
+        {
+            list.Add(pair.Value);
         }
         return list;
     }
 
-    private Dictionary<int, int> ListToDict(List<ItemSaveData> list)
-    { 
-        Dictionary<int, int> dict=new Dictionary<int, int>();
-        if(list==null)return dict;
+    private Dictionary<int, ItemSaveData> ListToDict(List<ItemSaveData> list)
+    {
+        Dictionary<int, ItemSaveData> dict = new Dictionary<int, ItemSaveData>();
+        if (list == null) return dict;
 
-        foreach (var item in list) 
-        { 
-            if(!dict.ContainsKey(item.id))
-                dict.Add(item.id, item.value);
+        foreach (var item in list)
+        {
+            if (!dict.ContainsKey(item.id))
+            {
+                dict.Add(item.id, item);
+            }
         }
         return dict;
     }
@@ -271,4 +275,5 @@ public class ItemSaveData
 {
     public int id;
     public int value;
+    public int level;
 }

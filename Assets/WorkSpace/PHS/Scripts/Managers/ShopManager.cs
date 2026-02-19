@@ -139,7 +139,7 @@ public class ShopManager : MonoBehaviour
 
     private void AddItemToData(ShopType type, int itemId, int count)
     {
-        Dictionary<int, int> targetDict = null;
+        Dictionary<int, ItemSaveData> targetDict = null;
 
         switch (type)
         {
@@ -148,10 +148,14 @@ public class ShopManager : MonoBehaviour
             case ShopType.Companion: targetDict = DataManager.Instance.CompanionDict; break;
         }
 
-        if (targetDict != null)
+        if (targetDict.ContainsKey(itemId))
         {
-            if (targetDict.ContainsKey(itemId)) targetDict[itemId] += count;
-            else targetDict.Add(itemId, count);
+            targetDict[itemId].value += count;
+        }
+        else
+        {
+            //처음 뽑은 아이템이면 레벨을 0으로
+            targetDict.Add(itemId, new ItemSaveData { id = itemId, value = count, level = 0 });
         }
     }
 }

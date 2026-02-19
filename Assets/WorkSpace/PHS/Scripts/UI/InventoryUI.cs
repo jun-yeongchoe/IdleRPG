@@ -35,7 +35,7 @@ public class InventoryUI : MonoBehaviour
 
         foreach (Transform child in contentTarget) Destroy(child.gameObject);
 
-        Dictionary<int, int> targetDict = null;
+        Dictionary<int, ItemSaveData> targetDict = null;
         if (currentTab == TabType.Equipment) targetDict = DataManager.Instance.InventoryDict;
         else if (currentTab == TabType.Skill) targetDict = DataManager.Instance.SkillDict;
         else if (currentTab == TabType.Companion) targetDict = DataManager.Instance.CompanionDict;
@@ -50,7 +50,7 @@ public class InventoryUI : MonoBehaviour
             if (slot != null)
             {
                 bool isEquipped = CheckIfEquipped(pair.Key);
-                slot.Setup(pair.Key, pair.Value, isEquipped, OnSlotClick);
+                slot.Setup(pair.Key, pair.Value.value, isEquipped, OnSlotClick);
             }
         }
     }
