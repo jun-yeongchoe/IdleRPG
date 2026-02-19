@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Undefined
   - EnemyTest
+  - Partner
   layers:
   - Default
   - TransparentFX
@@ -36,7 +37,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Partner
   - EnemyTest
   - Player
   m_SortingLayers:

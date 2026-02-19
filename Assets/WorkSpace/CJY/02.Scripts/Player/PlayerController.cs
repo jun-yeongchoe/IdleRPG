@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAttack playerAttack;
 
     public float attackRange = 0.3f;
-    bool isCombat = false;
+    public bool isCombat = false;
     public LayerMask enemyLayer;
     RaycastHit2D hit;
 
