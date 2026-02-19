@@ -35,19 +35,37 @@ public class MergeTest : MonoBehaviour
         var dict = GetDict(type);
         if (dict == null) return;
 
-        if (dict.ContainsKey(id))
-            dict[id].value += count;
+        if (dict.TryGetValue(id, out ItemSaveData existing))
+        {
+            // 이미 있는 경우 → 개수만 증가
+            existing.value += count;
+        }
         else
-            dict[id].value = count;
+        {
+            // 처음 추가하는 경우 → 새 ItemSaveData 생성
+            var newItem = new ItemSaveData
+            {
+                id = id,
+                value = count,
+                level = 1                     // 처음 추가 시 레벨 1로 초기화
+            };
+            dict[id] = newItem;
+        }
 
-        // level은 처음이라면 1로 초기화 (임시)
-        if (!ItemMergeHandler.instance.tempItemLevels.ContainsKey(id))
-            ItemMergeHandler.instance.tempItemLevels[id] = 1;
+        // tempItemLevels는 이제 거의 필요 없음 (ItemSaveData.level로 대체 중)
+        // 하지만 전환기간 동안 안전장치로 유지한다면 아래 코드 유지
+        var handler = ItemMergeHandler.instance;
+        if (!handler.tempItemLevels.ContainsKey(id))
+        {
+            handler.tempItemLevels[id] = 1;
+        }
     }
 
     private Dictionary<int, ItemSaveData> GetDict(ItemMergeHandler.ItemType type)
     {
         var dm = DataManager.Instance;
+        if (dm == null) return null;
+
         return type switch
         {
             ItemMergeHandler.ItemType.Inventory  => dm.InventoryDict,
@@ -60,7 +78,10 @@ public class MergeTest : MonoBehaviour
     private void UpdateDisplay()
     {
         var dict = GetDict(itemType);
-        currentCount = dict != null && dict.TryGetValue(testItemId, out ItemSaveData c) ? c.value : 0;
+        currentCount = dict != null && dict.TryGetValue(testItemId, out ItemSaveData c) 
+            ? c.value 
+            : 0;
+
         currentLevel = ItemMergeHandler.instance.GetLevel(testItemId, itemType);
 
         Debug.Log($"[현재 상태] ID: {testItemId} / 개수: {currentCount} / 레벨: {currentLevel}");

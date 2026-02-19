@@ -122,26 +122,12 @@ public class ItemMergeHandler : MonoBehaviour
         // 미래 버전에서 사용할 코드 (주석 처리)
         
         var dict = GetItemDataDictionary(itemType);
-        if (dict != null && dict.TryGetValue(itemId, out ItemSaveData data)) return Mathf.Max(1, data.level);
-        else return 1;
-        
-        // 현재 임시 방식
-        // tempItemLevels.TryGetValue(itemId, out int level);
-        // return Mathf.Max(1, level);
+        if (dict != null && dict.TryGetValue(itemId, out ItemSaveData data))
+        {
+            return Mathf.Max(1, data.level);
+        }
+        return 1;   // 둘 다 없으면 기본 1
     }
-
-    // 현재 개수를 관리하는 딕셔너리 반환 (임시)
-    // private Dictionary<int, int> GetCountDictionary(ItemType itemType)
-    // {
-    //     var dm = DataManager.Instance;
-    //     return itemType switch
-    //     {
-    //         ItemType.Inventory  => dm.InventoryDict,
-    //         ItemType.Companion  => dm.CompanionDict,
-    //         ItemType.Skill      => dm.SkillDict,
-    //         _                   => null
-    //     };
-    // }
 
     // 미래에 Dictionary<int, ItemSaveData> 가 되었을 때 사용할 헬퍼
     private Dictionary<int, ItemSaveData> GetItemDataDictionary(ItemType itemType)
@@ -166,16 +152,12 @@ public class ItemMergeHandler : MonoBehaviour
     private void SetLevel(int itemId, ItemType itemType, int newLevel)
     {
         // 미래 버전에서 사용할 코드
-        
         var dict = GetItemDataDictionary(itemType);
         if (dict != null && dict.TryGetValue(itemId, out var data))
         {
-            data.level = newLevel;
+            data.level = Mathf.Max(1, newLevel);
             return;
         }
-        
-        // 현재 임시 방식
-        // tempItemLevels[itemId] = newLevel;
     }
 
     // 세이브/로드 관련 (나중에 ItemSaveData.level로 옮길 때 참고)
