@@ -36,14 +36,14 @@ public class DBManager : MonoBehaviour
     void Start()
     {
         // // 데이터베이스 루트 참조 가져오기
-        // dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+        dbReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        // // DataManager 연동 
-        // string userId = FirebaseAuth.DefaultInstance.CurrentUser?.UserId;
-        // if (!string.IsNullOrEmpty(userId))
-        // {
-        //     StartCoroutine(LoadUserDataCo(userId));
-        // }
+        // DataManager 연동 
+        string userId = FirebaseAuth.DefaultInstance.CurrentUser?.UserId;
+        if (!string.IsNullOrEmpty(userId))
+        {
+            StartCoroutine(LoadUserDataCo(userId));
+        }
     }
 
     void Update()
@@ -237,12 +237,16 @@ public class DBManager : MonoBehaviour
             else
             {
                 Debug.Log("신규 유저 : 초기 데이터 생성");
+                DataManager.Instance.Gold = 10000;
                 tempJsonData = DataManager.Instance.SendJson();
                 dbReference.Child("users").Child(userId).SetRawJsonValueAsync(tempJsonData);
             }
 
             DataManager.Instance.LoadJson(tempJsonData);
             Debug.Log($"LoadJson 후 Gold 예시: {DataManager.Instance.Gold}");
+            Debug.Log("==========================");
+            Debug.Log($"JSON 원본 : {tempJsonData}");
+            Debug.Log("==========================");
             SyncDataAndRefreshUI();
             Debug.Log("SyncDataAndRefreshUI 호출 완료");
         }

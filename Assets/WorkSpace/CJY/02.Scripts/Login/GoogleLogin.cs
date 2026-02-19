@@ -17,7 +17,7 @@ public class GoogleLogin : MonoBehaviour
     private FirebaseUser user;
 
     [Header("Login UI")]
-    [SerializeField] TextMeshProUGUI loginTxt, userIdTxt, userEmailTxt, loadingTxt;
+    [SerializeField] TextMeshProUGUI loginTxt, userIdTxt, userEmailTxt, loadingTxt,Username;
     [SerializeField] Image profileImg;
     [SerializeField] GameObject loginPanel;
 
@@ -133,6 +133,7 @@ public class GoogleLogin : MonoBehaviour
         
         userIdTxt.text = "UserId : " + user.DisplayName; 
         userEmailTxt.text = "UserEmail : " + user.Email;
+        Username.text = "UserName : " + user.DisplayName;
 
         if (user.PhotoUrl != null)
         {
