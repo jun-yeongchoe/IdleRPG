@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// 보스의 스탯을 관리하는 클래스
 public class BossStats : MonoBehaviour
 {
     [Header("Base Stats")]
@@ -17,6 +18,7 @@ public class BossStats : MonoBehaviour
     [HideInInspector] public float currentHp;
     [HideInInspector] public float attackDamage;
 
+    // 스테이지에 따라 보스 스탯 초기화
     public void InitByStage()
     {
         int stage = 0;
