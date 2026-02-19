@@ -9,17 +9,6 @@ public class BossStats : MonoBehaviour
 
     public float baseAttack = 20f;
     public float attackPerStage = 5f;
-<<<<<<< HEAD
-=======
-
-    public float moveSpeed = 2f;
-    public float attackRange = 2f;
-    public float attackCooldown = 2f;
-
-    [HideInInspector] public float maxHp;
-    [HideInInspector] public float currentHp;
-    [HideInInspector] public float attackDamage;
->>>>>>> de46609a18ce51cbfd63599cf2095c4036065af8
 
     public float moveSpeed = 2f;
     public float attackRange = 2f;
@@ -46,8 +35,4 @@ public class BossStats : MonoBehaviour
     {
         currentHp -= damage;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> de46609a18ce51cbfd63599cf2095c4036065af8
