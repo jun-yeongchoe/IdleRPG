@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 public class BossFSM : MonoBehaviour
 {
@@ -7,9 +6,6 @@ public class BossFSM : MonoBehaviour
 
     [Header("References")]
     public BossStats stats;
-
-    //보스 사망 콜백
-    public Action OnBossDeadCallback;
 
     private Transform player;
     private Rigidbody2D rb;
@@ -27,11 +23,13 @@ public class BossFSM : MonoBehaviour
 
     private void Start()
     {
-        stats.InitByStage();
-
+        // 플레이어 참조
         EnemyManager manager = FindObjectOfType<EnemyManager>();
         if (manager != null)
             player = manager.GetPlayerTransform();
+
+        //사망 이벤트 구독
+        stats.OnDeath += OnDead;
 
         ChangeState(State.Idle);
     }
@@ -40,13 +38,16 @@ public class BossFSM : MonoBehaviour
     {
         if (isDead || player == null) return;
 
-        float distance = Vector2.Distance(transform.position, player.position);
         attackTimer += Time.deltaTime;
+
+        float distance = Vector2.Distance(transform.position, player.position);
 
         if (distance <= stats.attackRange)
         {
             if (attackTimer >= stats.attackCooldown)
+            {
                 ChangeState(State.Attack);
+            }
         }
         else
         {
@@ -56,6 +57,8 @@ public class BossFSM : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead) return;
+
         if (currentState == State.Move)
             MoveToPlayer();
     }
@@ -67,6 +70,7 @@ public class BossFSM : MonoBehaviour
         anim.SetBool("Move", true);
     }
 
+    //애니메이션 이벤트에서 호출
     void PerformRaycastAttack()
     {
         Vector2 dir = (player.position - transform.position).normalized;
@@ -82,30 +86,20 @@ public class BossFSM : MonoBehaviour
         {
             hit.collider.SendMessage(
                 "TakeDamage",
-                stats.attackDamage,
+                stats.AttackDamage,
                 SendMessageOptions.DontRequireReceiver
             );
         }
     }
 
-    public void TakeDamage(float damage)
+    //BossStats가 사망 판단 → FSM은 반응만
+    void OnDead()
     {
         if (isDead) return;
 
-        stats.TakeDamage(damage);
-
-        if (stats.currentHp <= 0)
-            Die();
-    }
-
-    void Die()
-    {
         isDead = true;
         rb.velocity = Vector2.zero;
         ChangeState(State.Die);
-
-        //BossRushManager에 사망 알림
-        OnBossDeadCallback?.Invoke();
     }
 
     void ChangeState(State newState)
@@ -113,6 +107,8 @@ public class BossFSM : MonoBehaviour
         if (currentState == newState) return;
 
         currentState = newState;
+
+        // 공통 초기화
         anim.SetBool("Move", false);
 
         switch (newState)
@@ -138,18 +134,23 @@ public class BossFSM : MonoBehaviour
         }
     }
 
-    // 애니메이션 이벤트
+    // ===== 애니메이션 이벤트 =====
+
+    // 공격 판정 프레임
     public void OnAttackFrame()
     {
-        PerformRaycastAttack();
+        if (!isDead)
+            PerformRaycastAttack();
     }
 
+    // 공격 종료
     public void OnAttackEnd()
     {
         if (!isDead)
             ChangeState(State.Idle);
     }
 
+    // 사망 애니메이션 종료
     public void OnDieEnd()
     {
         gameObject.SetActive(false);

@@ -1,42 +1,52 @@
 using UnityEngine;
+using System;
 
 public class BossStats : MonoBehaviour
 {
-    public BossStatSO statData;
+    [Header("Base Stats")]
+    public float baseHp = 300f;
+    public float hpPerStage = 50f;
 
-    [Header("Runtime Stats")]
-    public float maxHp;
-    public float hp;
-    public float attack;
-    public float moveSpeed;
-    public float attackRange;
-    public float attackCooldown;
+    public float baseAttack = 20f;
+    public float attackPerStage = 5f;
 
-    public void InitByStage()
+    public float moveSpeed = 2f;
+    public float attackRange = 2f;
+    public float attackCooldown = 2f;
+
+    public float MaxHp { get; private set; }
+    public float CurrentHp { get; private set; }
+    public float AttackDamage { get; private set; }
+
+    public float HpRatio => CurrentHp / MaxHp;
+
+    // 사망 이벤트
+    public event Action OnDeath;
+
+    public void InitByStage(int stage)
     {
-        int stage = DataManager.Instance.currentStageNum;
-
-        maxHp = statData.baseHp + stage * statData.hpPerStage;
-        attack = statData.baseAttack + stage * statData.attackPerStage;
-        moveSpeed = statData.baseMoveSpeed;
-
-        attackRange = statData.attackRange;
-        attackCooldown = statData.attackCooldown;
-
-        hp = maxHp;
+        MaxHp = baseHp + stage * hpPerStage;
+        AttackDamage = baseAttack + stage * attackPerStage;
+        CurrentHp = MaxHp;
     }
 
-    //보스가 데미지를 입는 함수
     public void TakeDamage(float damage)
     {
-        hp -= damage;
-        if (hp <= 0)
-            Die();
+        if (CurrentHp <= 0) return;
+
+        CurrentHp -= damage;
+
+        if (CurrentHp <= 0)
+        {
+            CurrentHp = 0;
+            OnDeath?.Invoke();
+        }
     }
 
-    void Die()
+    public void Heal(float amount)
     {
-        Debug.Log("Boss Defeated!");
-        gameObject.SetActive(false);
+        if (CurrentHp <= 0) return;
+
+        CurrentHp = Mathf.Min(CurrentHp + amount, MaxHp);
     }
 }
