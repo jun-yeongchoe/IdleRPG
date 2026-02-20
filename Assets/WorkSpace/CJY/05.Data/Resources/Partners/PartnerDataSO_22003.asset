@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_25002
+  m_Name: PartnerDataSO_22003
   m_EditorClassIdentifier: 
-  ID: 25002
-  Name_KR: "\uCC28\uC6D0\uC758 \uAC80\uAE30"
-  Name_EN: Dimensional Blade
-  itemRank: 5
+  ID: 22003
+  Name_KR: "\uB0A8\uC6CC\uB9AC\uC5B4"
+  Name_EN: Male Warrior
+  itemRank: 2
   itemType: 0
   Icon: {fileID: 0}
-  BaseComposeCount: 2
+  BaseComposeCount: 8
   BaseStatBoost: 0
-  StatPerLevel: 0.1
-  AttackDamage: 11000
-  AttackSpeed: 1.2
-  PrefabPath: Partner/Mystic_Blade
-  Description: "\uC801\uC758 \uBA38\uB9AC \uC704\uB85C \uCE7C\uB0A0\uC774 \uC21C\uAC04\uC774\uB3D9"
+  StatPerLevel: 0.03
+  AttackDamage: 600
+  AttackSpeed: 0.5
+  PrefabPath: Partner/22003
+  Description: "\uBB35\uC9C1\uD55C \uD55C \uBC29\uC744 \uAC00\uC9C4 \uC6CC\uB9AC\uC5B4\uC785\uB2C8\uB2E4."

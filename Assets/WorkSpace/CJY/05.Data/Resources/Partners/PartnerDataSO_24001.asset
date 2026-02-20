@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_24002
+  m_Name: PartnerDataSO_24001
   m_EditorClassIdentifier: 
-  ID: 24002
-  Name_KR: "\uD478\uB978 \uB1CC\uB8E1"
-  Name_EN: Azure Dragon
+  ID: 24001
+  Name_KR: "\uC5EC\uD5CC\uD130"
+  Name_EN: Female Hunter
   itemRank: 4
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 4
   BaseStatBoost: 0
   StatPerLevel: 0.05
-  AttackDamage: 3200
-  AttackSpeed: 2.2
-  PrefabPath: Partner/Legend_Dragon
-  Description: "\uC785\uC5D0\uC11C \uC804\uACA9 \uBE0C\uB808\uC2A4\uB97C \uC9C0\uC18D
-    \uBC29\uCD9C"
+  AttackDamage: 3500
+  AttackSpeed: 0.7
+  PrefabPath: Partner/24001
+  Description: "\uC804\uC124\uC801\uC778 \uBA85\uC131\uC744 \uAC00\uC9C4 \uC5EC\uC131
+    \uC0AC\uB0E5\uAFBC\uC785\uB2C8\uB2E4."

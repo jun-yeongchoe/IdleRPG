@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_20003
+  m_Name: PartnerDataSO_22001
   m_EditorClassIdentifier: 
-  ID: 20003
-  Name_KR: "\uAF2C\uB9C8 \uBC15\uC950"
-  Name_EN: Baby Bat
-  itemRank: 0
+  ID: 22001
+  Name_KR: "\uB0A8\uC2A4\uD2B8\uB77C\uC774\uCEE4"
+  Name_EN: Male Striker
+  itemRank: 2
   itemType: 0
   Icon: {fileID: 0}
-  BaseComposeCount: 12
+  BaseComposeCount: 8
   BaseStatBoost: 0
-  StatPerLevel: 0.01
-  AttackDamage: 90
-  AttackSpeed: 1.5
-  PrefabPath: Partner/Bat
-  Description: "\uCD08\uC74C\uD30C \uD0C4\uD658\uC744 \uD55C \uBC1C\uC529 \uBC1C\uC0AC"
+  StatPerLevel: 0.03
+  AttackDamage: 550
+  AttackSpeed: 0.8
+  PrefabPath: Partner/22001
+  Description: "\uAC15\uB825\uD55C \uD0C0\uACA9\uAC10\uC744 \uAC00\uC9C4 \uC804\uC0AC\uC785\uB2C8\uB2E4."

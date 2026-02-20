@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_21002
+  m_Name: PartnerDataSO_23002
   m_EditorClassIdentifier: 
-  ID: 21002
-  Name_KR: "\uD6C8\uB828\uC6A9 \uD65C"
-  Name_EN: Training Bow
-  itemRank: 1
+  ID: 23002
+  Name_KR: "\uB0A8\uD5CC\uD130"
+  Name_EN: Male Hunter
+  itemRank: 3
   itemType: 0
   Icon: {fileID: 0}
-  BaseComposeCount: 10
+  BaseComposeCount: 6
   BaseStatBoost: 0
-  StatPerLevel: 0.02
-  AttackDamage: 280
-  AttackSpeed: 1.3
-  PrefabPath: Partner/Bow
-  Description: "\uD654\uC0B4\uC744 \uC77C\uC815 \uAC04\uACA9\uC73C\uB85C \uC0AC\uACA9"
+  StatPerLevel: 0.04
+  AttackDamage: 1200
+  AttackSpeed: 1.6
+  PrefabPath: Partner/23002
+  Description: "\uC815\uBC00\uD55C \uC0AC\uACA9 \uB2A5\uB825\uC744 \uAC16\uCD98 \uC0AC\uB0E5\uAFBC\uC785\uB2C8\uB2E4."

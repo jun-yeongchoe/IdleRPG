@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_22003
+  m_Name: PartnerDataSO_21003
   m_EditorClassIdentifier: 
-  ID: 22003
-  Name_KR: "\uC11C\uB9AC \uC218\uC815"
-  Name_EN: Frost Crystal
-  itemRank: 2
+  ID: 21003
+  Name_KR: "\uC5EC\uB3C4\uC801"
+  Name_EN: Female Rogue
+  itemRank: 1
   itemType: 0
   Icon: {fileID: 0}
-  BaseComposeCount: 8
+  BaseComposeCount: 10
   BaseStatBoost: 0
-  StatPerLevel: 0.03
-  AttackDamage: 600
-  AttackSpeed: 0.5
-  PrefabPath: Partner/Rare_Ice
-  Description: "\uACE0\uC815\uB41C \uC704\uCE58\uC5D0\uC11C \uC5BC\uC74C \uD30C\uD3B8
-    \uBC1C\uC0AC"
+  StatPerLevel: 0.02
+  AttackDamage: 220
+  AttackSpeed: 2
+  PrefabPath: Partner/21003
+  Description: "\uB0A0\uB835\uD55C \uBAB8\uB180\uB9BC\uC758 \uC5EC\uC131 \uB3C4\uC801\uC785\uB2C8\uB2E4."

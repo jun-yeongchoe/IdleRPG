@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_20001
+  m_Name: PartnerDataSO_23001
   m_EditorClassIdentifier: 
-  ID: 20001
-  Name_KR: "\uB5A0\uB3CC\uC774 \uBD88\uAF43"
-  Name_EN: Wandering Wisp
-  itemRank: 0
+  ID: 23001
+  Name_KR: "\uC5EC\uC6CC\uB9AC\uC5B4"
+  Name_EN: Female Warrior
+  itemRank: 3
   itemType: 0
   Icon: {fileID: 0}
-  BaseComposeCount: 12
+  BaseComposeCount: 6
   BaseStatBoost: 0
-  StatPerLevel: 0.01
-  AttackDamage: 100
-  AttackSpeed: 1
-  PrefabPath: Partner/Wisp
-  Description: "\uC791\uC740 \uBD88\uC528\uAC00 \uD401\uD401 \uB0A0\uC544\uB2E4\uB2D8"
+  StatPerLevel: 0.04
+  AttackDamage: 1300
+  AttackSpeed: 1.1
+  PrefabPath: Partner/23001
+  Description: "\uB178\uB828\uD55C \uC804\uD22C \uAE30\uC220\uC758 \uC5EC\uC131 \uC804\uC0AC\uC785\uB2C8\uB2E4."

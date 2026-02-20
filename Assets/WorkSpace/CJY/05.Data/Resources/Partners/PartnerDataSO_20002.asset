@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_26001
+  m_Name: PartnerDataSO_20002
   m_EditorClassIdentifier: 
-  ID: 26001
-  Name_KR: "\uD0DC\uC591\uC758 \uD654\uC2E0"
-  Name_EN: Solar Avatar
-  itemRank: 6
+  ID: 20002
+  Name_KR: "\uC5EC\uD559\uC790"
+  Name_EN: Female Scholar
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
-  BaseComposeCount: 1
+  BaseComposeCount: 12
   BaseStatBoost: 0
-  StatPerLevel: 0.5
-  AttackDamage: 30000
-  AttackSpeed: 3
-  PrefabPath: Partner/Solar
-  Description: "\uD0DC\uC591\uAD8C \uAD11\uC120\uC73C\uB85C \uC801\uC744 \uC99D\uBC1C\uC2DC\uD0B4"
+  StatPerLevel: 0.01
+  AttackDamage: 110
+  AttackSpeed: 1.2
+  PrefabPath: Partner/20002
+  Description: "\uD3C9\uBC94\uD55C \uC5EC\uC131 \uD559\uC790\uC785\uB2C8\uB2E4."
