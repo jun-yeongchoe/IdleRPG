@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
+  m_Name: PartnerDataSO_24002
+  m_EditorClassIdentifier: 
+  ID: 24002
+  Name_KR: "\uD478\uB978 \uB1CC\uB8E1"
+  Name_EN: Azure Dragon
+  itemRank: 4
+  itemType: 0
+  Icon: {fileID: 0}
+  BaseComposeCount: 4
+  BaseStatBoost: 0
+  StatPerLevel: 0.05
+  AttackDamage: 3200
+  AttackSpeed: 2.2
+  PrefabPath: Partner/Legend_Dragon
+  Description: "\uC785\uC5D0\uC11C \uC804\uACA9 \uBE0C\uB808\uC2A4\uB97C \uC9C0\uC18D
+    \uBC29\uCD9C"

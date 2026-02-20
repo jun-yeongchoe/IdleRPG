@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "817724772015",
+    "firebase_url": "https://scarletknightidle-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "scarletknightidle",
+    "storage_bucket": "scarletknightidle.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817724772015:android:dc083304fb7beac79c4e5a",
+        "android_client_info": {
+          "package_name": "com.scarletidle.scarletiknightdle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817724772015-ai51t4s9oj0874flo279j7fg480pagsf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scarletidle.scarletiknightdle",
+            "certificate_hash": "7d789271938aecbc4d2e5b9dbfe3da86dd75d4b8"
+          }
+        },
+        {
+          "client_id": "817724772015-cpr9qe1clkj5d1b0cj7hie4qaa2lqe9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCitU8DMObJfMZTjLP8x4fXzgvT2NjKIuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817724772015-cpr9qe1clkj5d1b0cj7hie4qaa2lqe9i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

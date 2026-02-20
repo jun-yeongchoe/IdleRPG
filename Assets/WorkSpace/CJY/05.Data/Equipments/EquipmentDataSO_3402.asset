@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c3d2aaa80db5343a081d2590387a68, type: 3}
+  m_Name: EquipmentDataSO_3402
+  m_EditorClassIdentifier: 
+  ID: 3402
+  Name_KR: "\uBE45\uBC45\uC758 \uD30C\uD3B8"
+  Name_EN: bigbang_shard
+  itemRank: 6
+  itemType: 0
+  Icon: {fileID: 0}
+  BaseComposeCount: 1
+  BaseStatBoost: 1
+  StatPerLevel: 0.5
+  equipmentType: 0
+  Value: 1.69
+  Description: "\uC6B0\uC8FC \uD0C4\uC0DD\uC758 \uC5D0\uB108\uC9C0\uAC00 \uC544\uC8FC
+    \uC791\uC740 \uC870\uAC01\uC73C\uB85C \uC751\uCD95\uB41C \uBB34\uAE30\uC785\uB2C8\uB2E4."
