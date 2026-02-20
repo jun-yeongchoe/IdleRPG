@@ -156,7 +156,7 @@ public class EnemySpawner : MonoBehaviour
         EnemyStats stat = selectEnemy.GetComponent<EnemyStats>();
         if (stat != null)
         {
-            stat.InitByStage();
+            stat.InitByStage(DataManager.Instance.currentStageNum);
         }
 
         selectEnemy.SetActive(true);
