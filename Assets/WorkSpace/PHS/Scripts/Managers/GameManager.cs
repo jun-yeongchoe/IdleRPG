@@ -60,8 +60,18 @@ public class GameManager : MonoBehaviour
 
             DataManager.Instance.AddGold(reward);
 
-            //나중에 UI 팝업 띄우는 이벤트도 여기서 쏘면 됨
-            //EventManager.Instance.TriggerEvent("ShowOfflineRewardPopup");
+            int hours = (int)(totalSeconds / 3600);
+            int minutes = (int)((totalSeconds % 3600) / 60);
+            string timeStr = hours > 0 ? $"{hours}시간 {minutes}분" : $"{minutes}분";
+
+            if (CommonPopup.Instance != null)
+            {
+                CommonPopup.Instance.ShowAlert(
+                    "휴식 보상",
+                    $"오프라인 시간 동안 골드가 모였습니다!\n\n방치 시간: {timeStr}\n획득 골드: {reward}G",
+                    "수령"
+                );
+            }
 
             Debug.Log($"[GameManager] {totalSeconds:F0}초 방치 보상: {reward.ToCurren()} 획득");
         }
