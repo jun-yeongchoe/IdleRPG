@@ -1,6 +1,6 @@
 using UnityEngine;
+using System;
 
-// 보스의 스탯을 관리하는 클래스
 public class BossStats : MonoBehaviour
 {
     [Header("Base Stats")]
@@ -9,45 +9,44 @@ public class BossStats : MonoBehaviour
 
     public float baseAttack = 20f;
     public float attackPerStage = 5f;
-<<<<<<< HEAD
-=======
 
     public float moveSpeed = 2f;
     public float attackRange = 2f;
     public float attackCooldown = 2f;
 
-    [HideInInspector] public float maxHp;
-    [HideInInspector] public float currentHp;
-    [HideInInspector] public float attackDamage;
->>>>>>> de46609a18ce51cbfd63599cf2095c4036065af8
+    public float MaxHp { get; private set; }
+    public float CurrentHp { get; private set; }
+    public float AttackDamage { get; private set; }
 
-    public float moveSpeed = 2f;
-    public float attackRange = 2f;
-    public float attackCooldown = 2f;
+    public float HpRatio => CurrentHp / MaxHp;
 
-    [HideInInspector] public float maxHp;
-    [HideInInspector] public float currentHp;
-    [HideInInspector] public float attackDamage;
+    // 사망 이벤트
+    public event Action OnDeath;
 
-    // 스테이지에 따라 보스 스탯 초기화
-    public void InitByStage()
+    public void InitByStage(int stage)
     {
-        int stage = 0;
-
-        if (DataManager.Instance != null)
-            stage = DataManager.Instance.currentStageNum;
-
-        maxHp = baseHp + stage * hpPerStage;
-        attackDamage = baseAttack + stage * attackPerStage;
-        currentHp = maxHp;
+        MaxHp = baseHp + stage * hpPerStage;
+        AttackDamage = baseAttack + stage * attackPerStage;
+        CurrentHp = MaxHp;
     }
 
     public void TakeDamage(float damage)
     {
-        currentHp -= damage;
+        if (CurrentHp <= 0) return;
+
+        CurrentHp -= damage;
+
+        if (CurrentHp <= 0)
+        {
+            CurrentHp = 0;
+            OnDeath?.Invoke();
+        }
     }
-<<<<<<< HEAD
+
+    public void Heal(float amount)
+    {
+        if (CurrentHp <= 0) return;
+
+        CurrentHp = Mathf.Min(CurrentHp + amount, MaxHp);
+    }
 }
-=======
-}
->>>>>>> de46609a18ce51cbfd63599cf2095c4036065af8

@@ -13,8 +13,7 @@ public class BossRushManager : MonoBehaviour
 
     private int currentIndex = 0;
     private int defeatedCount = 0;
-
-    private BossFSM currentBoss;
+    private bool waitingNextBoss = false;
 
     private void Start()
     {
@@ -25,6 +24,7 @@ public class BossRushManager : MonoBehaviour
     {
         currentIndex = 0;
         defeatedCount = 0;
+        waitingNextBoss = false;
         SpawnNextBoss();
     }
 
@@ -57,11 +57,13 @@ public class BossRushManager : MonoBehaviour
             );
         }
 
-        currentBoss = bossObj.GetComponent<BossFSM>();
-
-        if (currentBoss != null)
+        //Stats 세팅
+        BossStats stats = bossObj.GetComponent<BossStats>();
+        if (stats != null)
         {
-            currentBoss.OnBossDeadCallback = OnBossDead;
+            int stage = infiniteMode ? defeatedCount + 1 : currentIndex + 1;
+            stats.InitByStage(stage);
+            stats.OnDeath += OnBossDead;
         }
 
         currentIndex++;
@@ -70,21 +72,25 @@ public class BossRushManager : MonoBehaviour
 
     private void OnBossDead()
     {
-        defeatedCount++;
-        BossRushUI.Instance.UpdateDefeated(defeatedCount);
+        if (waitingNextBoss) return;
 
+        waitingNextBoss = true;
+        defeatedCount++;
+
+        BossRushUI.Instance.UpdateDefeated(defeatedCount);
         StartCoroutine(NextBossDelay());
     }
 
     private IEnumerator NextBossDelay()
     {
         yield return new WaitForSeconds(spawnDelay);
+        waitingNextBoss = false;
         SpawnNextBoss();
     }
 
     private void ClearBossRush()
     {
-        Debug.Log("보스러쉬 클리어!");
+        Debug.Log("보스 러쉬 클리어!");
         BossRushUI.Instance.ShowClear();
     }
 }
