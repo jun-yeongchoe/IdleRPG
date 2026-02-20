@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 1866330869884195243}
   - component: {fileID: 3746316985144830086}
   - component: {fileID: 1371833939742154680}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Jellyfish
-  m_TagString: Untagged
+  m_TagString: EnemyTest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f087b2285a705a04985d7988d06d59fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
+  enemy: {fileID: 1866330869884195243}
   target: {fileID: 0}
 --- !u!114 &1371833939742154680
 MonoBehaviour:
@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02166007af8a88f44a972cfb04e9d883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 0
-  hp: 0
-  attack: 0
-  moveSpeed: 0
-  attackRange: 0
-  attackCooldown: 0
+  maxHp: 700
+  hp: 300
+  attack: 130
+  moveSpeed: 1
+  attackRange: 1
+  attackCooldown: 1

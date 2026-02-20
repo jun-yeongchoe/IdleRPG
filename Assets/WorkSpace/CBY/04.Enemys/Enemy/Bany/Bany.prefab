@@ -13,9 +13,12 @@ GameObject:
   - component: {fileID: 6455429369860441599}
   - component: {fileID: 4847528561487780067}
   - component: {fileID: 7712562537884288220}
-  m_Layer: 0
+  - component: {fileID: -7960693683874169202}
+  - component: {fileID: 4619765092139237423}
+  - component: {fileID: -8862470498999040852}
+  m_Layer: 30
   m_Name: Bany
-  m_TagString: Untagged
+  m_TagString: EnemyTest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,3 +183,50 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7960693683874169202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2317611231416300961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb9a689634c8f94fb56b12eb214df92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: -8862470498999040852}
+  fsm: {fileID: 4619765092139237423}
+  enemyManager: {fileID: 1354577289264929991, guid: eaf746fc52e062d44a9cc1b3d6733b31, type: 3}
+--- !u!114 &4619765092139237423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2317611231416300961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f087b2285a705a04985d7988d06d59fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: -7960693683874169202}
+  target: {fileID: 0}
+--- !u!114 &-8862470498999040852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2317611231416300961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02166007af8a88f44a972cfb04e9d883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 500
+  hp: 150
+  attack: 80
+  moveSpeed: 2
+  attackRange: 1
+  attackCooldown: 1
