@@ -54,6 +54,9 @@ public class DataManager : MonoBehaviour
     public int BossRushTicket = 2;
     public int DwarfKingTicket = 2;
 
+    [Header("퀘스트 보관함")]
+    public Dictionary<int, QuestSaveData> QuestDict = new Dictionary<int, QuestSaveData>();
+
     public Dictionary<int, ItemSaveData> InventoryDict = new Dictionary<int, ItemSaveData>();
 
     public Dictionary<int, ItemSaveData> CompanionDict = new Dictionary<int, ItemSaveData>();
@@ -259,6 +262,7 @@ public class GameDataDTO
     public List<ItemSaveData> InventoryList;
     public List<ItemSaveData> CompanionList;
     public List<ItemSaveData> SkillList;
+    public List<QuestSaveData> QuestList;
 
     public int GoldDungeonTicket = -1;
     public int BossRushTicket = -1;
@@ -276,4 +280,12 @@ public class ItemSaveData
     public int id;
     public int value;
     public int level;
+}
+
+[System.Serializable]
+public class QuestSaveData
+{
+    public int questId;         //퀘스트 고유 번호
+    public int progressValue;   //진행도
+    public bool isCleared;      //보상 수령 완료 여부
 }
