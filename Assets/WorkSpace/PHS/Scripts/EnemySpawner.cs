@@ -113,7 +113,7 @@ public class EnemySpawner : MonoBehaviour
 
             if (boss != null)
             {
-                boss.InitByStage();
+                boss.InitByStage(DataManager.Instance.currentStageNum);
                 Debug.Log("보스 스텟 초기화 완료");
             }
             else
