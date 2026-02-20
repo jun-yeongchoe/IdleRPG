@@ -6,26 +6,34 @@ public class Enemy : MonoBehaviour
     public EnemyFSM fsm;
     public EnemyManager enemyManager;
 
-    private Animator animator; // Animator 추가
+    private Animator animator;
+    private bool isDead;
 
     private void Awake()
     {
         stats = GetComponent<EnemyStats>();
         fsm = GetComponent<EnemyFSM>();
         enemyManager = GetComponentInParent<EnemyManager>();
-        animator = GetComponent<Animator>(); // Animator 가져오기
+        animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
     {
-        stats.InitByStage();
+        isDead = false;
+
+        int stage = DataManager.Instance.currentStageNum;
+        stats.InitByStage(stage);
+
+        ResetAnimator();
+
         fsm.Init(this, enemyManager);
         fsm.ChangeState(EnemyStateType.Move);
-        ResetAnimator(); // 상태 초기화
     }
 
     private void ResetAnimator()
     {
+        if (animator == null) return;
+
         animator.SetBool("IsMoving", false);
         animator.SetBool("IsAttacking", false);
         animator.ResetTrigger("Die");
@@ -33,53 +41,60 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        stats.hp -= damage;
+        if (isDead) return;
 
-        if (stats.hp <= 0)
+        stats.ApplyDamage(damage);
+
+        if (stats.IsDead())
         {
+            isDead = true;
             fsm.ChangeState(EnemyStateType.Die);
         }
     }
 
     public void MoveStart()
     {
+        if (animator == null || isDead) return;
         animator.SetBool("IsMoving", true);
     }
 
     public void MoveStop()
     {
+        if (animator == null) return;
         animator.SetBool("IsMoving", false);
     }
 
     public void Attack()
     {
-        if (enemyManager == null) return;
-
-        Transform player = enemyManager.GetPlayerTransform();
-        if (player == null) return;
-
-        animator.SetBool("IsAttacking", true); // 공격 애니메이션 시작
-        Debug.Log("플레이어에게 데미지!");
-        // player.GetComponent<PlayerHealth>().TakeDamage(stats.attackPower);
-
-        // Attack 애니 종료 후 호출 (Animation Event 추천)
-        // animator.SetBool("isAttacking", false);
+        if (animator == null || isDead) return;
+        animator.SetBool("IsAttacking", true);
     }
 
     public void Die()
     {
-        animator.SetTrigger("Die"); // Die 애니 실행
-        // Die 애니 끝나는 시점에 OnDieEnd()로 비활성화 처리 가능
+        if (animator == null) return;
+        animator.SetTrigger("Die");
     }
 
-    // Animation Event용
+    // Animation Events
     public void OnAttackEnd()
     {
+        if (animator == null) return;
         animator.SetBool("IsAttacking", false);
     }
 
     public void OnDieEnd()
     {
         gameObject.SetActive(false);
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
+    }
+
+    public bool IsAttacking()
+    {
+        return animator != null && animator.GetBool("IsAttacking");
     }
 }
