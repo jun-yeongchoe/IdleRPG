@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce1a72a8272d714f8b33d1c80303f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeonTime: 60
+  dungeonTime: 45
   totalGold: 0
