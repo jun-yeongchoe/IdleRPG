@@ -1,6 +1,7 @@
 public enum EnemyStateType
 {
-    Move,
-    Attack,
-    Die
+    None = 0,
+    Move = 10,
+    Attack = 20,
+    Die = 100
 }
