@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_22001
+  m_Name: PartnerDataSO_21001
   m_EditorClassIdentifier: 
-  ID: 22001
-  Name_KR: "\uB9C8\uB825 \uAE43\uB4E0 \uCC45"
-  Name_EN: Enchanted Book
-  itemRank: 2
+  ID: 21001
+  Name_KR: "\uC5EC\uACAC\uC2B5\uB9C8\uBC95\uC0AC"
+  Name_EN: Female Apprentice
+  itemRank: 1
   itemType: 0
   Icon: {fileID: 0}
-  BaseComposeCount: 8
+  BaseComposeCount: 10
   BaseStatBoost: 0
-  StatPerLevel: 0.03
-  AttackDamage: 550
-  AttackSpeed: 0.8
-  PrefabPath: Partner/Rare_Book
-  Description: "\uCC45\uC7A5\uC5D0\uC11C \uB9C8\uBC95 \uD654\uC0B4\uC774 \uD280\uC5B4\uB098\uC634"
+  StatPerLevel: 0.02
+  AttackDamage: 250
+  AttackSpeed: 1.8
+  PrefabPath: Partner/21001
+  Description: "\uC7AC\uB2A5 \uC788\uB294 \uACAC\uC2B5 \uC5EC\uB9C8\uBC95\uC0AC\uC785\uB2C8\uB2E4."

@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_25001
+  m_Name: PartnerDataSO_25002
   m_EditorClassIdentifier: 
-  ID: 25001
-  Name_KR: "\uC2EC\uC5F0\uC758 \uCD09\uC218"
-  Name_EN: Abyss Tentacle
+  ID: 25002
+  Name_KR: "\uB0A8\uBA54\uC774\uC9C0"
+  Name_EN: Male Mage
   itemRank: 5
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 2
   BaseStatBoost: 0
   StatPerLevel: 0.1
-  AttackDamage: 9000
-  AttackSpeed: 1.8
-  PrefabPath: Partner/Mystic_Abyss
-  Description: "\uACF5\uD5C8\uC758 \uAD6C\uBA4D\uC5D0\uC11C \uD0C4\uD658\uC774 \uC3DF\uC544\uC9D0"
+  AttackDamage: 11000
+  AttackSpeed: 1.2
+  PrefabPath: Partner/25002
+  Description: "\uB300\uB9C8\uBC95\uC0AC\uC758 \uACBD\uC9C0\uC5D0 \uC624\uB978 \uB0A8\uC131
+    \uBA54\uC774\uC9C0\uC785\uB2C8\uB2E4."

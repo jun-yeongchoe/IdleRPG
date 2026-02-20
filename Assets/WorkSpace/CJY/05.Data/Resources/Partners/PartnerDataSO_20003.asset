@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_23002
+  m_Name: PartnerDataSO_20003
   m_EditorClassIdentifier: 
-  ID: 23002
-  Name_KR: "\uCC9C\uB465 \uC694\uC815"
-  Name_EN: Thunder Fairy
-  itemRank: 3
+  ID: 20003
+  Name_KR: "\uB0A8\uACAC\uC2B5\uB9C8\uBC95\uC0AC"
+  Name_EN: Male Apprentice
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
-  BaseComposeCount: 6
+  BaseComposeCount: 12
   BaseStatBoost: 0
-  StatPerLevel: 0.04
-  AttackDamage: 1200
-  AttackSpeed: 1.6
-  PrefabPath: Partner/Epic_Fairy
-  Description: "\uBC88\uAC1C \uC904\uAE30\uB85C \uCCB4\uC778 \uACF5\uACA9"
+  StatPerLevel: 0.01
+  AttackDamage: 90
+  AttackSpeed: 1.5
+  PrefabPath: Partner/20003
+  Description: "\uB9C8\uBC95\uC744 \uBC30\uC6B0\uAE30 \uC2DC\uC791\uD55C \uC18C\uB144\uC785\uB2C8\uB2E4."

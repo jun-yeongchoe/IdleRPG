@@ -171,7 +171,7 @@ public class PlayerStatLevelUp : MonoBehaviour
         // UI 업데이트
         atk_p_l.SetText("Lv.{0}",atk_p_level.Value); // .text사용에서 SetText 사용으로 변경하여 boxing 방지 -> 최적화
         atk_p.SetText("{0}", PlayerStat.instance.atkPower);
-        atk_p_c.SetText("바용 : {0}", playerStatus.GetAtkCost());
+        atk_p_c.SetText("비용 : {0}", playerStatus.GetAtkCost());
     }
     private void OnChangedLevel2(int value)
     {
@@ -179,7 +179,7 @@ public class PlayerStatLevelUp : MonoBehaviour
         PlayerStat.instance.SetHP();
         hp_l.SetText("Lv.{0}",hp_level.Value);
         hp.SetText("{0}", PlayerStat.instance.hp);
-        hp_c.SetText("바용 : {0}", playerStatus.GetHPCost());
+        hp_c.SetText("비용 : {0}", playerStatus.GetHPCost());
     }
     private void OnChangedLevel3(int value)
     {
@@ -187,23 +187,25 @@ public class PlayerStatLevelUp : MonoBehaviour
         PlayerStat.instance.SetHPGen();
         hp_g_l.SetText("Lv.{0}",hp_g_level.Value); 
         hp_g.SetText("{0}", PlayerStat.instance.hpGen);
-        hp_g_c.SetText("바용 : {0}", playerStatus.GetHPGenCost());
+        hp_g_c.SetText("비용 : {0}", playerStatus.GetHPGenCost());
     }
     private void OnChangedLevel4(int value)
     {
         playerStatus.atkSpeed = atk_s_level.Value;
         PlayerStat.instance.SetAtkSpeed();
         atk_s_l.SetText("Lv.{0}",atk_s_level.Value);
-        atk_s.SetText("{0}", PlayerStat.instance.atkSpeed);
-        atk_s_c.SetText("바용 : {0}", playerStatus.GetAtkSpeedCost());
+        float attacksPerSecond = 1f / PlayerStat.instance.atkSpeed;
+        atk_s.text = attacksPerSecond.ToString("F2");
+        atk_s_c.SetText("비용 : {0}", playerStatus.GetAtkSpeedCost());
     }
     private void OnChangedLevel5(int value)
     {
         playerStatus.criticalChance = crit_p_level.Value;
         PlayerStat.instance.SetCriticalChance();
         crit_p_l.SetText("Lv.{0}",crit_p_level.Value);
-        crit_p.SetText("{0}", PlayerStat.instance.criticalChance);
-        crit_p_c.SetText("바용 : {0}", playerStatus.GetCritChanceCost());
+        // crit_p.SetText("{0:F3}", PlayerStat.instance.criticalChance);
+        crit_p.text = PlayerStat.instance.criticalChance.ToString("F3");
+        crit_p_c.SetText("비용 : {0}", playerStatus.GetCritChanceCost());
     }
     private void OnChangedLevel6(int value)
     {
@@ -211,7 +213,7 @@ public class PlayerStatLevelUp : MonoBehaviour
         PlayerStat.instance.SetCriticalDamage();
         crit_d_l.SetText("Lv.{0}",crit_d_level.Value);
         crit_d.SetText("{0}", PlayerStat.instance.criticalDamage);
-        crit_d_c.SetText("바용 : {0}", playerStatus.GetCritDamageCost());
+        crit_d_c.SetText("비용 : {0}", playerStatus.GetCritDamageCost());
     }
     #endregion
 

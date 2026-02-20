@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
-  m_Name: PartnerDataSO_23001
+  m_Name: PartnerDataSO_22002
   m_EditorClassIdentifier: 
-  ID: 23001
-  Name_KR: "\uADF8\uB9BC\uC790 \uB9DD\uB839"
-  Name_EN: Shadow Wraith
-  itemRank: 3
+  ID: 22002
+  Name_KR: "\uC5EC\uC2A4\uD2B8\uB77C\uC774\uCEE4"
+  Name_EN: Female Striker
+  itemRank: 2
   itemType: 0
   Icon: {fileID: 0}
-  BaseComposeCount: 6
+  BaseComposeCount: 8
   BaseStatBoost: 0
-  StatPerLevel: 0.04
-  AttackDamage: 1300
-  AttackSpeed: 1.1
-  PrefabPath: Partner/Epic_Wraith
-  Description: "\uAC80\uC740 \uAD6C\uCCB4\uB97C \uC801\uC5D0\uAC8C \uC720\uB3C4 \uBC1C\uC0AC"
+  StatPerLevel: 0.03
+  AttackDamage: 500
+  AttackSpeed: 2.5
+  PrefabPath: Partner/22002
+  Description: "\uBE60\uB978 \uC5F0\uD0C0\uAC00 \uD2B9\uC9D5\uC778 \uACF5\uACA9\uC218\uC785\uB2C8\uB2E4."

@@ -12,7 +12,7 @@ public class UniversalSheetLoader : Editor
     private const string PartnerURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRyDVW3msTQbFIC8alNBIsTJ54oBNKmlY1-RY5yF-xkKVKORx_-haqwvcTx9jHJfJ9ds5DbWlPsVigp/pub?gid=1209793167&single=true&output=csv";
 
     // 저장 경로 설정
-    private const string BasePath = "Assets/WorkSpace/CJY/05.Data/";
+    private const string BasePath = "Assets/WorkSpace/CJY/05.Data/Resources/";
 
     [MenuItem("Tools/Sync All Data")]
     public static void SyncAll()
