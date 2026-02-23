@@ -10,8 +10,8 @@ public class GachaShop_Display : MonoBehaviour
 
     [Header("UI Ref")]
     [SerializeField] private GameObject resultPanel;
-    [SerializeField] private Slider expSlider;
-    [SerializeField] private TextMeshProUGUI expText;
+    [SerializeField] private Slider expSlider, expSlider2;
+    [SerializeField] private TextMeshProUGUI expText, expText2;
     [SerializeField] private TextMeshProUGUI levelText;
 
     [Header("Shop Settings")]
@@ -23,9 +23,15 @@ public class GachaShop_Display : MonoBehaviour
         UpdateDisplay();
     }
 
-    private void UpdateDisplay()
+    public void UpdateDisplay()
     {
         if(DataManager.Instance == null) return;
+
+        int targetIndex = (gameObject.name.Contains("Result")) 
+                      ? GachaShop.currentShopIndex 
+                      : shopIndex;
+
+        if (targetIndex < 0) return;
 
         int currentLevel = DataManager.Instance.ShopLevels[shopIndex];
         int currentExp = DataManager.Instance.ShopExps[shopIndex];
@@ -35,11 +41,13 @@ public class GachaShop_Display : MonoBehaviour
         if (expSlider != null)
         {
             expSlider.value = (float)currentExp / requiredExp;
+            expSlider2.value = (float)currentExp / requiredExp;
         }
 
         if (expText != null)
         {
             expText.text = $"{currentExp} / {requiredExp}";
+            expText2.text = $"{currentExp} / {requiredExp}";
         }
 
         if (levelText != null)

@@ -36366,7 +36366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &676462522
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40700,7 +40700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &747090527
 RectTransform:
   m_ObjectHideFlags: 0
@@ -45531,14 +45531,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.32941177, g: 0.32941177, b: 0.32941177, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300032, guid: 8b8333c8af9b0c54da038fe9102febb5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -82845,14 +82845,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.039215688, g: 0.54901963, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300034, guid: 8b8333c8af9b0c54da038fe9102febb5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -96690,6 +96690,7 @@ MonoBehaviour:
   - {fileID: 1127898855112431057, guid: ccbe8adfd7f1a0849bc212f8308002d0, type: 3}
   resultPanel: {fileID: 1829961142}
   resultContent: {fileID: 1230149785}
+  gemText: {fileID: 0}
 --- !u!114 &1828535212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96704,7 +96705,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultPanel: {fileID: 1829961142}
   expSlider: {fileID: 1941945009}
+  expSlider2: {fileID: 747090528}
   expText: {fileID: 618087026}
+  expText2: {fileID: 1560778472}
   levelText: {fileID: 621475560}
   shopIndex: 1
 --- !u!1 &1829961142
@@ -103904,6 +103907,7 @@ MonoBehaviour:
   - {fileID: 1127898855112431057, guid: ccbe8adfd7f1a0849bc212f8308002d0, type: 3}
   resultPanel: {fileID: 1829961142}
   resultContent: {fileID: 1230149785}
+  gemText: {fileID: 0}
 --- !u!114 &1949430459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103918,7 +103922,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultPanel: {fileID: 1829961142}
   expSlider: {fileID: 1695758288}
+  expSlider2: {fileID: 747090528}
   expText: {fileID: 407042899}
+  expText2: {fileID: 1560778472}
   levelText: {fileID: 121477695}
   shopIndex: 2
 --- !u!1 &1952182444
@@ -105228,6 +105234,7 @@ MonoBehaviour:
   - {fileID: 1127898855112431057, guid: ccbe8adfd7f1a0849bc212f8308002d0, type: 3}
   resultPanel: {fileID: 1829961142}
   resultContent: {fileID: 1230149785}
+  gemText: {fileID: 257846771}
 --- !u!114 &1965173914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105242,7 +105249,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultPanel: {fileID: 1829961142}
   expSlider: {fileID: 45233418}
+  expSlider2: {fileID: 747090528}
   expText: {fileID: 1527879077}
+  expText2: {fileID: 1560778472}
   levelText: {fileID: 1123186450}
   shopIndex: 0
 --- !u!1 &1965318940
@@ -109855,14 +109864,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300026, guid: 8b8333c8af9b0c54da038fe9102febb5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -112468,7 +112477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: c67e714642f0fc047a9ed0571938d60a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
