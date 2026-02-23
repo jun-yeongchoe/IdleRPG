@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2129814783608716978}
   - component: {fileID: 1593673619812616701}
   - component: {fileID: 7850928384949426710}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Rooster
-  m_TagString: Untagged
+  m_TagString: EnemyTest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

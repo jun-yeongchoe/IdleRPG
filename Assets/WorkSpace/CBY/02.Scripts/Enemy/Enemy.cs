@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class Enemy : MonoBehaviour
 
     private Animator animator;
     private bool isDead;
+
+    //외부 통보용 이벤트 (골드 던전 / 기타 모드 공용)
+    public event Action<Enemy> OnEnemyDead;
 
     private void Awake()
     {
@@ -52,6 +56,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // ===== FSM → Animator 제어 =====
     public void MoveStart()
     {
         if (animator == null || isDead) return;
@@ -76,18 +81,25 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("Die");
     }
 
-    // Animation Events
+    // ===== Animation Events =====
     public void OnAttackEnd()
     {
         if (animator == null) return;
         animator.SetBool("IsAttacking", false);
     }
 
+    /// <summary>
+    /// Die 애니메이션이 끝났을 때 호출
+    /// </summary>
     public void OnDieEnd()
     {
+        //여기서만 사망 확정 통보
+        OnEnemyDead?.Invoke(this);
+
         gameObject.SetActive(false);
     }
 
+    
     public bool IsDead()
     {
         return isDead;

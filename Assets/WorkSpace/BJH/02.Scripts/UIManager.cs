@@ -24,6 +24,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private MenuSet shopMenu;
     [SerializeField] private MenuSet questMenu;
 
+#region 최준영 추가
+    [Header("In charMenu")]
+    [SerializeField] private MenuSet charMenu_Inventory;
+    [SerializeField] private MenuSet charMenu_Skill;
+    [SerializeField] private MenuSet charMenu_SP;
+#endregion
+
 
     public void OnClickCharacter()
     {

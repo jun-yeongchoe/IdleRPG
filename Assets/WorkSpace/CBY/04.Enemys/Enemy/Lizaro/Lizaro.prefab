@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 245437544891418084}
   - component: {fileID: 338718131380740875}
   - component: {fileID: 3129049611796996222}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Lizaro
-  m_TagString: Untagged
+  m_TagString: EnemyTest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

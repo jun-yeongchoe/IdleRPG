@@ -1,48 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
     Animator anim;
-
-    private float attackDelayDenominator = 1f;
     private float lastAttackTime = 0f;
-    [SerializeField] PlayerStatus playerStatus;
-    [SerializeField] StatBase atkSpeedStat;
-
-    [Header("Attack Damage")]
-    [SerializeField] PolygonCollider2D weaponCollider;
-
-    public void EnableWeaponCollider()
-    {
-        weaponCollider.enabled = true;
-    }
-
-    public void DisableWeaponCollider()
-    {
-        weaponCollider.enabled = false;
-    }
+    private Enemy currentTarget; // 현재 락온된 타겟
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        
     }
 
-    public void Attack()
+    // 컨트롤러에서 대상을 지정해 공격 호출
+    public void Attack(Enemy target)
     {
-        // float attackInterval = attackDelayDenominator / atkSpeedStat.GetValue(playerStatus.atkSpeed); 
-        float attackInterval = attackDelayDenominator / PlayerStat.instance.atkSpeed;
-        Debug.Log("Attack Interval: " + attackInterval);
-        Debug.Log("Attack Speed: " + playerStatus.atkSpeed);
+        currentTarget = target;
+
+        float attackInterval = 1f / PlayerStat.instance.atkSpeed;
+        
         if (Time.time - lastAttackTime > attackInterval)
         {
-            // anim.SetFloat("attackSpeed", atkSpeedStat.GetValue(playerStatus.atkSpeed));
             anim.SetTrigger("swing");
             lastAttackTime = Time.time;
+            OnAttackHit();
         }
     }
-    
-  
+
+    public void OnAttackHit()
+    {
+        if (currentTarget == null) return;
+
+        var attackData = PlayerStat.instance.GetAttackDamage();
+        
+        // 공격 전 체력
+        float hpBefore = currentTarget.stats.hp;
+        
+        currentTarget.TakeDamage(attackData.damage);
+        
+        // 공격 후 체력
+        float hpAfter = currentTarget.stats.hp;
+
+        Debug.Log($"<color=cyan>[공격 성공]</color> {currentTarget.name} | 데미지: {attackData.damage} | 체력 변화: {hpBefore} -> {hpAfter}");
+    }
 }

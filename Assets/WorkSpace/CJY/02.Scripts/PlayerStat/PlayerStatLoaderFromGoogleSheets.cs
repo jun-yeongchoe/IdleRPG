@@ -70,18 +70,18 @@ public class PlayerStatLoaderFromGoogleSheets : MonoBehaviour
     }
 
     int ParseIntOnly(string s)
-{
-    if (string.IsNullOrWhiteSpace(s)) return 0;
-    
-    // 숫자 이외의 모든 문자(공백, \r, \n 등)를 제거합니다.
-    string digitsOnly = System.Text.RegularExpressions.Regex.Replace(s, @"[^\d]", "");
-    
-    if (int.TryParse(digitsOnly, out int result))
     {
-        return result;
+        if (string.IsNullOrWhiteSpace(s)) return 0;
+        
+        // 숫자 이외의 모든 문자(공백, \r, \n 등)를 제거합니다.
+        string digitsOnly = System.Text.RegularExpressions.Regex.Replace(s, @"[^\d]", "");
+        
+        if (int.TryParse(digitsOnly, out int result))
+        {
+            return result;
+        }
+        return 0;
     }
-    return 0;
-}
 
     public PlayerStatData_CSV GetStat(string statName)
     {

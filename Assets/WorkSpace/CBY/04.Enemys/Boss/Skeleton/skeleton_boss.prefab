@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7638218392389214830}
   - component: {fileID: 1292966537510175702}
   - component: {fileID: 5733883875317999375}
-  - component: {fileID: 5626965707502278936}
   - component: {fileID: 2844547733466007016}
+  - component: {fileID: 8719560067447127573}
   - component: {fileID: 6266400908752984883}
   m_Layer: 0
   m_Name: skeleton_boss
@@ -161,19 +161,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
---- !u!114 &5626965707502278936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8676296774942242681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c944bbfe94a6843885b40672bb3176, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 2844547733466007016}
 --- !u!114 &2844547733466007016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,16 +173,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a11a2b3cbf82d2408254ae73b87e403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHp: 300
-  hpPerStage: 50
-  baseAttack: 20
-  attackPerStage: 5
-  moveSpeed: 2
-  attackRange: 2
-  attackCooldown: 2
+  baseHp: 2000
+  hpPerStage: 500
+  baseAttack: 400
+  attackPerStage: 200
+  moveSpeed: 1
+  attackRange: 1
+  attackCooldown: 1
   maxHp: 0
   currentHp: 0
   attackDamage: 0
+--- !u!114 &8719560067447127573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8676296774942242681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63ab8579b73b84469f7dafd99c4a8fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 2844547733466007016}
 --- !u!95 &6266400908752984883
 Animator:
   serializedVersion: 5
