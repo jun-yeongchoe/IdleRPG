@@ -1,58 +1,79 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Numerics;
 
-// 골드 던전의 진행,골드 집계,결과 처리를 담당
 public class GoldDungeonManager : MonoBehaviour
 {
     public static GoldDungeonManager Instance;
 
-    [Header("Dungeon")]
-    public float dungeonTime = 60f;
+    [Header("던전 설정")]
+    public BigInteger baseGoldReward = 1000;
+    public BigInteger goldPerKill = 100;
 
-    [Header("Gold")]
-    public int totalGold;
+    [Tooltip("클리어 보너스 퍼센트 (예: 150 = 1.5배)")]
+    [SerializeField] private int clearBonusPercent = 150;
 
-    private float timer;
-    private bool isEnded;
+    private int killedEnemyCount;
+    private bool isCleared;
 
     private void Awake()
     {
-        Instance = this;
-    }
-
-    private void OnEnable()
-    {
-        timer = dungeonTime;
-        totalGold = 0;
-        isEnded = false;
-        Time.timeScale = 1f;
-    }
-
-    private void Update()
-    {
-        if (isEnded) return;
-
-        timer -= Time.deltaTime;
-
-        if (timer <= 0f)
+        if (Instance == null)
+            Instance = this;
+        else
         {
-            EndDungeon();
+            Destroy(gameObject);
+            return;
         }
     }
 
-    // 골드 던전 전용 골드 추가
-    public void AddGold(int amount)
+    private void Start()
     {
-        if (isEnded) return;
-
-        totalGold += amount;
+        StartDungeon();
     }
 
-    void EndDungeon()
+    void StartDungeon()
     {
-        isEnded = true;
+        killedEnemyCount = 0;
+        isCleared = false;
+    }
 
-        Debug.Log($"골드 던전 종료 / 획득 골드: {totalGold}");
+    // GoldDungeonEnemySpawner에서 호출
+    public void OnEnemyKilled()
+    {
+        if (isCleared) return;
+        killedEnemyCount++;
+    }
 
-        Time.timeScale = 0f; // 결과 UI 표시용
+    // 모든 적 처치 시 호출
+    public void ClearDungeon()
+    {
+        if (isCleared) return;
+        isCleared = true;
+
+        BigInteger reward = CalculateReward();
+
+        if (DataManager.Instance != null)
+            DataManager.Instance.AddGold(reward);
+
+        if (GoldDungeonResultUI.Instance != null)
+            GoldDungeonResultUI.Instance.Show(reward);
+    }
+
+    BigInteger CalculateReward()
+    {
+        BigInteger reward =
+            baseGoldReward +
+            (goldPerKill * killedEnemyCount);
+
+        // 정수 기반 배율 계산
+        reward = reward * clearBonusPercent / 100;
+
+        return reward;
+    }
+
+    public void ExitDungeon()
+    {
+        SceneManager.LoadScene("Lobby");
     }
 }

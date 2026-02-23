@@ -365,7 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 1500
   hp: 200
-  attack: 100
+  attackPower: 0
   moveSpeed: 1
   attackRange: 1
   attackCooldown: 1
@@ -413,6 +413,10 @@ PrefabInstance:
     - target: {fileID: 3129049611796996222, guid: f30be1b66c79ab2458f14191f8dfb372, type: 3}
       propertyPath: maxHp
       value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3129049611796996222, guid: f30be1b66c79ab2458f14191f8dfb372, type: 3}
+      propertyPath: attackPower
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4104715505881092488, guid: f30be1b66c79ab2458f14191f8dfb372, type: 3}
       propertyPath: m_LocalScale.x
@@ -618,6 +622,10 @@ PrefabInstance:
       propertyPath: attack
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 7850928384949426710, guid: 0fba3db3ebb989e45bea272fced15990, type: 3}
+      propertyPath: attackPower
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -786,6 +794,10 @@ PrefabInstance:
     - target: {fileID: 1371833939742154680, guid: ada3b6472ea64f64b946e9c498099338, type: 3}
       propertyPath: moveSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1371833939742154680, guid: ada3b6472ea64f64b946e9c498099338, type: 3}
+      propertyPath: attackPower
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1371833939742154680, guid: ada3b6472ea64f64b946e9c498099338, type: 3}
       propertyPath: attackRange
