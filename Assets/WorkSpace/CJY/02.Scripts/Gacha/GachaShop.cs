@@ -41,6 +41,9 @@ public class GachaShop : MonoBehaviour
     [SerializeField] private GameObject resultPanel;
     [SerializeField] private Transform resultContent;
 
+    [Header("Gem")]
+    [SerializeField] private TextMeshProUGUI gemText;
+
 
     void Awake()
     {
@@ -52,10 +55,15 @@ public class GachaShop : MonoBehaviour
             else if(objName.Contains(shopNames[2])) shopIndex = 2;
         }
         DataManager.Instance.ShopLevels[0] = 15;
+        DataManager.Instance.Gem = 100000;
     }
 
     void Start()
     {
+        if(EventManager.Instance != null) EventManager.Instance.StartList("CurrencyChange", RefreshGemUI);
+
+        RefreshGemUI();
+
         List<string> options = new List<string>();
         for(int i = 1; i <= 20; i++)
         {
@@ -69,6 +77,10 @@ public class GachaShop : MonoBehaviour
         StartCoroutine(DownloadCSV());
     }
 
+    private void RefreshGemUI()
+    {
+    if(gemText != null && DataManager.Instance != null) gemText.text = DataManager.Instance.Gem.ToString();
+    }
 
     IEnumerator DownloadCSV()
     {
@@ -147,8 +159,17 @@ public class GachaShop : MonoBehaviour
     {
         if(currentRates.Count == 0)return;
         currentShopIndex = this.shopIndex;
-        if(!resultPanel.activeSelf) resultPanel.SetActive(true);
+
+        int cost = (count == 11)? 500 : 1500;
+        if(DataManager.Instance.Gem < cost)
+        {
+            Debug.Log("잔액이 부족합니다.");
+            return;
+        }
+
+        DataManager.Instance.AddGem(-cost);
         
+        if(!resultPanel.activeSelf) resultPanel.SetActive(true);
         foreach(Transform child in resultContent)
         {
             Destroy(child.gameObject);
@@ -168,7 +189,18 @@ public class GachaShop : MonoBehaviour
             Debug.Log($"{rankKeys[i]} 등급 획득 개수: {results[i]}");
         }
         DisplayResult(rolledIndices);
+        // GachaShop.cs 의 DoSummon 메서드 내부 하단
+
         AddShopExp(count);
+
+        // 1. 자신의 패널 UI 갱신
+        GachaShop_Display myDisplay = GetComponent<GachaShop_Display>();
+        if (myDisplay != null) myDisplay.UpdateDisplay();
+
+        // 2. 결과창(Panel_Result)의 UI도 실시간 갱신
+        // Panel_Result 객체에 GachaShop_Display 스크립트가 붙어있어야 합니다.
+        GachaShop_Display resultDisplay = resultPanel.GetComponent<GachaShop_Display>();
+        if (resultDisplay != null) resultDisplay.UpdateDisplay();
     }
 
     private void DisplayResult(List<int> rolledIndices)
@@ -262,6 +294,14 @@ public class GachaShop : MonoBehaviour
                 shop.DoSummon(count);
                 return;
             }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.StopList("CurrencyChange", RefreshGemUI);
         }
     }
 
