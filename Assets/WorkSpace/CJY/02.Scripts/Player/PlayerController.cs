@@ -81,4 +81,13 @@ public class PlayerController : MonoBehaviour
         isCombat = false;
         playerMove.Move();
     }
+
+    public Enemy GetCurrentTarget()
+    {
+        if(targetEnemies != null && targetEnemies.Count > 0)
+        {
+            return targetEnemies[0];
+        }
+        return null;
+    }
 }

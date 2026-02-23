@@ -237,7 +237,7 @@ public class DBManager : MonoBehaviour
             else
             {
                 Debug.Log("신규 유저 : 초기 데이터 생성");
-                DataManager.Instance.Gold = 10000;
+                DataManager.Instance.Gold = 10000;  //테스트용
                 tempJsonData = DataManager.Instance.SendJson();
                 dbReference.Child("users").Child(userId).SetRawJsonValueAsync(tempJsonData);
             }
