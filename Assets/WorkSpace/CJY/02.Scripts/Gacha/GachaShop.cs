@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -13,8 +14,6 @@ public class GachaShop : MonoBehaviour
     private string csvUrl = "https://docs.google.com/spreadsheets/d/1nBD0pWXwxWAM0WZP5OcrImMrh5f65wtb0LtI2C-qG9M/export?format=csv&gid=1032686388";
 
     [Header("UI")]
-    // public TMP_Dropdown levelChoose;
-    public TextMeshProUGUI[] result;
     public Button summon11Btn, summon35Btn;
     private Dictionary<string, float> currentRates = new Dictionary<string, float>();
     private string[] rankKeys = { "Common", "Uncommon", "Rare", "Epic", "Legendary", "Mythic", "Celestial" };
@@ -23,41 +22,53 @@ public class GachaShop : MonoBehaviour
 
     [Header("Shop Settings")]
     public int shopIndex = 0;
+    public static int currentShopIndex = -1;
     private const int BASE_EXP = 35;
     private string[] shopNames = {"Equip", "Skill", "Partner"};
+    
+    [Header("Item List")]
+    [SerializeField] private GameObject[] common;
+    [SerializeField] private GameObject[] uncommon;
+    [SerializeField] private GameObject[] rare;
+    [SerializeField] private GameObject[] epic;
+    [SerializeField] private GameObject[] legendary;
+    [SerializeField] private GameObject[] mythic;
+    [SerializeField] private GameObject[] celestial;
+
+    private GameObject[][] itemLists;
+
+    [Header("Result")]
+    [SerializeField] private GameObject resultPanel;
+    [SerializeField] private Transform resultContent;
+
 
     void Awake()
     {
         string objName = gameObject.name;
-        if(objName.Contains(shopNames[0])) shopIndex = 0;
-        else if(objName.Contains(shopNames[1])) shopIndex = 1;
-        else if(objName.Contains(shopNames[2])) shopIndex = 2;
+        if(currentShopIndex == -1)
+        {
+            if(objName.Contains(shopNames[0])) shopIndex = 0;
+            else if(objName.Contains(shopNames[1])) shopIndex = 1;
+            else if(objName.Contains(shopNames[2])) shopIndex = 2;
+        }
+        DataManager.Instance.ShopLevels[0] = 15;
     }
 
     void Start()
     {
-        // levelChoose.ClearOptions();
-
         List<string> options = new List<string>();
         for(int i = 1; i <= 20; i++)
         {
             options.Add(i.ToString());
         }
 
-        // levelChoose.AddOptions(options);
-
+        itemLists = new GameObject[][] { common, uncommon, rare, epic, legendary, mythic, celestial };
         summon11Btn.onClick.AddListener(() => DoSummon(11));
         summon35Btn.onClick.AddListener(() => DoSummon(35));
 
         StartCoroutine(DownloadCSV());
-        // levelChoose.onValueChanged.AddListener
-        // (
-        // delegate 
-        // { 
-        //     StartCoroutine(LoadRatesFromCSV()); 
-        // }
-        // );
     }
+
 
     IEnumerator DownloadCSV()
     {
@@ -135,18 +146,48 @@ public class GachaShop : MonoBehaviour
     private void DoSummon(int count)
     {
         if(currentRates.Count == 0)return;
+        currentShopIndex = this.shopIndex;
+        if(!resultPanel.activeSelf) resultPanel.SetActive(true);
+        
+        foreach(Transform child in resultContent)
+        {
+            Destroy(child.gameObject);
+        }
 
         int[] results = new int[7];
+        List<int> rolledIndices = new List<int>();
 
         for(int i = 0; i<count; i++)
         {
             int idx = GetRandRankIdx();
             results[idx]++;
+            rolledIndices.Add(idx);
         }
-        AddShopExp(count);
-        for(int i = 0; i< result.Length; i++)
+        for(int i = 0; i< rankKeys.Length; i++)
         {
-            result[i].text = results[i].ToString();
+            Debug.Log($"{rankKeys[i]} 등급 획득 개수: {results[i]}");
+        }
+        DisplayResult(rolledIndices);
+        AddShopExp(count);
+    }
+
+    private void DisplayResult(List<int> rolledIndices)
+    {
+        if(resultContent == null) return;
+
+        foreach(int gradeIdx in rolledIndices)
+        {
+            GameObject[] targetList = itemLists[gradeIdx];
+            if(targetList != null && targetList.Length > 0)
+            {
+                int randItemIdx = Random.Range(0, targetList.Length);
+                GameObject prefab = targetList[randItemIdx];
+
+                if(prefab != null)
+                {
+                    Instantiate(prefab, resultContent);
+                }
+            }
         }
     }
 
@@ -207,5 +248,21 @@ public class GachaShop : MonoBehaviour
 
     }
 
+    public void OnClickResultRetry(int count)
+    {
+        GachaShop[] allShops = FindObjectsOfType<GachaShop>();
+
+        foreach (var shop in allShops)
+        {
+            
+            if (shop.gameObject.name.Contains("Result")) continue;
+
+            if (shop.shopIndex == currentShopIndex)
+            {
+                shop.DoSummon(count);
+                return;
+            }
+        }
+    }
 
 }
