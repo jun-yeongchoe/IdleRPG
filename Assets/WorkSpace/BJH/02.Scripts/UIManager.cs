@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,16 +9,20 @@ public class UIManager : MonoBehaviour
         public GameObject panel;
         public GameObject normalIcon;
         public GameObject closeIcon;
+
+        [Header("True=ì•ˆêº¼ì§")]
+        public bool ignoreClose;
     }
 
-    [Header("±âº» BG ¼³Á¤")]
+    [Header("ê¸°ë³¸ BG ì„¤ì •")]
     [SerializeField] private GameObject bgWindow;
 
-    [Header("¸Ş´º ¼¼Æ® ¼³Á¤")]
+    [Header("ë©”ë‰´ ì„¸íŠ¸ ì„¤ì •")]
     [SerializeField] private MenuSet charMenu;
     [SerializeField] private MenuSet partnerMenu;
     [SerializeField] private MenuSet dungeonMenu;
     [SerializeField] private MenuSet shopMenu;
+    [SerializeField] private MenuSet questMenu;
 
 
     public void OnClickCharacter()
@@ -41,36 +45,41 @@ public class UIManager : MonoBehaviour
         ToggleMenu(shopMenu);
     }
 
+    public void OnClickQuest()
+    {
+        ToggleMenu(questMenu);
+    }
+
     private void ToggleMenu(MenuSet selected)
     {
-        // ÀÌ¹Ì ÄÑÁ®ÀÖ´Â ¸Ş´º¸¦ ´­·¶À» ¶§
+        // ì´ë¯¸ ì¼œì ¸ìˆëŠ” ë©”ë‰´ë¥¼ ëˆŒë €ì„ ë•Œ
         if (selected.panel.activeSelf == true)
         {
-            selected.panel.SetActive(false); // ³»¿ë¹° ²ô±â
-            UpdateIcons(selected, false); // ¾ÆÀÌÄÜ º¹±¸
-            bgWindow.SetActive(false); // ¹è°æ²ô±â
+            selected.panel.SetActive(false); // ë‚´ìš©ë¬¼ ë„ê¸°
+            UpdateIcons(selected, false); // ì•„ì´ì½˜ ë³µêµ¬
+            if(!selected.ignoreClose) bgWindow.SetActive(false); // ë°°ê²½ë„ê¸°
         }
-        // ²¨Á®ÀÖ´Â ¸Ş´º¸¦ ´­·¶À» ¶§
+        // êº¼ì ¸ìˆëŠ” ë©”ë‰´ë¥¼ ëˆŒë €ì„ ë•Œ
         else
         {
-            AllClose(); // ÀüºÎ ´İ°í ÄÑ±â
-            // ¹è°æ ¿Â
-            bgWindow.SetActive(true);
+            if(!selected.ignoreClose) AllClose(); // ì „ë¶€ ë‹«ê³  ì¼œê¸°
+            // ë°°ê²½ ì˜¨
+            if (!selected.ignoreClose) bgWindow.SetActive(true);
 
-            selected.panel.SetActive(true); // ÆÇ³Ú ÄÑ±â
-            UpdateIcons(selected, true); // ¾ÆÀÌÄÜ º¯°æ
+            selected.panel.SetActive(true); // íŒë„¬ ì¼œê¸°
+            UpdateIcons(selected, true); // ì•„ì´ì½˜ ë³€ê²½
         }
     }
 
     private void UpdateIcons(MenuSet menu, bool isOpen)
     {
-        // ¿ÀÇÂÀÌ¸é ´İ±â ¾ÆÀÌÄÜ
+        // ì˜¤í”ˆì´ë©´ ë‹«ê¸° ì•„ì´ì½˜
         if (isOpen == true)
         {
             menu.normalIcon.SetActive(false);
             menu.closeIcon.SetActive(true);
         }
-        // ¿ÀÇÂ¾Æ´Ï¸é ±âº» ¾ÆÀÌÄÜ
+        // ì˜¤í”ˆì•„ë‹ˆë©´ ê¸°ë³¸ ì•„ì´ì½˜
         else
         {
             menu.normalIcon.SetActive(true);
@@ -80,17 +89,21 @@ public class UIManager : MonoBehaviour
 
     public void AllClose()
     {
-        // ¸ğµç ÆÇ³Ú ²ô±â
+        // ëª¨ë“  íŒë„¬ ë„ê¸°
         bgWindow.SetActive(false);
-        charMenu.panel.SetActive(false);
-        partnerMenu.panel.SetActive(false);
-        dungeonMenu.panel.SetActive(false);
-        shopMenu.panel.SetActive(false);
+        CloseAllowed(charMenu);
+        CloseAllowed(partnerMenu);
+        CloseAllowed(dungeonMenu);
+        CloseAllowed(shopMenu);
+        CloseAllowed(questMenu);
+    }
 
-        // ¸ğµç ¾ÆÀÌÄÜÀ» ±âº» »óÅÂ·Î
-        UpdateIcons(charMenu, false);
-        UpdateIcons(partnerMenu, false);
-        UpdateIcons(dungeonMenu, false);
-        UpdateIcons(shopMenu, false);
+    private void CloseAllowed(MenuSet menu)
+    {
+        if (menu != null && menu.panel != null && !menu.ignoreClose)
+        { 
+            menu.panel.SetActive(false);
+            UpdateIcons(menu, false);
+        }
     }
 }

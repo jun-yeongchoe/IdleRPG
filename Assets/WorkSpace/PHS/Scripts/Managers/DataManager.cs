@@ -124,6 +124,7 @@ public class DataManager : MonoBehaviour
         data.InventoryList = DictToList(InventoryDict);
         data.CompanionList = DictToList(CompanionDict);
         data.SkillList = DictToList(SkillDict);
+        data.QuestList = QuestDictToList(QuestDict);
 
         data.EquipSlot=EquipSlot;
         data.SkillSlot = SkillSlot;
@@ -166,6 +167,7 @@ public class DataManager : MonoBehaviour
         InventoryDict = ListToDict(data.InventoryList);
         CompanionDict = ListToDict(data.CompanionList);
         SkillDict = ListToDict(data.SkillList);
+        QuestDict = QuestListToDict(data.QuestList);
 
         if (data.EquipSlot != null && data.EquipSlot.Length == 4)
         {
@@ -223,6 +225,33 @@ public class DataManager : MonoBehaviour
             if (!dict.ContainsKey(item.id))
             {
                 dict.Add(item.id, item);
+            }
+        }
+        return dict;
+    }
+
+    private List<QuestSaveData> QuestDictToList(Dictionary<int, QuestSaveData> dict)
+    {
+        List<QuestSaveData> list=new List<QuestSaveData>();
+        if(dict== null) return list;
+
+        foreach (var pair in dict) 
+        {
+            list.Add(pair.Value);
+        }
+        return list;
+    }
+
+    private Dictionary<int, QuestSaveData> QuestListToDict(List<QuestSaveData> list)
+    { 
+        Dictionary<int,QuestSaveData>dict=new Dictionary<int, QuestSaveData>();
+        if(list == null) return dict;
+
+        foreach (var item in list)
+        {
+            if (!dict.ContainsKey(item.questId))
+            { 
+                dict.Add(item.questId, item);
             }
         }
         return dict;
