@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -12,7 +13,7 @@ public class GachaShop : MonoBehaviour
     private string csvUrl = "https://docs.google.com/spreadsheets/d/1nBD0pWXwxWAM0WZP5OcrImMrh5f65wtb0LtI2C-qG9M/export?format=csv&gid=1032686388";
 
     [Header("UI")]
-    public TMP_Dropdown levelChoose;
+    // public TMP_Dropdown levelChoose;
     public TextMeshProUGUI[] result;
     public Button summon11Btn, summon35Btn;
     private Dictionary<string, float> currentRates = new Dictionary<string, float>();
@@ -20,11 +21,22 @@ public class GachaShop : MonoBehaviour
 
     public List<GachaData_CSV> gachaRates = new List<GachaData_CSV>();
 
+    [Header("Shop Settings")]
+    public int shopIndex = 0;
+    private const int BASE_EXP = 35;
+    private string[] shopNames = {"Equip", "Skill", "Partner"};
+
+    void Awake()
+    {
+        string objName = gameObject.name;
+        if(objName.Contains(shopNames[0])) shopIndex = 0;
+        else if(objName.Contains(shopNames[1])) shopIndex = 1;
+        else if(objName.Contains(shopNames[2])) shopIndex = 2;
+    }
+
     void Start()
     {
-        
-
-        levelChoose.ClearOptions();
+        // levelChoose.ClearOptions();
 
         List<string> options = new List<string>();
         for(int i = 1; i <= 20; i++)
@@ -32,19 +44,19 @@ public class GachaShop : MonoBehaviour
             options.Add(i.ToString());
         }
 
-        levelChoose.AddOptions(options);
+        // levelChoose.AddOptions(options);
 
         summon11Btn.onClick.AddListener(() => DoSummon(11));
         summon35Btn.onClick.AddListener(() => DoSummon(35));
 
         StartCoroutine(DownloadCSV());
-        levelChoose.onValueChanged.AddListener
-        (
-        delegate 
-        { 
-            StartCoroutine(LoadRatesFromCSV()); 
-        }
-        );
+        // levelChoose.onValueChanged.AddListener
+        // (
+        // delegate 
+        // { 
+        //     StartCoroutine(LoadRatesFromCSV()); 
+        // }
+        // );
     }
 
     IEnumerator DownloadCSV()
@@ -94,8 +106,12 @@ public class GachaShop : MonoBehaviour
 
     IEnumerator LoadRatesFromCSV()
     {
-        
-        GachaData_CSV select = gachaRates[levelChoose.value];
+        if(DataManager.Instance == null) yield break;
+
+        int currentShopLevel = DataManager.Instance.ShopLevels[shopIndex];
+        int rateIndex = Mathf.Clamp(currentShopLevel -1, 0, gachaRates.Count - 1);
+
+        GachaData_CSV select = gachaRates[rateIndex];
         if (select == null)
         {
             Debug.Log("로드 실패");
@@ -127,10 +143,48 @@ public class GachaShop : MonoBehaviour
             int idx = GetRandRankIdx();
             results[idx]++;
         }
+        AddShopExp(count);
         for(int i = 0; i< result.Length; i++)
         {
             result[i].text = results[i].ToString();
         }
+    }
+
+    private void AddShopExp(int count)
+    {
+        if(DataManager.Instance == null) return;
+
+        int currentLevel = DataManager.Instance.ShopLevels[shopIndex];
+        int currentExp = DataManager.Instance.ShopExps[shopIndex];
+
+        currentExp += count;
+
+        bool isLevelUp = false;
+
+        while(true)
+        {
+            int requiredExp = BASE_EXP * (int)Mathf.Pow(2, currentLevel -1);
+
+            if(currentExp >= requiredExp)
+            {
+                currentExp -= requiredExp;
+                currentLevel++;
+                isLevelUp = true;
+                Debug.Log($"<color = yellow>[Shop Level up]</color> Level{currentLevel-1} => {currentLevel}");
+
+            }    
+            else break;
+        }
+
+        DataManager.Instance.ShopLevels[shopIndex] = currentLevel;
+        DataManager.Instance.ShopExps[shopIndex] = currentExp;
+
+        if (isLevelUp)
+        {
+            StartCoroutine(LoadRatesFromCSV());
+        }
+
+        Debug.Log($"현재 상점 레벨: {currentLevel}, 경험치: {currentExp}");
     }
 
     private int GetRandRankIdx()
@@ -153,8 +207,5 @@ public class GachaShop : MonoBehaviour
 
     }
 
-    public void OnClickBackStatusWindow()
-    {
-        SceneManager.LoadScene("LoginTest");
-    }
+
 }
