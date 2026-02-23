@@ -27,6 +27,9 @@ public class QuestManager : MonoBehaviour
     [Header("퀘스트 DB (인스펙터에서 직접 작성)")]
     public List<QuestInfo> questDB = new List<QuestInfo>();
 
+    public delegate void OnQuestUpdated();
+    public event OnQuestUpdated questUpdateEvent;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -67,10 +70,14 @@ public class QuestManager : MonoBehaviour
             }
         }
 
-        //진행도가 올랐다면 퀘스트 UI 갱신 (나중에 UI 만들 때 연결할 곳)
+        //진행도가 올랐다면 퀘스트 UI 갱신
         if (isUpdated)
         {
-            
+            if (QuestPanelUI.Instance != null&&QuestPanelUI.Instance.gameObject.activeSelf) 
+            {
+                QuestPanelUI.Instance.RefreshUI();
+            }
+            questUpdateEvent?.Invoke();
         }
     }
 
@@ -89,7 +96,31 @@ public class QuestManager : MonoBehaviour
 
             Debug.Log($"퀘스트 완료! 보상으로 젬 {info.rewardGem}개 획득. (현재 젬: {DataManager.Instance.Gem})");
 
-            // UI 갱신
+            //UI 갱신
+            if (QuestPanelUI.Instance != null && QuestPanelUI.Instance.gameObject.activeSelf)
+            { 
+                QuestPanelUI.Instance.RefreshUI();
+            }
+            questUpdateEvent?.Invoke();
         }
+    }
+
+    public bool CheckReward()
+    {
+        if (DataManager.Instance == null) return false;
+
+        foreach (var quest in questDB)
+        {
+            if (DataManager.Instance.QuestDict.ContainsKey(quest.questId))
+            { 
+                QuestSaveData data=DataManager.Instance.QuestDict[quest.questId];
+
+                if (!data.isCleared && data.progressValue >= quest.maxCount)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
