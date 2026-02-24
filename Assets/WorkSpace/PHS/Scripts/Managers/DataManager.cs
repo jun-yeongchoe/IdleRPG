@@ -66,6 +66,9 @@ public class DataManager : MonoBehaviour
     public int[] ShopLevels = new int[3] { 1, 1, 1 };
     public int[] ShopExps = new int[3] { 0, 0, 0 };
 
+    [Header("특성 시스템")]
+    public TraitSaveData[] TraitSlots = new TraitSaveData[5];
+
     private void Awake()
     {
         if (Instance == null)
@@ -125,6 +128,7 @@ public class DataManager : MonoBehaviour
         data.CompanionList = DictToList(CompanionDict);
         data.SkillList = DictToList(SkillDict);
         data.QuestList = QuestDictToList(QuestDict);
+        data.TraitList = TraitArrayToList(TraitSlots);
 
         data.EquipSlot=EquipSlot;
         data.SkillSlot = SkillSlot;
@@ -168,6 +172,7 @@ public class DataManager : MonoBehaviour
         CompanionDict = ListToDict(data.CompanionList);
         SkillDict = ListToDict(data.SkillList);
         QuestDict = QuestListToDict(data.QuestList);
+        TraitSlots = TraitListToArray(data.TraitList);
 
         if (data.EquipSlot != null && data.EquipSlot.Length == 4)
         {
@@ -257,6 +262,34 @@ public class DataManager : MonoBehaviour
         return dict;
     }
 
+    private List<TraitSaveData> TraitArrayToList(TraitSaveData[] arr)
+    {
+        List<TraitSaveData> list = new List<TraitSaveData>();
+        if (arr == null) return list;
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (arr[i] != null) list.Add(arr[i]);
+        }
+        return list;
+    }
+
+    private TraitSaveData[] TraitListToArray(List<TraitSaveData> list)
+    {
+        TraitSaveData[] arr = new TraitSaveData[5];
+        for (int i = 0; i < 5; i++) arr[i] = new TraitSaveData { slotIndex = i, traitId = 0, isLocked = false };
+
+        if (list == null) return arr;
+
+        foreach (var item in list)
+        {
+            if (item.slotIndex >= 0 && item.slotIndex < 5)
+            {
+                arr[item.slotIndex] = item;
+            }
+        }
+        return arr;
+    }
+
     public void EquipItem(int slotIndex, int itemID)
     { 
         if(slotIndex<0||slotIndex>=4)return;
@@ -292,6 +325,7 @@ public class GameDataDTO
     public List<ItemSaveData> CompanionList;
     public List<ItemSaveData> SkillList;
     public List<QuestSaveData> QuestList;
+    public List<TraitSaveData> TraitList;
 
     public int GoldDungeonTicket = -1;
     public int BossRushTicket = -1;
@@ -317,4 +351,12 @@ public class QuestSaveData
     public int questId;         //퀘스트 고유 번호
     public int progressValue;   //진행도
     public bool isCleared;      //보상 수령 완료 여부
+}
+
+[System.Serializable]
+public class TraitSaveData
+{
+    public int slotIndex;   //슬롯 번호
+    public int traitId;     //부여된 특성 ID(0이면 빈 칸)
+    public bool isLocked;   //자물쇠 잠금 여부
 }
