@@ -79,7 +79,7 @@ public class GachaShop : MonoBehaviour
 
     private void RefreshGemUI()
     {
-    if(gemText != null && DataManager.Instance != null) gemText.text = DataManager.Instance.Gem.ToString();
+        if(gemText != null && DataManager.Instance != null) gemText.text = DataManager.Instance.Gem.ToString();
     }
 
     IEnumerator DownloadCSV()
