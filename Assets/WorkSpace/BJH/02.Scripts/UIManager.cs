@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Security.Cryptography;
+using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private MenuSet charMenu_Inventory;
     [SerializeField] private MenuSet charMenu_Skill;
     [SerializeField] private MenuSet charMenu_SP;
+    [SerializeField] private MenuSet charMenu_Inventory_Slot_W, charMenu_Inventory_Slot_A,charMenu_Inventory_Slot_AC1,charMenu_Inventory_Slot_AC2;
 #endregion
 
 
@@ -58,6 +60,8 @@ public class UIManager : MonoBehaviour
     }
 
     #region 최준영 추가
+
+    //CharMenu 1차 버튼 할당
     public void OnClickCharMenu_Inventory()
     {
         if(charMenu_SP.ignoreClose) charMenu_SP.ignoreClose = !charMenu_SP.ignoreClose;
@@ -93,6 +97,24 @@ public class UIManager : MonoBehaviour
 
         if(!charMenu_Inventory.ignoreClose) charMenu_Inventory.ignoreClose = !charMenu_Inventory.ignoreClose;
         if(!charMenu_Skill.ignoreClose) charMenu_Skill.ignoreClose = !charMenu_Skill.ignoreClose;
+    }
+
+    //CharMenu 2차 버튼 할당
+    public void OnClickCharMenu_Inventory_Slot_W()
+    {
+        ToggleMenu(charMenu_Inventory_Slot_W);
+    }
+    public void OnClickCharMenu_Inventory_Slot_A()
+    {
+        ToggleMenu(charMenu_Inventory_Slot_A);
+    }
+    public void OnClickCharMenu_Inventory_Slot_AC1()
+    {
+        ToggleMenu(charMenu_Inventory_Slot_AC1);
+    }
+    public void OnClickCharMenu_Inventory_Slot_AC2()
+    {
+        ToggleMenu(charMenu_Inventory_Slot_AC2);
     }
     #endregion
 
