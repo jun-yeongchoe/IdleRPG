@@ -57,6 +57,45 @@ public class UIManager : MonoBehaviour
         ToggleMenu(questMenu);
     }
 
+    #region 최준영 추가
+    public void OnClickCharMenu_Inventory()
+    {
+        if(charMenu_SP.ignoreClose) charMenu_SP.ignoreClose = !charMenu_SP.ignoreClose;
+        if(charMenu_Skill.ignoreClose) charMenu_Skill.ignoreClose = !charMenu_Skill.ignoreClose;
+
+        CloseAllowed(charMenu_SP);
+        CloseAllowed(charMenu_Skill);
+        ToggleMenu(charMenu_Inventory);
+        
+        if(!charMenu_SP.ignoreClose) charMenu_SP.ignoreClose = !charMenu_SP.ignoreClose;
+        if(!charMenu_Skill.ignoreClose) charMenu_Skill.ignoreClose = !charMenu_Skill.ignoreClose;
+    }
+    public void OnClickCharMenu_Skill()
+    {
+        if(charMenu_SP.ignoreClose) charMenu_SP.ignoreClose = !charMenu_SP.ignoreClose;
+        if(charMenu_Inventory.ignoreClose) charMenu_Inventory.ignoreClose = !charMenu_Inventory.ignoreClose;
+
+        CloseAllowed(charMenu_Inventory);
+        CloseAllowed(charMenu_SP);
+        ToggleMenu(charMenu_Skill);
+
+        if(!charMenu_SP.ignoreClose) charMenu_SP.ignoreClose = !charMenu_SP.ignoreClose;
+        if(!charMenu_Inventory.ignoreClose) charMenu_Inventory.ignoreClose = !charMenu_Inventory.ignoreClose;
+    }
+    public void OnClickCharMenu_SP()
+    {
+        if(charMenu_Inventory.ignoreClose) charMenu_Inventory.ignoreClose = !charMenu_Inventory.ignoreClose;
+        if(charMenu_Skill.ignoreClose) charMenu_Skill.ignoreClose = !charMenu_Skill.ignoreClose;
+
+        CloseAllowed(charMenu_Inventory);
+        CloseAllowed(charMenu_Skill);
+        ToggleMenu(charMenu_SP);
+
+        if(!charMenu_Inventory.ignoreClose) charMenu_Inventory.ignoreClose = !charMenu_Inventory.ignoreClose;
+        if(!charMenu_Skill.ignoreClose) charMenu_Skill.ignoreClose = !charMenu_Skill.ignoreClose;
+    }
+    #endregion
+
     private void ToggleMenu(MenuSet selected)
     {
         // 이미 켜져있는 메뉴를 눌렀을 때
