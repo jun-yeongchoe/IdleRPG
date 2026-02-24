@@ -53,18 +53,25 @@ public class SPDraw : MonoBehaviour
     public List<SPData> valueTable = new List<SPData>();
     public int drawCost = 5;
     public int CurrentTotalCost // 잠긴 슬롯 갯수에 따라 비용을 계산하는 속성
+    {
+        get
         {
-            get
+            int lockCount = 0;
+            foreach (var slot in spSlots)
             {
-                int lockCount = 0;
-                foreach (var slot in spSlots)
-                {
-                    if (slot.isLocked) lockCount++;
-                }
-                // 잠긴 개수 0개면 5, 1개면 10... (잠긴수 + 1) * 5
-                return (lockCount + 1) * drawCost;
+                if (slot.isLocked) lockCount++;
             }
+            // 잠긴 개수 0개면 5, 1개면 10... (잠긴수 + 1) * 5
+            return (lockCount + 1) * drawCost;
         }
+    }
+
+    [Header("Auto Draw Settings")]
+    [SerializeField] private Button autoDrawButton;
+    [SerializeField] private TextMeshProUGUI autoDrawButtonText; // "Auto Draw" / "Stop" 텍스트 변경용
+    private bool isAutoDrawing = false;
+    private Coroutine autoDrawCoroutine;
+    [SerializeField] private float autoDelay = 0.2f; // 자동 뽑기 간격
 
 
     [Header("Scrap")]
@@ -334,6 +341,96 @@ public class SPDraw : MonoBehaviour
         if (EventManager.Instance != null)
         {
             EventManager.Instance.StopList("CurrencyChange", RefreshScrapUI);
+        }
+    }
+
+
+    //AutoDraw
+    public void OnClickAutoDraw()
+    {
+        if (isAutoDrawing)
+        {
+            StopAutoDraw();
+        }
+        else
+        {
+            StartAutoDraw();
+        }
+    }
+
+    private void StartAutoDraw()
+    {
+        // 잠금 개수 체크 (모두 잠겨있으면 시작 안 함)
+        int lockCount = 0;
+        foreach (var slot in spSlots) if (slot.isLocked) lockCount++;
+        if (lockCount >= spSlots.Count) return;
+
+        isAutoDrawing = true;
+        if (autoDrawButtonText != null) autoDrawButtonText.text = "STOP";
+        
+        // 일반 뽑기 버튼 비활성화 (선택 사항)
+        drawButton.interactable = false;
+
+        autoDrawCoroutine = StartCoroutine(AutoDrawRoutine());
+    }
+
+    private void StopAutoDraw()
+    {
+        isAutoDrawing = false;
+        if (autoDrawButtonText != null) autoDrawButtonText.text = "AUTO DRAW";
+        
+        // 일반 뽑기 버튼 복구
+        UpdateDrawCostUI();
+
+        if (autoDrawCoroutine != null)
+        {
+            StopCoroutine(autoDrawCoroutine);
+            autoDrawCoroutine = null;
+        }
+    }
+
+    private IEnumerator AutoDrawRoutine()
+    {
+        while (isAutoDrawing)
+        {
+            int finalCost = CurrentTotalCost;
+
+            // 1. 재화 부족 체크
+            if (DataManager.Instance.Scrap < finalCost)
+            {
+                Debug.Log("Scrap 부족으로 자동 뽑기를 중단합니다.");
+                StopAutoDraw();
+                yield break;
+            }
+
+            // 2. 뽑기 실행 (OnClickSPChange의 핵심 로직과 동일)
+            DataManager.Instance.AddScrap(-finalCost);
+
+            foreach (var slot in spSlots)
+            {
+                if (slot.isLocked) continue;
+
+                string randRank = GetRandomRank();
+                SPData result = GetFinalSP(randRank);
+                string randSynergy = synergyNames[UnityEngine.Random.Range(0, synergyNames.Length)];
+                SynergyIconData iconData = GetSynergyData(randSynergy);
+
+                if (result != null && iconData != null)
+                {
+                    Color synergyColor = new Color(
+                        iconData.color.x / 255f, 
+                        iconData.color.y / 255f, 
+                        iconData.color.z / 255f, 
+                        1f
+                    );
+                    slot.UpdateSlotUI(result, randSynergy, iconData.synergySprite, synergyColor);
+                }
+            }
+
+            CalcTotalSynergy();
+
+            // 3. 딜레이 대기
+            yield return new WaitForSeconds(autoDelay);
         }
     }
 
