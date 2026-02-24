@@ -35,7 +35,7 @@ public class DBManager : MonoBehaviour
 
     void Start()
     {
-        // // 데이터베이스 루트 참조 가져오기
+        // 데이터베이스 루트 참조 가져오기
         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
 
         // DataManager 연동 
@@ -243,6 +243,7 @@ public class DBManager : MonoBehaviour
             }
 
             DataManager.Instance.LoadJson(tempJsonData);
+
             Debug.Log($"LoadJson 후 Gold 예시: {DataManager.Instance.Gold}");
             Debug.Log("==========================");
             Debug.Log($"JSON 원본 : {tempJsonData}");
