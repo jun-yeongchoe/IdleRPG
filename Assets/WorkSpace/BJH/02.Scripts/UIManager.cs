@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,16 +9,20 @@ public class UIManager : MonoBehaviour
         public GameObject panel;
         public GameObject normalIcon;
         public GameObject closeIcon;
+
+        [Header("True=안꺼짐")]
+        public bool ignoreClose;
     }
 
-    [Header("�⺻ BG ����")]
+    [Header("기본 BG 설정")]
     [SerializeField] private GameObject bgWindow;
 
-    [Header("�޴� ��Ʈ ����")]
+    [Header("메뉴 세트 설정")]
     [SerializeField] private MenuSet charMenu;
     [SerializeField] private MenuSet partnerMenu;
     [SerializeField] private MenuSet dungeonMenu;
     [SerializeField] private MenuSet shopMenu;
+    [SerializeField] private MenuSet questMenu;
 
 #region 최준영 추가
     [Header("In charMenu")]
@@ -48,53 +52,41 @@ public class UIManager : MonoBehaviour
         ToggleMenu(shopMenu);
     }
 
-#region 최준영 추가
-    public void OnClickChar_Inventory()
+    public void OnClickQuest()
     {
-        ToggleMenu(charMenu_Inventory);
+        ToggleMenu(questMenu);
     }
-    public void OnClickChar_Skill()
-    {
-        ToggleMenu(charMenu_Skill);
-    }
-    public void OnClickChar_SP()
-    {
-        ToggleMenu(charMenu_SP);
-    }
-
-    // AllClose()가 되지않고 하던, 아니면 UI 구조를 변경해서 해결해야할듯
-#endregion
 
     private void ToggleMenu(MenuSet selected)
     {
-        // �̹� �����ִ� �޴��� ������ ��
+        // 이미 켜져있는 메뉴를 눌렀을 때
         if (selected.panel.activeSelf == true)
         {
-            selected.panel.SetActive(false); // ���빰 ����
-            UpdateIcons(selected, false); // ������ ����
-            bgWindow.SetActive(false); // ������
+            selected.panel.SetActive(false); // 내용물 끄기
+            UpdateIcons(selected, false); // 아이콘 복구
+            if(!selected.ignoreClose) bgWindow.SetActive(false); // 배경끄기
         }
-        // �����ִ� �޴��� ������ ��
+        // 꺼져있는 메뉴를 눌렀을 때
         else
         {
-            AllClose(); // ���� �ݰ� �ѱ�
-            // ��� ��
-            bgWindow.SetActive(true);
+            if(!selected.ignoreClose) AllClose(); // 전부 닫고 켜기
+            // 배경 온
+            if (!selected.ignoreClose) bgWindow.SetActive(true);
 
-            selected.panel.SetActive(true); // �ǳ� �ѱ�
-            UpdateIcons(selected, true); // ������ ����
+            selected.panel.SetActive(true); // 판넬 켜기
+            UpdateIcons(selected, true); // 아이콘 변경
         }
     }
 
     private void UpdateIcons(MenuSet menu, bool isOpen)
     {
-        // �����̸� �ݱ� ������
+        // 오픈이면 닫기 아이콘
         if (isOpen == true)
         {
             menu.normalIcon.SetActive(false);
             menu.closeIcon.SetActive(true);
         }
-        // ���¾ƴϸ� �⺻ ������
+        // 오픈아니면 기본 아이콘
         else
         {
             menu.normalIcon.SetActive(true);
@@ -104,17 +96,21 @@ public class UIManager : MonoBehaviour
 
     public void AllClose()
     {
-        // ��� �ǳ� ����
+        // 모든 판넬 끄기
         bgWindow.SetActive(false);
-        charMenu.panel.SetActive(false);
-        partnerMenu.panel.SetActive(false);
-        dungeonMenu.panel.SetActive(false);
-        shopMenu.panel.SetActive(false);
+        CloseAllowed(charMenu);
+        CloseAllowed(partnerMenu);
+        CloseAllowed(dungeonMenu);
+        CloseAllowed(shopMenu);
+        CloseAllowed(questMenu);
+    }
 
-        // ��� �������� �⺻ ���·�
-        UpdateIcons(charMenu, false);
-        UpdateIcons(partnerMenu, false);
-        UpdateIcons(dungeonMenu, false);
-        UpdateIcons(shopMenu, false);
+    private void CloseAllowed(MenuSet menu)
+    {
+        if (menu != null && menu.panel != null && !menu.ignoreClose)
+        { 
+            menu.panel.SetActive(false);
+            UpdateIcons(menu, false);
+        }
     }
 }

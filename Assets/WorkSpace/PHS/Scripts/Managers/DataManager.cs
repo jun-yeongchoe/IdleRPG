@@ -54,6 +54,9 @@ public class DataManager : MonoBehaviour
     public int BossRushTicket = 2;
     public int DwarfKingTicket = 2;
 
+    [Header("퀘스트 보관함")]
+    public Dictionary<int, QuestSaveData> QuestDict = new Dictionary<int, QuestSaveData>();
+
     public Dictionary<int, ItemSaveData> InventoryDict = new Dictionary<int, ItemSaveData>();
 
     public Dictionary<int, ItemSaveData> CompanionDict = new Dictionary<int, ItemSaveData>();
@@ -121,6 +124,7 @@ public class DataManager : MonoBehaviour
         data.InventoryList = DictToList(InventoryDict);
         data.CompanionList = DictToList(CompanionDict);
         data.SkillList = DictToList(SkillDict);
+        data.QuestList = QuestDictToList(QuestDict);
 
         data.EquipSlot=EquipSlot;
         data.SkillSlot = SkillSlot;
@@ -163,6 +167,7 @@ public class DataManager : MonoBehaviour
         InventoryDict = ListToDict(data.InventoryList);
         CompanionDict = ListToDict(data.CompanionList);
         SkillDict = ListToDict(data.SkillList);
+        QuestDict = QuestListToDict(data.QuestList);
 
         if (data.EquipSlot != null && data.EquipSlot.Length == 4)
         {
@@ -225,6 +230,33 @@ public class DataManager : MonoBehaviour
         return dict;
     }
 
+    private List<QuestSaveData> QuestDictToList(Dictionary<int, QuestSaveData> dict)
+    {
+        List<QuestSaveData> list=new List<QuestSaveData>();
+        if(dict== null) return list;
+
+        foreach (var pair in dict) 
+        {
+            list.Add(pair.Value);
+        }
+        return list;
+    }
+
+    private Dictionary<int, QuestSaveData> QuestListToDict(List<QuestSaveData> list)
+    { 
+        Dictionary<int,QuestSaveData>dict=new Dictionary<int, QuestSaveData>();
+        if(list == null) return dict;
+
+        foreach (var item in list)
+        {
+            if (!dict.ContainsKey(item.questId))
+            { 
+                dict.Add(item.questId, item);
+            }
+        }
+        return dict;
+    }
+
     public void EquipItem(int slotIndex, int itemID)
     { 
         if(slotIndex<0||slotIndex>=4)return;
@@ -259,6 +291,7 @@ public class GameDataDTO
     public List<ItemSaveData> InventoryList;
     public List<ItemSaveData> CompanionList;
     public List<ItemSaveData> SkillList;
+    public List<QuestSaveData> QuestList;
 
     public int GoldDungeonTicket = -1;
     public int BossRushTicket = -1;
@@ -276,4 +309,12 @@ public class ItemSaveData
     public int id;
     public int value;
     public int level;
+}
+
+[System.Serializable]
+public class QuestSaveData
+{
+    public int questId;         //퀘스트 고유 번호
+    public int progressValue;   //진행도
+    public bool isCleared;      //보상 수령 완료 여부
 }
