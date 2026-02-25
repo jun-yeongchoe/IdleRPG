@@ -9,32 +9,23 @@ public class EffectSpawner : MonoBehaviour
     public GameObject prefab;  //이펙트 프리팹
     public int poolSize = 20;  //풀 크기
 
-    private GameObject[] pool;
+    private Queue<GameObject> poolQueue = new Queue<GameObject>();
 
     private void Awake()
     {
-        pool = new GameObject[poolSize];
         for (int i = 0; i < poolSize; i++)
         {
-            pool[i] = Instantiate(prefab, transform);
-            pool[i].SetActive(false);
+            GameObject obj = Instantiate(prefab, transform);
+            obj.SetActive(false);
+            poolQueue.Enqueue(obj);
         }
     }
 
     public void Play(Vector3 pos)
     {
-        // 꺼진 놈 찾기
-        GameObject selectObj = null;
-        for (int i = 0; i < poolSize; i++)
-        {
-            if (!pool[i].activeSelf)
-            {
-                selectObj = pool[i];
-                break;
-            }
-        }
+        if (poolQueue.Count == 0) return;
 
-        if (selectObj == null) return;
+        GameObject selectObj = poolQueue.Dequeue();
 
         selectObj.transform.position = pos;
         selectObj.SetActive(true);
@@ -52,5 +43,6 @@ public class EffectSpawner : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         obj.SetActive(false);
+        poolQueue.Enqueue(obj);
     }
 }
