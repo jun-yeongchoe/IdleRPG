@@ -44,6 +44,11 @@ public class GachaShop : MonoBehaviour
     [Header("Gem")]
     [SerializeField] private TextMeshProUGUI gemText;
 
+    [Header("Auto Spawn")]
+    bool isAutoSpawning = false;
+    public Button autoSpawnBtn;
+    private Coroutine autoSpawnCo;
+
 
     void Awake()
     {
@@ -54,6 +59,7 @@ public class GachaShop : MonoBehaviour
             else if(objName.Contains(shopNames[1])) shopIndex = 1;
             else if(objName.Contains(shopNames[2])) shopIndex = 2;
         }
+        // 테스트용 데이터 세팅
         DataManager.Instance.ShopLevels[0] = 15;
         DataManager.Instance.Gem = 100000;
     }
@@ -73,8 +79,46 @@ public class GachaShop : MonoBehaviour
         itemLists = new GameObject[][] { common, uncommon, rare, epic, legendary, mythic, celestial };
         summon11Btn.onClick.AddListener(() => DoSummon(11));
         summon35Btn.onClick.AddListener(() => DoSummon(35));
+        autoSpawnBtn.onClick.AddListener(() => ToggleAutoSpawn());
 
         StartCoroutine(DownloadCSV());
+    }
+
+    private void ToggleAutoSpawn()
+    {
+        if (isAutoSpawning)
+        {
+            StopAutoSpawn();
+        }
+        else
+        {
+            isAutoSpawning = true;
+           autoSpawnCo = StartCoroutine(AutoSpawnRoutine());
+        }
+    }
+
+    IEnumerator AutoSpawnRoutine()
+    {
+        while (isAutoSpawning)
+        {
+            int cost = 1500;
+
+            if(DataManager.Instance.Gem < cost)
+            {
+                StopCoroutine(AutoSpawnRoutine());
+                yield break;
+            }
+            DoSummon(35);
+
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    public void StopAutoSpawn()
+    {
+        isAutoSpawning = false;
+        if(autoSpawnCo != null) StopCoroutine(AutoSpawnRoutine());
+        
     }
 
     private void RefreshGemUI()

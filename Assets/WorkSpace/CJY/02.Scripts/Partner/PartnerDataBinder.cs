@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PartnerDataBinder : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class PartnerDataBinder : MonoBehaviour
         StartCoroutine(WaitAndBind());
     }
 
-    private System.Collections.IEnumerator WaitAndBind()
+    IEnumerator WaitAndBind()
     {
         while (PartnerDataLoader.Instance == null || !PartnerDataLoader.Instance.isDataLoaded)
         {

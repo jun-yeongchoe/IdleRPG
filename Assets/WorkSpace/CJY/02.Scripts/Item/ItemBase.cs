@@ -27,7 +27,7 @@ public enum ItemRank
         Accessory
     }
 
-public class ItemBase : ScriptableObject
+public class ItemBase : MonoBehaviour
 {
     [Header("Base Info")]
     public int ID;
