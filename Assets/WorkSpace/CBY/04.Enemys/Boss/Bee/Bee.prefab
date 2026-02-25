@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3059090544095150546}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9999993, z: -0, w: 0.0012264266}
+  m_LocalRotation: {x: 0, y: 0.9999993, z: 0, w: 0.0012306297}
   m_LocalPosition: {x: -6.41, y: 3.83, z: 0}
   m_LocalScale: {x: 0.3618, y: 0.3429, z: 1}
   m_ConstrainProportionsScale: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2ff26d1f23af0fc4f8b1c9a905cc050a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0070654be9ef14241bf41979da35f060, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -214,9 +214,6 @@ MonoBehaviour:
   moveSpeed: 2
   attackRange: 1
   attackCooldown: 1
-  maxHp: 10000
-  currentHp: 0
-  attackDamage: 0
 --- !u!1001 &7699367567908407506
 PrefabInstance:
   m_ObjectHideFlags: 0

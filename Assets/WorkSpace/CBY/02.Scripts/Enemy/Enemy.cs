@@ -77,11 +77,25 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        if (animator == null) return;
-        animator.SetTrigger("Die");
+        if (isDead) return;
+
+        isDead = true;
+
+        if (animator != null)
+            animator.SetTrigger("Die");
+
+        //애니메이션이 안끝나면 2초후 강제 종료(임시)
+        Invoke(nameof(ForceDisappear), 2f);
     }
 
-    // ===== Animation Events =====
+    private void ForceDisappear()
+    {
+        if (!gameObject.activeSelf) return;
+
+        OnEnemyDead?.Invoke(this);
+        gameObject.SetActive(false);
+    }
+
     public void OnAttackEnd()
     {
         if (animator == null) return;
@@ -99,7 +113,7 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    
+
     public bool IsDead()
     {
         return isDead;
