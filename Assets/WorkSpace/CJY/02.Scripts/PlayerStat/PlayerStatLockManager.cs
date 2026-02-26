@@ -19,7 +19,7 @@ public class PlayerStatLockManager : MonoBehaviour
 
     void Start()
     {
-        loader = FindObjectOfType<PlayerStatLoaderFromGoogleSheets>();
+        loader = CSV_LoadManager.Instance.playerStats_CSV;
 
         StartCoroutine(WaitForDataAndInit());
 

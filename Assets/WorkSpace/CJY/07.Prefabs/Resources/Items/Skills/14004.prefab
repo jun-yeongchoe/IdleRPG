@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 14004
   Name_KR: "\uC6A9\uC758 \uC228\uACB0"
-  Name_EN: Dragon Breath
+  Name_EN: 14004
   itemRank: 4
   itemType: 1
   Icon: {fileID: 0}
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 9e2f0e3f9b9ef784c92992bc14dd2cbd, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

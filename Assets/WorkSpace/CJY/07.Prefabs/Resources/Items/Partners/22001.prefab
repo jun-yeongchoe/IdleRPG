@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 22001
   Name_KR: "\uB0A8\uC2A4\uD2B8\uB77C\uC774\uCEE4"
-  Name_EN: Male Striker
+  Name_EN: 22001
   itemRank: 2
   itemType: 2
   Icon: {fileID: 0}

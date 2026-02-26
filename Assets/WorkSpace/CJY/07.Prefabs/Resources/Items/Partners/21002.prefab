@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 21002
   Name_KR: "\uB0A8\uB3C4\uC801"
-  Name_EN: Male Rogue
+  Name_EN: 21002
   itemRank: 1
   itemType: 2
   Icon: {fileID: 0}

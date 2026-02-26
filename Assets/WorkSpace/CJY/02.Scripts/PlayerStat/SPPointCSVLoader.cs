@@ -8,6 +8,7 @@ public class SPPointCSVLoader : MonoBehaviour
     private string csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRyDVW3msTQbFIC8alNBIsTJ54oBNKmlY1-RY5yF-xkKVKORx_-haqwvcTx9jHJfJ9ds5DbWlPsVigp/pub?gid=1869282746&single=true&output=csv";
 
     public Dictionary<string, List<SPPointData>> SPListByType = new Dictionary<string, List<SPPointData>>();
+    public bool isLoaded = false;
 
     void Start()
     {
@@ -57,6 +58,7 @@ public class SPPointCSVLoader : MonoBehaviour
 
             SPListByType[data.Type].Add(data);
         }
+        isLoaded = true;
         Debug.Log("데이터 로드 완료"+ SPListByType.Count);
     }
 }

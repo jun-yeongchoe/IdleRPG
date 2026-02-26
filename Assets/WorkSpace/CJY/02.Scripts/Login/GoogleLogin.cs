@@ -81,8 +81,8 @@ public class GoogleLogin : MonoBehaviour
         {
             isLoginTaskComplete = false;
             UpdateUI();
-            loadingTxt.gameObject.SetActive(true);
-            StartCoroutine(Delay());
+            // loadingTxt.gameObject.SetActive(true);
+            // StartCoroutine(Delay());
         }
     }
 

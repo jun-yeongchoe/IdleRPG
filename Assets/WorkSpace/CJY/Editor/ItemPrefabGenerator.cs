@@ -106,7 +106,7 @@ public class ItemPrefabGenerator : EditorWindow
 
             string id = values[0].Trim();
             string nameKr= values[1].Trim();
-            string nameEn = values[2].Trim();
+            string iconPath = values[2].Trim();
             string rank = values[3].Trim();
 
             string fileName = $"{id}";
@@ -128,6 +128,30 @@ public class ItemPrefabGenerator : EditorWindow
 
             Image childImg = child.AddComponent<Image>();
             childImg.preserveAspect = true;
+
+            string baseIconFolder = @"Assets\import\ItemIcon";
+            string fullIconPath = "";
+
+            if(sheet.typeName == type.Equipment)
+            {
+                fullIconPath = Path.Combine(baseIconFolder, "Equipment", $"{iconPath}.png");
+            }
+            else
+            {
+                fullIconPath = Path.Combine(baseIconFolder, sheet.typeName.ToString(),$"{id}.png");
+            }
+
+            fullIconPath = fullIconPath.Replace("\\", "/");
+            Sprite iconSprite = AssetDatabase.LoadAssetAtPath<Sprite>(fullIconPath);
+
+            if (iconSprite != null)
+            {
+                childImg.sprite = iconSprite;
+            }
+            else
+            {
+                Debug.LogWarning($"<color=red>[아이콘 누락]</color> 경로 확인 필요: {fullIconPath}");
+            }
 
             ItemRank itemRank = (ItemRank)System.Enum.Parse(typeof(ItemRank), rank, true);
 

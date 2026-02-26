@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 737e80aca6e7e5549a07b492be72fc9b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 16001
   Name_KR: "\uC131\uC2EC\uC758 \uC2EC\uD310"
-  Name_EN: Celestial Judgement
+  Name_EN: 16001
   itemRank: 6
   itemType: 1
   Icon: {fileID: 0}

@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 48124fe88fb4b184a9c8531948529b7e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 13003
   Name_KR: "\uC5F0\uC1C4 \uBC88\uAC1C"
-  Name_EN: Chain Lightning
+  Name_EN: 13003
   itemRank: 3
   itemType: 1
   Icon: {fileID: 0}

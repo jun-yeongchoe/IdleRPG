@@ -114705,21 +114705,13 @@ MonoBehaviour:
   summon11Btn: {fileID: 562713632}
   summon35Btn: {fileID: 1924660195}
   shopIndex: 0
-  common:
-  - {fileID: 1127898855112431057, guid: f89251eb4cfa34f42a58197dc375c0e4, type: 3}
-  - {fileID: 1127898855112431057, guid: 02218403892c2d34d81f8867bd2bbf75, type: 3}
-  uncommon:
-  - {fileID: 1127898855112431057, guid: f8732f3caeaf5f44591c0ed9acbf843a, type: 3}
-  rare:
-  - {fileID: 1127898855112431057, guid: 3ad076e56314fc6448b8cac113b16bc6, type: 3}
-  epic:
-  - {fileID: 1127898855112431057, guid: 5ee263b02cb57aa4d98aa7c150afa455, type: 3}
-  legendary:
-  - {fileID: 1127898855112431057, guid: fbca93ec7f081904f879d8f8a41cf0b2, type: 3}
-  mythic:
-  - {fileID: 1127898855112431057, guid: 871ed06697ad1d544853889a1a29a709, type: 3}
-  celestial:
-  - {fileID: 1127898855112431057, guid: ccbe8adfd7f1a0849bc212f8308002d0, type: 3}
+  common: []
+  uncommon: []
+  rare: []
+  epic: []
+  legendary: []
+  mythic: []
+  celestial: []
   resultPanel: {fileID: 1829961142}
   resultContent: {fileID: 1230149785}
   gemText: {fileID: 257846771}
@@ -123337,21 +123329,13 @@ MonoBehaviour:
   summon11Btn: {fileID: 57966088}
   summon35Btn: {fileID: 360000426}
   shopIndex: 0
-  common:
-  - {fileID: 1127898855112431057, guid: f89251eb4cfa34f42a58197dc375c0e4, type: 3}
-  - {fileID: 1127898855112431057, guid: 02218403892c2d34d81f8867bd2bbf75, type: 3}
-  uncommon:
-  - {fileID: 1127898855112431057, guid: f8732f3caeaf5f44591c0ed9acbf843a, type: 3}
-  rare:
-  - {fileID: 1127898855112431057, guid: 3ad076e56314fc6448b8cac113b16bc6, type: 3}
-  epic:
-  - {fileID: 1127898855112431057, guid: 5ee263b02cb57aa4d98aa7c150afa455, type: 3}
-  legendary:
-  - {fileID: 1127898855112431057, guid: fbca93ec7f081904f879d8f8a41cf0b2, type: 3}
-  mythic:
-  - {fileID: 1127898855112431057, guid: 871ed06697ad1d544853889a1a29a709, type: 3}
-  celestial:
-  - {fileID: 1127898855112431057, guid: ccbe8adfd7f1a0849bc212f8308002d0, type: 3}
+  common: []
+  uncommon: []
+  rare: []
+  epic: []
+  legendary: []
+  mythic: []
+  celestial: []
   resultPanel: {fileID: 1829961142}
   resultContent: {fileID: 1230149785}
   gemText: {fileID: 257846771}
@@ -124800,21 +124784,13 @@ MonoBehaviour:
   summon11Btn: {fileID: 333027348}
   summon35Btn: {fileID: 913917073}
   shopIndex: 0
-  common:
-  - {fileID: 1127898855112431057, guid: f89251eb4cfa34f42a58197dc375c0e4, type: 3}
-  - {fileID: 1127898855112431057, guid: 02218403892c2d34d81f8867bd2bbf75, type: 3}
-  uncommon:
-  - {fileID: 1127898855112431057, guid: f8732f3caeaf5f44591c0ed9acbf843a, type: 3}
-  rare:
-  - {fileID: 1127898855112431057, guid: 3ad076e56314fc6448b8cac113b16bc6, type: 3}
-  epic:
-  - {fileID: 1127898855112431057, guid: 5ee263b02cb57aa4d98aa7c150afa455, type: 3}
-  legendary:
-  - {fileID: 1127898855112431057, guid: fbca93ec7f081904f879d8f8a41cf0b2, type: 3}
-  mythic:
-  - {fileID: 1127898855112431057, guid: 871ed06697ad1d544853889a1a29a709, type: 3}
-  celestial:
-  - {fileID: 1127898855112431057, guid: ccbe8adfd7f1a0849bc212f8308002d0, type: 3}
+  common: []
+  uncommon: []
+  rare: []
+  epic: []
+  legendary: []
+  mythic: []
+  celestial: []
   resultPanel: {fileID: 1829961142}
   resultContent: {fileID: 1230149785}
   gemText: {fileID: 257846771}

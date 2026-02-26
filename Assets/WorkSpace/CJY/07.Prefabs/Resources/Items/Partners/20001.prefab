@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 20001
   Name_KR: "\uB0A8\uD559\uC790"
-  Name_EN: Male Scholar
+  Name_EN: 20001
   itemRank: 0
   itemType: 2
   Icon: {fileID: 0}

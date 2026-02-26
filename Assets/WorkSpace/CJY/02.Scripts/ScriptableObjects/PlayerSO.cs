@@ -43,7 +43,7 @@ public class PlayerStatus : ScriptableObject
     {
         if(csvLoader == null)
         {
-            csvLoader = FindObjectOfType<PlayerStatLoaderFromGoogleSheets>();
+            csvLoader = CSV_LoadManager.Instance.playerStats_CSV;
             if(csvLoader ==null) return 0;
         }
 
@@ -57,7 +57,7 @@ public class PlayerStatus : ScriptableObject
     {
         if(csvLoader == null)
         {
-            csvLoader = FindObjectOfType<PlayerStatLoaderFromGoogleSheets>();
+            csvLoader = CSV_LoadManager.Instance.playerStats_CSV;
             if(csvLoader == null) return 0;
         }
 

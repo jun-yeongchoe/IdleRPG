@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 23001
   Name_KR: "\uC5EC\uC6CC\uB9AC\uC5B4"
-  Name_EN: Female Warrior
+  Name_EN: 23001
   itemRank: 3
   itemType: 2
   Icon: {fileID: 0}

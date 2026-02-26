@@ -3,29 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemRank
-    {
-        Common,
-        UnCommon,
-        Rare,
-        Epic,
-        Legendary,
-        Mythic,
-        Celestial
-    }
+{
+    Common,
+    Uncommon,
+    Rare,
+    Epic,
+    Legendary,
+    Mythic,
+    Celestial
+}
 
-    public enum ItemType
-    {
-        Equipment,
-        Skill,
-        Partner
-    }
+public enum ItemType
+{
+    Equipment,
+    Skill,
+    Partner
+}
 
-    public enum EquipmentType
-    {
-        Weapon,
-        Armor,
-        Accessory
-    }
+public enum EquipmentType
+{
+    Weapon,
+    Armor,
+    Accessory
+}
 
 public class ItemBase : MonoBehaviour
 {
