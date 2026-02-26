@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 24002
   Name_KR: "\uB0A8\uC6A9\uBCD1"
-  Name_EN: Male Mercenary
+  Name_EN: 24002
   itemRank: 4
   itemType: 2
   Icon: {fileID: 0}

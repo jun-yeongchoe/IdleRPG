@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 25001
   Name_KR: "\uC5EC\uC6A9\uBCD1"
-  Name_EN: Female Mercenary
+  Name_EN: 25001
   itemRank: 5
   itemType: 2
   Icon: {fileID: 0}

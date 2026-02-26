@@ -529,11 +529,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb7ea1a1693a1e44af8497217322a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatus: {fileID: 11400000, guid: f35726ab70213794eab43e0fc747ae24, type: 2}
   atkPower: 0
   hp: 0
-  hpGen: 0
   atkSpeed: 0
+  hpGen: 0
   criticalChance: 0
   criticalDamage: 0
 --- !u!114 &4558506394532733168
@@ -563,9 +562,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 1.5
   isCombat: 0
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 1073741824
 --- !u!114 &3173633856893323708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,9 +574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d442496b8d39b40a1eec1d051db1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStatus: {fileID: 11400000, guid: f35726ab70213794eab43e0fc747ae24, type: 2}
-  atkSpeedStat: {fileID: 11400000, guid: 2d22c3630fee31546a8ec6083b91fe23, type: 2}
-  weaponCollider: {fileID: 6106144703540373542}
 --- !u!114 &4424191912007471470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,7 +581,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6820830875522472369}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78277b5f7cfad164e9fe1d45e6dc6260, type: 3}
   m_Name: 

@@ -77,7 +77,8 @@ public class PlayerStatLevelUp : MonoBehaviour
 
     IEnumerator WaitForDataLoadAndUIRefresh()
     {
-        var loader = FindObjectOfType<PlayerStatLoaderFromGoogleSheets>();
+        // var loader = FindObjectOfType<PlayerStatLoaderFromGoogleSheets>();
+        var loader = CSV_LoadManager.Instance.playerStats_CSV;
         if(loader != null)
         {
             while(!loader.isLoaded)

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 26002
   Name_KR: "\uB0A8\uD788\uC5B4\uB85C"
-  Name_EN: Male Hero
+  Name_EN: 26002
   itemRank: 6
   itemType: 2
   Icon: {fileID: 0}

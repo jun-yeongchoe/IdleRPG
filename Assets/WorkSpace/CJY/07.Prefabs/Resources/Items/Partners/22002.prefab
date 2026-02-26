@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 22002
   Name_KR: "\uC5EC\uC2A4\uD2B8\uB77C\uC774\uCEE4"
-  Name_EN: Female Striker
+  Name_EN: 22002
   itemRank: 2
   itemType: 2
   Icon: {fileID: 0}

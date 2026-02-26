@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 13002
   Name_KR: "\uC36C\uB354 \uBCFC\uD2B8"
-  Name_EN: Toxic Shadow
+  Name_EN: 13002
   itemRank: 3
   itemType: 1
   Icon: {fileID: 0}
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b1ca0abba8d3be44f8a684d4f7c693f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

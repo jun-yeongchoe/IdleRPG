@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 23002
   Name_KR: "\uB0A8\uD5CC\uD130"
-  Name_EN: Male Hunter
+  Name_EN: 23002
   itemRank: 3
   itemType: 2
   Icon: {fileID: 0}

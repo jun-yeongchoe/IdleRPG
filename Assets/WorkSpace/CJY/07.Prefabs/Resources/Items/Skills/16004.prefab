@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: c1308691ddff8764b9bd9b9443fc3de4, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 16004
   Name_KR: "\uC740\uD558\uC758 \uD30C\uD3B8"
-  Name_EN: Galaxy Shards
+  Name_EN: 16004
   itemRank: 6
   itemType: 1
   Icon: {fileID: 0}

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 14001
   Name_KR: "\uB1CC\uC2E0 \uC804\uC5ED"
-  Name_EN: Thunder Realm
+  Name_EN: 14001
   itemRank: 4
   itemType: 1
   Icon: {fileID: 0}
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 183cb30b01b4a874fb97c6ae3c3f981a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

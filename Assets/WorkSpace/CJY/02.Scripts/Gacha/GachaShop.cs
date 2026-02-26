@@ -25,6 +25,7 @@ public class GachaShop : MonoBehaviour
     public static int currentShopIndex = -1;
     private const int BASE_EXP = 35;
     private string[] shopNames = {"Equip", "Skill", "Partner"};
+    private string[] itemRank = {"Common", "Uncommon", "Rare", "Epic", "Legendary", "Mythic", "Celestial"};
     
     [Header("Item List")]
     [SerializeField] private GameObject[] common;
@@ -59,9 +60,49 @@ public class GachaShop : MonoBehaviour
             else if(objName.Contains(shopNames[1])) shopIndex = 1;
             else if(objName.Contains(shopNames[2])) shopIndex = 2;
         }
+        LoadPrefabs();
+
         // 테스트용 데이터 세팅
         DataManager.Instance.ShopLevels[0] = 15;
         DataManager.Instance.Gem = 100000;
+    }
+
+    private void LoadPrefabs()
+    {
+        string subFolder = "";
+        switch (shopIndex)
+        {
+            case 0 : subFolder = "Items/EquipItem"; break;
+            case 1 : subFolder = "Items/Skills"; break;
+            case 2 : subFolder = "Items/Partners"; break;
+        }
+
+        common = LoadByRank(subFolder, itemRank[0]);
+        uncommon = LoadByRank(subFolder, itemRank[1]);
+        rare = LoadByRank(subFolder, itemRank[2]);
+        epic = LoadByRank(subFolder, itemRank[3]);
+        legendary = LoadByRank(subFolder, itemRank[4]);
+        mythic = LoadByRank(subFolder, itemRank[5]);
+        celestial = LoadByRank(subFolder, itemRank[6]);
+
+        itemLists = new GameObject[][]{common, uncommon, rare,epic,legendary,mythic,celestial};
+    }
+
+    private GameObject[] LoadByRank(string folder, string rank)
+    {
+        GameObject[] allPrefabs = Resources.LoadAll<GameObject>(folder);
+        List<GameObject> filteredList = new List<GameObject>();
+
+        foreach(var p in allPrefabs)
+        {
+            ItemBase data = p.GetComponent<ItemBase>();
+            if(data != null && data.itemRank.ToString().Contains(rank))
+            {
+                filteredList.Add(p);
+            }
+        }
+
+        return filteredList.ToArray();
     }
 
     void Start()
@@ -262,6 +303,34 @@ public class GachaShop : MonoBehaviour
                 if(prefab != null)
                 {
                     Instantiate(prefab, resultContent);
+                    
+                    SavaItemDataToDataManager(prefab);
+
+                    // --- [데이터 확인용 디버그 로그 시작] ---
+                    ItemBase itemData = prefab.GetComponent<ItemBase>();
+                    if (itemData != null)
+                    {
+                        int targetID = itemData.ID;
+                        ItemSaveData savedInfo = null;
+
+                        // 상점 타입에 맞춰 해당 딕셔너리에서 방금 저장된 데이터를 가져옴
+                        switch (shopIndex)
+                        {
+                            case 0: 
+                                if(DataManager.Instance.InventoryDict.TryGetValue(targetID, out savedInfo))
+                                    Debug.Log($"<color=cyan>[인벤토리 확인]</color> ID: {savedInfo.id} | 누적 개수: {savedInfo.value}");
+                                break;
+                            case 1: 
+                                if(DataManager.Instance.SkillDict.TryGetValue(targetID, out savedInfo))
+                                    Debug.Log($"<color=lime>[스킬 확인]</color> ID: {savedInfo.id} | 누적 개수: {savedInfo.value}");
+                                break;
+                            case 2: 
+                                if(DataManager.Instance.CompanionDict.TryGetValue(targetID, out savedInfo))
+                                    Debug.Log($"<color=yellow>[파트너 확인]</color> ID: {savedInfo.id} | 누적 개수: {savedInfo.value}");
+                                break;
+                        }
+                    }
+                    // --- [데이터 확인용 디버그 로그 끝] ---
                 }
             }
         }
@@ -349,4 +418,44 @@ public class GachaShop : MonoBehaviour
         }
     }
 
+    private void SavaItemDataToDataManager(GameObject p)
+    {
+        ItemBase itemData = p.GetComponent<ItemBase>();
+        if(itemData == null) return;
+
+        int id = itemData.ID;
+        Dictionary<int, ItemSaveData> targetDict = null;
+
+        switch (shopIndex)
+        {
+            case 0:
+                targetDict = DataManager.Instance.InventoryDict;
+                break;
+
+            case 1:
+                targetDict = DataManager.Instance.SkillDict;
+                break;
+            case 2:
+                targetDict = DataManager.Instance.CompanionDict;
+                break;
+        }
+
+        if(targetDict != null)
+        {
+            if (targetDict.ContainsKey(id))
+            {
+                targetDict[id].value += 1;
+            }
+            else
+            {
+                ItemSaveData newData = new ItemSaveData
+                {
+                    id = id,
+                    value = 1,
+                    level = 1
+                };
+                targetDict.Add(id, newData);
+            }
+        }
+    }
 }

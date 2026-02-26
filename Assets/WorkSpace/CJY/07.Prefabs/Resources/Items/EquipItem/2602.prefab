@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6016855042222900922
+--- !u!1 &5035515124124851992
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1572565143917469298}
-  - component: {fileID: 8592918084610012732}
-  - component: {fileID: 187187728297207568}
+  - component: {fileID: 6662127584298788406}
+  - component: {fileID: 5057193343246789647}
+  - component: {fileID: 5274237353967538603}
   m_Layer: 0
   m_Name: IconImage
   m_TagString: Untagged
@@ -18,40 +18,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1572565143917469298
+--- !u!224 &6662127584298788406
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6016855042222900922}
+  m_GameObject: {fileID: 5035515124124851992}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4444778363567622980}
+  m_Father: {fileID: 1552369903990988487}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &8592918084610012732
+--- !u!222 &5057193343246789647
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6016855042222900922}
+  m_GameObject: {fileID: 5035515124124851992}
   m_CullTransparentMesh: 1
---- !u!114 &187187728297207568
+--- !u!114 &5274237353967538603
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6016855042222900922}
+  m_GameObject: {fileID: 5035515124124851992}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 201dbde4ca35bf148a5fdb5bb0affe83, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &6170037109480469863
+--- !u!1 &6763097334614509959
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,10 +83,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4444778363567622980}
-  - component: {fileID: 2286978045907845239}
-  - component: {fileID: 3903545248234061906}
-  - component: {fileID: 6174452844588336415}
+  - component: {fileID: 1552369903990988487}
+  - component: {fileID: 7527204702784173747}
+  - component: {fileID: 1251894713263058577}
+  - component: {fileID: 4040813008521219994}
   m_Layer: 0
   m_Name: 2602
   m_TagString: Untagged
@@ -94,19 +94,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &4444778363567622980
+--- !u!224 &1552369903990988487
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6170037109480469863}
+  m_GameObject: {fileID: 6763097334614509959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1572565143917469298}
+  - {fileID: 6662127584298788406}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -114,21 +114,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2286978045907845239
+--- !u!222 &7527204702784173747
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6170037109480469863}
+  m_GameObject: {fileID: 6763097334614509959}
   m_CullTransparentMesh: 1
---- !u!114 &3903545248234061906
+--- !u!114 &1251894713263058577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6170037109480469863}
+  m_GameObject: {fileID: 6763097334614509959}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -152,13 +152,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6174452844588336415
+--- !u!114 &4040813008521219994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6170037109480469863}
+  m_GameObject: {fileID: 6763097334614509959}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12c3d2aaa80db5343a081d2590387a68, type: 3}
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2602
   Name_KR: "\uBC1C\uD0A4\uB9AC\uC758 \uC131\uAC80"
-  Name_EN: valkyrie_holy_sword
+  Name_EN: Weapon/2602
   itemRank: 4
   itemType: 0
   Icon: {fileID: 0}
@@ -175,5 +175,5 @@ MonoBehaviour:
   StatPerLevel: 0.05
   equipmentType: 0
   Value: 1.49
-  Description: "\uC804\uC7A5\uC758 \uC9C0\uBC30\uC790\uC600\uB358 \uBC1C\uD0A4\uB9AC\uC758
-    \uC601\uD63C\uC774 \uAE43\uB4E0 \uD669\uAE08\uAC80\uC785\uB2C8\uB2E4."
+  Description: "\uC804\uC7A5\uC758 \uCC98\uB140 \uBC1C\uD0A4\uB9AC\uAC00 \uC0AC\uC6A9\uD588\uB2E4\uACE0
+    \uC804\uD574\uC9C0\uB294 \uC601\uAD11\uC2A4\uB7EC\uC6B4 \uC131\uAC80\uC785\uB2C8\uB2E4."

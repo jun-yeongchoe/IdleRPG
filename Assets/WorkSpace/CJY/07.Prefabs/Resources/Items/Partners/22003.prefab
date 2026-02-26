@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 22003
   Name_KR: "\uB0A8\uC6CC\uB9AC\uC5B4"
-  Name_EN: Male Warrior
+  Name_EN: 22003
   itemRank: 2
   itemType: 2
   Icon: {fileID: 0}

@@ -39,6 +39,7 @@ using UnityEngine;
 public class PlayerStatCalculator : MonoBehaviour
 {
     public static PlayerStatCalculator instance{get; private set;}
+    private SPPointCSVLoader loader;
 
     void Awake()
     {
@@ -57,6 +58,12 @@ public class PlayerStatCalculator : MonoBehaviour
     public float FinalAtkSpeed => CalculateFinalAtkSpeed();
     public float FinalCritChance => CalculateFinalCritChance();
     public float FinalCritDamage => CalculateFinalCritDamage();
+
+    void Start()
+    {
+        loader = CSV_LoadManager.Instance.SP_CSV;
+    }
+
 
     void Update()
     {
@@ -82,7 +89,7 @@ public class PlayerStatCalculator : MonoBehaviour
         totalMultiplier += GetEquipmentMultiPlier(GetEquipmentDataSO(EquipmentType.Accessory));
         // 추후 특성포인트에 따른 공격력 배율도 추가
         // 테스트용으로 일단 F등급의 공격력을 추가해둠. 추후에 변경 예정
-        totalMultiplier += GetComponent<SPPointCSVLoader>().SPListByType["Attack_Damage"].Find(data => data.Rank == "SS").Rate;
+        totalMultiplier += loader.SPListByType["Attack_Damage"].Find(data => data.Rank == "SS").Rate;
 
         return BigInteger.Multiply(baseAtk, new BigInteger(totalMultiplier * 100)) / 100;
 
@@ -96,7 +103,7 @@ public class PlayerStatCalculator : MonoBehaviour
         totalMultiplier += GetEquipmentMultiPlier(GetEquipmentDataSO(EquipmentType.Armor));
         totalMultiplier += GetEquipmentMultiPlier(GetEquipmentDataSO(EquipmentType.Accessory));
         // 추후 특성포인트에 따른 체력 배율도 추가
-        totalMultiplier += GetComponent<SPPointCSVLoader>().SPListByType["HP"].Find(data => data.Rank == "F").Rate;
+        totalMultiplier += loader.SPListByType["HP"].Find(data => data.Rank == "F").Rate;
         return BigInteger.Multiply(baseHP, new BigInteger(totalMultiplier * 100)) / 100;
     }
 
@@ -105,7 +112,7 @@ public class PlayerStatCalculator : MonoBehaviour
         float baseAtkSpeed = PlayerStat.instance.atkSpeed;
         float totalBonus = 1.0f;
 
-        totalBonus += GetComponent<SPPointCSVLoader>().SPListByType["Attack_Speed"].Find(data => data.Rank == "F").Rate;
+        totalBonus += loader.SPListByType["Attack_Speed"].Find(data => data.Rank == "F").Rate;
         return baseAtkSpeed * totalBonus;
     }
 
@@ -113,7 +120,7 @@ public class PlayerStatCalculator : MonoBehaviour
     {
         float baseCritChance = PlayerStat.instance.criticalChance;
         float totalBonus = 0.0f;
-        totalBonus += GetComponent<SPPointCSVLoader>().SPListByType["Critical_Chance"].Find(data => data.Rank == "F").Rate;
+        totalBonus += loader.SPListByType["Critical_Chance"].Find(data => data.Rank == "F").Rate;
         return baseCritChance + totalBonus;
 
     }
@@ -122,7 +129,7 @@ public class PlayerStatCalculator : MonoBehaviour
     {
         float baseCritDamage = PlayerStat.instance.criticalDamage;
         float totalBonus = 0.0f;
-        totalBonus += GetComponent<SPPointCSVLoader>().SPListByType["Critical_Damage"].Find(data => data.Rank == "F").Rate;
+        totalBonus += loader.SPListByType["Critical_Damage"].Find(data => data.Rank == "F").Rate;
         return baseCritDamage + totalBonus;
     }
 

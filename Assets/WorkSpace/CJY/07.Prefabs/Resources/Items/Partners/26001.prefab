@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 26001
   Name_KR: "\uC5EC\uBA54\uC774\uC9C0"
-  Name_EN: Female Mage
+  Name_EN: 26001
   itemRank: 6
   itemType: 2
   Icon: {fileID: 0}

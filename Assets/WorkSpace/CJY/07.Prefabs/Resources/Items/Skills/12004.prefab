@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 12004
   Name_KR: "\uBB3C\uC904\uAE30 \uC3D8\uAE30"
-  Name_EN: Water Stream
+  Name_EN: 12004
   itemRank: 2
   itemType: 1
   Icon: {fileID: 0}
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 364dcebe903e0e74cbc4fd4f5181a95e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

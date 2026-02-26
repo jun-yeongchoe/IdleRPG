@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7362549451715597532
+--- !u!1 &5298412430500657371
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8174071347974907962}
-  - component: {fileID: 3900258175760942473}
-  - component: {fileID: 765511639564395094}
+  - component: {fileID: 8766039487429261972}
+  - component: {fileID: 6036854892717591177}
+  - component: {fileID: 1240264694307276419}
   m_Layer: 0
   m_Name: IconImage
   m_TagString: Untagged
@@ -18,40 +18,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &8174071347974907962
+--- !u!224 &8766039487429261972
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7362549451715597532}
+  m_GameObject: {fileID: 5298412430500657371}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9171252032572462295}
+  m_Father: {fileID: 1725910177506883559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3900258175760942473
+--- !u!222 &6036854892717591177
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7362549451715597532}
+  m_GameObject: {fileID: 5298412430500657371}
   m_CullTransparentMesh: 1
---- !u!114 &765511639564395094
+--- !u!114 &1240264694307276419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7362549451715597532}
+  m_GameObject: {fileID: 5298412430500657371}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 69d5fa2676db6bc4899679fe3caed6c6, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &9041076142563638444
+--- !u!1 &5971743038253061893
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,10 +83,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9171252032572462295}
-  - component: {fileID: 7214401556089488654}
-  - component: {fileID: 2926050879168965421}
-  - component: {fileID: 2199199697457611666}
+  - component: {fileID: 1725910177506883559}
+  - component: {fileID: 2976950874018049884}
+  - component: {fileID: 1552101826001455482}
+  - component: {fileID: 107581809938293482}
   m_Layer: 0
   m_Name: 6002
   m_TagString: Untagged
@@ -94,19 +94,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &9171252032572462295
+--- !u!224 &1725910177506883559
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9041076142563638444}
+  m_GameObject: {fileID: 5971743038253061893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8174071347974907962}
+  - {fileID: 8766039487429261972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -114,21 +114,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7214401556089488654
+--- !u!222 &2976950874018049884
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9041076142563638444}
+  m_GameObject: {fileID: 5971743038253061893}
   m_CullTransparentMesh: 1
---- !u!114 &2926050879168965421
+--- !u!114 &1552101826001455482
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9041076142563638444}
+  m_GameObject: {fileID: 5971743038253061893}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -152,13 +152,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2199199697457611666
+--- !u!114 &107581809938293482
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9041076142563638444}
+  m_GameObject: {fileID: 5971743038253061893}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12c3d2aaa80db5343a081d2590387a68, type: 3}
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 6002
   Name_KR: "\uC2EC\uC5F0\uC758 \uAC00\uC2DC \uAC11\uC637"
-  Name_EN: thorn_of_abyss
+  Name_EN: Armor/6002
   itemRank: 5
   itemType: 0
   Icon: {fileID: 0}
@@ -175,5 +175,5 @@ MonoBehaviour:
   StatPerLevel: 0.1
   equipmentType: 1
   Value: 1.59
-  Description: "\uACF5\uACA9\uD55C \uC801\uC5D0\uAC8C \uC800\uC8FC\uC640 \uACE0\uD1B5\uC744
-    \uB3CC\uB824\uC8FC\uB294 \uC5B4\uB460\uC758 \uAC11\uC637\uC785\uB2C8\uB2E4."
+  Description: "\uC2EC\uC5F0\uC758 \uAE30\uC6B4\uC774 \uAC00\uC2DC\uCC98\uB7FC \uB3CB\uC544\uB098
+    \uACF5\uACA9\uD55C \uC801\uC5D0\uAC8C \uACE0\uD1B5\uC744 \uB418\uB3CC\uB824\uC90D\uB2C8\uB2E4."

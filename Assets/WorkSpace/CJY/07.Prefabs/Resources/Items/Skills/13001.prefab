@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d4f9e743ab443da4dbaf84a6b6508cdf, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 13001
   Name_KR: "\uB300\uC9C0 \uBD84\uC1C4"
-  Name_EN: Earth Shield
+  Name_EN: 13001
   itemRank: 3
   itemType: 1
   Icon: {fileID: 0}
