@@ -46,6 +46,19 @@ public class GameManager : MonoBehaviour
 
         long temp = Convert.ToInt64(PlayerPrefs.GetString("LastExitTime"));
         DateTime lastExitTime = DateTime.FromBinary(temp);
+
+        if (DateTime.Now.Date > lastExitTime.Date)
+        {
+            if (DataManager.Instance != null)
+            {
+                DataManager.Instance.DwarfKingTicket = 2;
+                DataManager.Instance.GoldDungeonTicket = 2;
+                DataManager.Instance.BossRushTicket = 2;
+
+                Debug.Log("날짜변경되어 던전 입장권 충전 완료!");
+            }
+        }
+
         TimeSpan difference = DateTime.Now - lastExitTime;
         double totalSeconds = difference.TotalSeconds;
 
