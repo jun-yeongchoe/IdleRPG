@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -30,6 +30,11 @@ public class CoinDisplay : MonoBehaviour
         {
             // DataManager가 없을 경우를 대비해 초기화
             UpdateCoinDisplay();
+        }
+
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.StartList("UpdateCoinUI", UpdateCoinDisplay);
         }
     }
 

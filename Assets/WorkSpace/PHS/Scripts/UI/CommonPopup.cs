@@ -21,46 +21,46 @@ public class CommonPopup : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 넘어가도 살아있게
+            DontDestroyOnLoad(gameObject); //씬 넘어가도 살아있게
         }
         else Destroy(gameObject);
 
-        // 버튼 리스너
+        //버튼 리스너
         confirmButton.onClick.AddListener(OnConfirm);
         if (cancelButton != null) cancelButton.onClick.AddListener(OnCancel);
 
-        contentObj.SetActive(false); // 시작할 땐 꺼둠
+        contentObj.SetActive(false); //시작할 땐 꺼둠
     }
 
-    // 1. 확인 버튼만 있는 알림창 (예: 돈 부족함!)
-    public void ShowAlert(string title, string body, string btnText = "확인")
+    //확인 버튼만 있는 알림창 (예: 돈 부족함!)
+    public void ShowAlert(string title, string body, string btnText = "확인", Action onConfirm=null)
     {
         titleText.text = title;
         bodyText.text = body;
         confirmText.text = btnText;
 
-        onConfirmCallback = null; // 실행할 거 없음
+        onConfirmCallback = OnConfirm;
 
-        if (cancelButton != null) cancelButton.gameObject.SetActive(false); // 취소 버튼 숨김
+        if (cancelButton != null) cancelButton.gameObject.SetActive(false); //취소 버튼 숨김
         contentObj.SetActive(true);
     }
 
-    // 2. 예/아니오 선택창 (예: 구매하시겠습니까?)
+    //예/아니오 선택창
     public void ShowConfirm(string title, string body, Action onConfirm, string btnText = "네")
     {
         titleText.text = title;
         bodyText.text = body;
         confirmText.text = btnText;
 
-        onConfirmCallback = onConfirm; // 실행할 함수 저장
+        onConfirmCallback = onConfirm; //실행할 함수 저장
 
-        if (cancelButton != null) cancelButton.gameObject.SetActive(true); // 취소 버튼 보임
+        if (cancelButton != null) cancelButton.gameObject.SetActive(true); //취소 버튼 보임
         contentObj.SetActive(true);
     }
 
     private void OnConfirm()
     {
-        onConfirmCallback?.Invoke(); // 저장된 함수 실행
+        onConfirmCallback?.Invoke(); //저장된 함수 실행
         Close();
     }
 

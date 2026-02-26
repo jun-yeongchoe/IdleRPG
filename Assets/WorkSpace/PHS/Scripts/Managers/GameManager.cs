@@ -46,6 +46,19 @@ public class GameManager : MonoBehaviour
 
         long temp = Convert.ToInt64(PlayerPrefs.GetString("LastExitTime"));
         DateTime lastExitTime = DateTime.FromBinary(temp);
+
+        if (DateTime.Now.Date > lastExitTime.Date)
+        {
+            if (DataManager.Instance != null)
+            {
+                DataManager.Instance.DwarfKingTicket = 2;
+                DataManager.Instance.GoldDungeonTicket = 2;
+                DataManager.Instance.BossRushTicket = 2;
+
+                Debug.Log("날짜변경되어 던전 입장권 충전 완료!");
+            }
+        }
+
         TimeSpan difference = DateTime.Now - lastExitTime;
         double totalSeconds = difference.TotalSeconds;
 
@@ -69,7 +82,14 @@ public class GameManager : MonoBehaviour
                 CommonPopup.Instance.ShowAlert(
                     "휴식 보상",
                     $"오프라인 시간 동안 골드가 모였습니다!\n\n방치 시간: {timeStr}\n획득 골드: {reward}G",
-                    "수령"
+                    "수령",
+                    ()=>
+                    {
+                        if (EventManager.Instance != null) 
+                        {
+                            EventManager.Instance.TriggerEvent("UpdateCoinUI");
+                        }
+                    }
                 );
             }
 
