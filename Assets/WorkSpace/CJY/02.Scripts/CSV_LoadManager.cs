@@ -52,6 +52,7 @@ public class CSV_LoadManager : MonoBehaviour
             if (playerStats_CSV.isLoaded && SP_CSV.isLoaded)
             {
                 EventManager.Instance.TriggerEvent("CSV_DataLoaded");
+                Debug.Log("CSVLoader_Event 등록 완료");
                 yield break; // 루틴 종료
             }
             yield return null;
@@ -60,6 +61,7 @@ public class CSV_LoadManager : MonoBehaviour
 
     public bool AllCSVDataLoaded()
     {
+        Debug.Log($"All Loaded : {allLoaded}");
         return allLoaded;
     }
 
