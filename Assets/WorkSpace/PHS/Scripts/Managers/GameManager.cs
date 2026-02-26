@@ -69,7 +69,14 @@ public class GameManager : MonoBehaviour
                 CommonPopup.Instance.ShowAlert(
                     "휴식 보상",
                     $"오프라인 시간 동안 골드가 모였습니다!\n\n방치 시간: {timeStr}\n획득 골드: {reward}G",
-                    "수령"
+                    "수령",
+                    ()=>
+                    {
+                        if (EventManager.Instance != null) 
+                        {
+                            EventManager.Instance.TriggerEvent("UpdateCoinUI");
+                        }
+                    }
                 );
             }
 

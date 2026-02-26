@@ -33,15 +33,15 @@ public class CommonPopup : MonoBehaviour
     }
 
     // 1. 확인 버튼만 있는 알림창 (예: 돈 부족함!)
-    public void ShowAlert(string title, string body, string btnText = "확인")
+    public void ShowAlert(string title, string body, string btnText = "확인", Action onConfirm=null)
     {
         titleText.text = title;
         bodyText.text = body;
         confirmText.text = btnText;
 
-        onConfirmCallback = null; // 실행할 거 없음
+        onConfirmCallback = OnConfirm;
 
-        if (cancelButton != null) cancelButton.gameObject.SetActive(false); // 취소 버튼 숨김
+        if (cancelButton != null) cancelButton.gameObject.SetActive(false); //취소 버튼 숨김
         contentObj.SetActive(true);
     }
 
