@@ -9,6 +9,13 @@ public enum SkillTargetType
     Multi
 }
 
+public enum SkillSpawnPoint
+{
+    Player,
+    Target,
+    Up
+}
+
 [CreateAssetMenu(fileName = "Skill_", menuName = "SO/Item/Skill")]
 public class SkillDataSo : ItemBase
 {
@@ -18,5 +25,6 @@ public class SkillDataSo : ItemBase
     public float Damage_Coef;
     public float Cooltime;
     public string EffectPrefabName;
+    public SkillSpawnPoint spawnPoint;
     public float SplashRadius = 2f;
 }

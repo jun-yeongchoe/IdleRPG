@@ -41,6 +41,8 @@ public class PlayerStatCalculator : MonoBehaviour
     public static PlayerStatCalculator instance{get; private set;}
     private SPPointCSVLoader loader;
 
+    private string[] types = {"Attack_Damage", "Attack_Speed", "HP", "Critical_Chance", "Critical_Damage", "Gold_Bonus"};
+
     void Awake()
     {
         if(instance == null)
@@ -89,7 +91,8 @@ public class PlayerStatCalculator : MonoBehaviour
         totalMultiplier += GetEquipmentMultiPlier(GetEquipmentDataSO(EquipmentType.Accessory));
         // 추후 특성포인트에 따른 공격력 배율도 추가
         // 테스트용으로 일단 F등급의 공격력을 추가해둠. 추후에 변경 예정
-        totalMultiplier += loader.SPListByType["Attack_Damage"].Find(data => data.Rank == "SS").Rate;
+        var spData = loader.valueTable.Find(x=> x.type == types[0] && x.rank == "SS");
+        totalMultiplier += spData.rate;
 
         return BigInteger.Multiply(baseAtk, new BigInteger(totalMultiplier * 100)) / 100;
 
@@ -103,7 +106,8 @@ public class PlayerStatCalculator : MonoBehaviour
         totalMultiplier += GetEquipmentMultiPlier(GetEquipmentDataSO(EquipmentType.Armor));
         totalMultiplier += GetEquipmentMultiPlier(GetEquipmentDataSO(EquipmentType.Accessory));
         // 추후 특성포인트에 따른 체력 배율도 추가
-        totalMultiplier += loader.SPListByType["HP"].Find(data => data.Rank == "F").Rate;
+        var spData = loader.valueTable.Find(x=> x.type == types[2] && x.rank == "F");
+        totalMultiplier += spData.rate;
         return BigInteger.Multiply(baseHP, new BigInteger(totalMultiplier * 100)) / 100;
     }
 
@@ -112,7 +116,8 @@ public class PlayerStatCalculator : MonoBehaviour
         float baseAtkSpeed = PlayerStat.instance.atkSpeed;
         float totalBonus = 1.0f;
 
-        totalBonus += loader.SPListByType["Attack_Speed"].Find(data => data.Rank == "F").Rate;
+        var spData = loader.valueTable.Find(x=> x.type == types[1] && x.rank == "F");
+        totalBonus += spData.rate;
         return baseAtkSpeed * totalBonus;
     }
 
@@ -120,7 +125,8 @@ public class PlayerStatCalculator : MonoBehaviour
     {
         float baseCritChance = PlayerStat.instance.criticalChance;
         float totalBonus = 0.0f;
-        totalBonus += loader.SPListByType["Critical_Chance"].Find(data => data.Rank == "F").Rate;
+        var spData = loader.valueTable.Find(x=> x.type == types[3] && x.rank == "F");
+        totalBonus += spData.rate;
         return baseCritChance + totalBonus;
 
     }
@@ -129,7 +135,8 @@ public class PlayerStatCalculator : MonoBehaviour
     {
         float baseCritDamage = PlayerStat.instance.criticalDamage;
         float totalBonus = 0.0f;
-        totalBonus += loader.SPListByType["Critical_Damage"].Find(data => data.Rank == "F").Rate;
+        var spData = loader.valueTable.Find(x=> x.type == types[4] && x.rank == "F");
+        totalBonus += spData.rate;
         return baseCritDamage + totalBonus;
     }
 

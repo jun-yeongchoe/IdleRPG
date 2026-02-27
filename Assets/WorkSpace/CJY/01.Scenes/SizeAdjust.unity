@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7374814112108521606, guid: ada3b6472ea64f64b946e9c498099338, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -196,6 +200,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 487954016480942926, guid: 44fb328c615c7e145b2d75522c7b255c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 749825596575401663, guid: 44fb328c615c7e145b2d75522c7b255c, type: 3}
       propertyPath: m_Name
       value: Orc
@@ -293,6 +301,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2310323673246903170, guid: 1a6874204bb04bb4ba7f6e898c00c5f0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 6820830875522472369, guid: 1a6874204bb04bb4ba7f6e898c00c5f0, type: 3}
       propertyPath: m_Name
       value: Player
@@ -362,6 +374,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7400352814618763239, guid: 69ea8bda7ece913468b65255451150fd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -375,6 +391,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7638218392389214830, guid: d9e4419c4e8085e43ae350c631845706, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 8676296774942242681, guid: d9e4419c4e8085e43ae350c631845706, type: 3}
       propertyPath: m_Name
       value: skeleton_boss
@@ -432,6 +452,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1752290382408917720, guid: 451cc238e5f83904ba2defd93c5680ee, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 3059090544095150546, guid: 451cc238e5f83904ba2defd93c5680ee, type: 3}
       propertyPath: m_Name
       value: Bee
@@ -541,6 +565,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rooster
       objectReference: {fileID: 0}
+    - target: {fileID: 9038876749815837697, guid: 0fba3db3ebb989e45bea272fced15990, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -554,6 +582,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1999510364549135797, guid: c437b8d0229bdad44833d6ddd0ac1da3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 4820365410805338367, guid: c437b8d0229bdad44833d6ddd0ac1da3, type: 3}
       propertyPath: m_Name
       value: Medesa
@@ -707,6 +739,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lizaro
       objectReference: {fileID: 0}
+    - target: {fileID: 3573769779860889829, guid: f30be1b66c79ab2458f14191f8dfb372, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 4104715505881092488, guid: f30be1b66c79ab2458f14191f8dfb372, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3
@@ -812,6 +848,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moth
       objectReference: {fileID: 0}
+    - target: {fileID: 6597246808242927389, guid: de5dc6a15b301bc40b0fb5b22320373a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
