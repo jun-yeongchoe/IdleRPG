@@ -153,7 +153,7 @@ public class ItemPrefabGenerator : EditorWindow
                 Debug.LogWarning($"<color=red>[아이콘 누락]</color> 경로 확인 필요: {fullIconPath}");
             }
 
-            ItemRank itemRank = (ItemRank)System.Enum.Parse(typeof(ItemRank), rank, true);
+            ItemRank itemRank = (ItemRank)Enum.Parse(typeof(ItemRank), rank, true);
 
             switch (sheet.typeName)
             {
@@ -173,13 +173,14 @@ public class ItemPrefabGenerator : EditorWindow
                     var skill = go.AddComponent<SkillDataSo>();
                     SetBaseInfo(skill, values, itemRank, ItemType.Skill);
                     
-                    skill.skillTargetType = (SkillTargetType)System.Enum.Parse(typeof(SkillTargetType), values[5].Trim());
+                    skill.skillTargetType = (SkillTargetType)Enum.Parse(typeof(SkillTargetType), values[5].Trim());
                     skill.StrikeCount = int.Parse(values[6].Trim());
                     skill.Damage_Coef = float.Parse(values[7].Trim());
                     skill.Cooltime = float.Parse(values[8].Trim());
                     skill.EffectPrefabName = values[9].Trim();
                     skill.BaseComposeCount = int.Parse(values[10].Trim());
                     skill.StatPerLevel = float.Parse(values[11].Trim());
+                    skill.spawnPoint = (SkillSpawnPoint)Enum.Parse(typeof(SkillSpawnPoint), values[12].Trim());
                 break;
 
                 case type.Partner:
@@ -215,11 +216,11 @@ public class ItemPrefabGenerator : EditorWindow
     private Color GetRankColor(string rank)
     {
         if (rank.Contains("Common")) return Color.white;
-        if (rank.Contains("Uncommon") || rank.Contains("UnCommon")) return new Color(0.2f, 1f, 0.2f);
+        if (rank.Contains("Uncommon")) return new Color(0.2f, 1f, 0.2f);
         if (rank.Contains("Rare")) return Color.blue;
         if (rank.Contains("Epic")) return new Color(0.6f, 0f, 1f);
         if (rank.Contains("Legendary")) return Color.yellow;
-        if (rank.Contains("Mythic") || rank.Contains("Mystic")) return Color.red;
+        if (rank.Contains("Mythic")) return Color.red;
         if (rank.Contains("Celestial")) return Color.cyan;
         return Color.gray;
     }
