@@ -42,7 +42,7 @@ public class PlayerHP : MonoBehaviour
         currentHP = Mathf.Min(currentHP + PlayerStat.instance.hpGen, maxHP);
     }
 
-    private void TakeDamage(float dmg)
+    public void TakeDamage(float dmg)
     {
         currentHP = Mathf.Max(currentHP - dmg, 0);
 
