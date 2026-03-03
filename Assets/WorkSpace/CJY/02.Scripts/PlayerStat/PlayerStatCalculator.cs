@@ -156,21 +156,17 @@ public class PlayerStatCalculator : MonoBehaviour
 
     public BigInteger GetRankingScore(BigInteger atk, float atkSpeed, float critChance, float critDamage)
     {
-       const int p = 1000;
+        BigInteger p = 10000;
 
-        // [1 + Critical Rate * (Critical Damage - 1)] 부분 계산
-        // float으로 먼저 계산 후 정밀도를 위해 1000을 곱함
-        float critExpectation = 1.0f + (critChance * (critDamage - 1.0f));
-        BigInteger biCritPart = new BigInteger(critExpectation * p);
+        float actualSpeed = 1.0f / atkSpeed;
 
-        // AtkSpeed 역시 정밀도를 위해 1000을 곱함
-        BigInteger biAtkSpeed = new BigInteger(atkSpeed * p);
+        BigInteger biSpeed = new BigInteger(actualSpeed * 10000);
+        BigInteger biCritChance = new BigInteger(critChance * 10000);
+        BigInteger biCritDamage = new BigInteger(critDamage * 10000);
 
-        // 최종 곱셈: Atk(BigInt) * Speed(BI) * Crit(BI)
-        // 여기서 p가 두 번 곱해졌으므로 결과값은 실제보다 1,000,000배 큰 상태
-        BigInteger totalScore = atk * biAtkSpeed * biCritPart;
+        BigInteger critFactor = p + (biCritChance * (biCritDamage - p) / p);
+        BigInteger totalScore = (atk * biSpeed * critFactor) / (p * p);
 
-        // 곱한 정밀도만큼 다시 나누기 (p * p = 1,000,000)
-        return totalScore / (p * p);
+        return totalScore;
     }
 }
