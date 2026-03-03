@@ -55,6 +55,11 @@ public class EnemyManager : MonoBehaviour
 
     public Transform GetPlayerTransform()
     {
+        if (player == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if(playerObj!=null)player=playerObj.transform;
+        }
         return player;
     }
 }

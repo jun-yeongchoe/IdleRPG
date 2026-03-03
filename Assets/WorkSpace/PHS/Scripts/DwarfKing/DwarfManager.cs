@@ -20,6 +20,11 @@ public class DwarfManager : MonoBehaviour
     public float currentBossHp = 0f;
     public float currentBossMaxHp = 0f;
 
+    [Header("스폰 설정")]
+    public GameObject bossPrefab;      //드워프 킹 프리팹
+    public Transform spawnPoint;       //소환될 위치
+    private GameObject currentBoss;    //현재 소환된 보스 추적용
+
     //UI 갱신용 이벤트
     public Action<float> OnTimeChanged;
     public Action<int, float, float> OnBossHpChanged; //(현재구간, 남은체력, 최대체력)
@@ -50,9 +55,20 @@ public class DwarfManager : MonoBehaviour
         currentSection = 0;
 
         CalculateNextSectionHp(); //0구간 체력 세팅
+
+        if (currentBoss == null && bossPrefab != null && spawnPoint != null)
+        {
+            currentBoss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
+        }
+        else if (currentBoss != null)
+        {
+            //이미 생성되어 있다면 위치만 초기화하고 다시 켜기 (최적화)
+            currentBoss.transform.position = spawnPoint.position;
+            currentBoss.SetActive(true);
+        }
+
         isPlaying = true;
 
-        //TODO: 보스 소환 (EnemySpawner 재활용) 및 인게임 던전 UI 켜기
         Debug.Log("드워프 킹 던전 입장!");
     }
 
@@ -110,6 +126,11 @@ public class DwarfManager : MonoBehaviour
     private void EndDungeon()
     {
         isPlaying = false;
+
+        if (currentBoss != null)
+        {
+            currentBoss.SetActive(false);
+        }
 
         //보상 계산: 구간 * 2 (기획서 공식)
         int rewardScrap = currentSection * 2;
