@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class EnemyStats : MonoBehaviour
         attackPower = 2f + stage * 1.2f;
         moveSpeed = 1.5f + stage * 0.05f;
         attackCooldown = Mathf.Max(0.5f, 1.5f - stage * 0.02f);
-
+        attackRange = 1.5f;
         ResetHp();
     }
 
