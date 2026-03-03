@@ -153,11 +153,11 @@ public class EnemySpawner : MonoBehaviour
         Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
         selectEnemy.transform.position = transform.position+new Vector3(randomPos.x, randomPos.y,0);
 
-        EnemyStats stat = selectEnemy.GetComponent<EnemyStats>();
-        if (stat != null)
-        {
-            stat.InitByStage(DataManager.Instance.currentStageNum);
-        }
+        //EnemyStats stat = selectEnemy.GetComponent<EnemyStats>();
+        //if (stat != null)
+        //{
+        //    stat.InitByStage(DataManager.Instance.currentStageNum);
+        //}
 
         selectEnemy.SetActive(true);
     }
