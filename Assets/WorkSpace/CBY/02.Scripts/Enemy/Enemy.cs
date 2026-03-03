@@ -47,6 +47,17 @@ public class Enemy : MonoBehaviour
     {
         if (isDead) return;
 
+        if (DamageTextManager.Instance != null) 
+        { 
+            DamageTextManager.Instance.ShowDamage(damage,transform.position);
+        }
+
+        if (DwarfManager.Instance != null && DwarfManager.Instance.isPlaying) 
+        { 
+            DwarfManager.Instance.OnBossTakeDamage(damage);
+            return;
+        }
+
         stats.ApplyDamage(damage);
 
         if (stats.IsDead())
@@ -84,16 +95,22 @@ public class Enemy : MonoBehaviour
         if (animator != null)
             animator.SetTrigger("Die");
 
-        //애니메이션이 안끝나면 2초후 강제 종료(임시)
-        Invoke(nameof(ForceDisappear), 2f);
+        if (DataManager.Instance != null)
+        { 
+            int currentStage=DataManager.Instance.currentStageNum;
+            int dropGold = 10 + (currentStage * 5);
+
+            DataManager.Instance.AddGold(dropGold);
+        }
     }
 
-    private void ForceDisappear()
+    public void ForceDisappear()
     {
         if (!gameObject.activeSelf) return;
 
-        OnEnemyDead?.Invoke(this);
         gameObject.SetActive(false);
+
+        OnEnemyDead?.Invoke(this);
     }
 
     public void OnAttackEnd()
