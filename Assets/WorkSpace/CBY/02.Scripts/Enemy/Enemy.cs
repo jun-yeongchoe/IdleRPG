@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     {
         stats = GetComponent<EnemyStats>();
         fsm = GetComponent<EnemyFSM>();
-        enemyManager = GetComponentInParent<EnemyManager>();
+        enemyManager = FindObjectOfType<EnemyManager>();
         animator = GetComponent<Animator>();
     }
 
