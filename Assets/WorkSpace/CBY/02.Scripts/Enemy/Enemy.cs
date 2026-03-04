@@ -102,6 +102,11 @@ public class Enemy : MonoBehaviour
 
             DataManager.Instance.AddGold(dropGold);
         }
+
+        if (QuestManager.Instance != null)
+        {
+            QuestManager.Instance.AddQuestProgress(QuestGoalType.KillMonster, 1);
+        }
     }
 
     public void ForceDisappear()
