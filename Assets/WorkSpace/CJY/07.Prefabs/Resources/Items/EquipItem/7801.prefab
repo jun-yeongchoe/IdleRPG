@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 7801
   Name_KR: "\uB9C8\uB178\uC11D \uADC0\uAC78\uC774"
   Name_EN: Accessory/7801
-  itemRank: 2
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 8

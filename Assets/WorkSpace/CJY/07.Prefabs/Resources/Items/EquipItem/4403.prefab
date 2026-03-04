@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 4403
   Name_KR: "\uC9D5 \uBC15\uD78C \uAC11\uC637"
   Name_EN: Armor/4403
-  itemRank: 1
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 10

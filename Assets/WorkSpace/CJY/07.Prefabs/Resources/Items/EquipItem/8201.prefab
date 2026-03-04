@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 8201
   Name_KR: "\uB8E8\uBE44 \uBC18\uC9C0"
   Name_EN: Accessory/8201
-  itemRank: 3
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 6

@@ -10,6 +10,7 @@ public class ActiveSkill : MonoBehaviour
     [Header("Settings")]
     public Transform firePoint;
     public Transform testTarget;
+    private Enemy targetEnemy;
 
     private List<SkillDataSo> _equippedSkills = new List<SkillDataSo>();
     private Dictionary<int, SkillDataSo> _skillDatabase = new Dictionary<int, SkillDataSo>();
@@ -146,11 +147,10 @@ public class ActiveSkill : MonoBehaviour
         // BigInteger와 float 연산을 위해 100을 곱하고 나누는 방식 사용
         BigInteger finalAtk = PlayerStatCalculator.instance.FinalAtk;
         BigInteger damagePerStrike = (finalAtk * (long)(skill.Damage_Coef * 100)) / 100;
+       
 
         // StrikeCount만큼 이펙트 반복 실행
-        // 연타형 스킬일 경우간격을 두기 위해 코루틴을 사용할 수도 있지만, 
-        // 우선은 요구하신 대로 StrikeCount 횟수만큼 즉시/반복 호출합니다.
-        StartCoroutine(ProcessStrikes(skill, firePoint, testTarget, damagePerStrike));
+        StartCoroutine(ProcessStrikes(skill, firePoint, targetEnemy, damagePerStrike));
     }
 
     // 자동 사용
@@ -163,22 +163,7 @@ public class ActiveSkill : MonoBehaviour
     }
 
 
-    // public void Active(SkillDataSo skillData, Transform firePoint, Transform target)
-    // {
-    //     if (skillData == null) return;
-
-    //     // 데미지 계산: FinalAtk * DamageCoef
-    //     // BigInteger와 float 연산을 위해 100을 곱하고 나누는 방식 사용
-    //     BigInteger finalAtk = PlayerStatCalculator.instance.FinalAtk;
-    //     BigInteger damagePerStrike = (finalAtk * (long)(skillData.Damage_Coef * 100)) / 100;
-
-    //     // StrikeCount만큼 이펙트 반복 실행
-    //     // 연타형 스킬일 경우간격을 두기 위해 코루틴을 사용할 수도 있지만, 
-    //     // 우선은 요구하신 대로 StrikeCount 횟수만큼 즉시/반복 호출합니다.
-    //     StartCoroutine(ProcessStrikes(skillData, firePoint, target, damagePerStrike));
-    // }
-
-    private IEnumerator ProcessStrikes(SkillDataSo skillData, Transform firePoint, Transform target, BigInteger damage)
+    private IEnumerator ProcessStrikes(SkillDataSo skillData, Transform firePoint, Enemy target, BigInteger damage)
     {
         for (int i = 0; i < skillData.StrikeCount; i++)
         {
@@ -186,13 +171,13 @@ public class ActiveSkill : MonoBehaviour
             
             // 여기서 실제로 타겟에게 데미지를 전달하는 로직
             Debug.Log($"{skillData.Name_KR} 적중! 데미지: {damage} (타격: {i + 1}/{skillData.StrikeCount})");
+            target.TakeDamage((int)damage);
 
             yield return new WaitForSeconds(0.1f);
         }
-        // yield break;
     }
 
-    private void SpawnEffect(SkillDataSo skillData, Transform firePoint, Transform target)
+    private void SpawnEffect(SkillDataSo skillData, Transform firePoint, Enemy target)
     {
         UnityEngine.Vector3 spawnPos = UnityEngine.Vector3.zero;
 
@@ -202,13 +187,18 @@ public class ActiveSkill : MonoBehaviour
                 spawnPos = firePoint.position;
                 break;
             case SkillSpawnPoint.Target:
-                spawnPos = target.position-UnityEngine.Vector3.up * 0.5f;
+                spawnPos = target.transform.position-UnityEngine.Vector3.up * 0.5f;
                 break;
             case SkillSpawnPoint.Up:
-                spawnPos = target.position + UnityEngine.Vector3.up * 4f;
+                spawnPos = target.transform.position + UnityEngine.Vector3.up * 4f;
                 break;
         }
 
         EffectManager.Instance.PlayEffect(skillData.EffectPrefabName, spawnPos);
+    }
+
+    public void SetTarget(Enemy e)
+    {
+        targetEnemy = e;
     }
 }

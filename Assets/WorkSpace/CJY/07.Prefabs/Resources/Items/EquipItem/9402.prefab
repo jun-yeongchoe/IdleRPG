@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 9402
   Name_KR: "\uC81C\uB124\uC2DC\uC2A4 \uCF54\uC5B4"
   Name_EN: Accessory/9402
-  itemRank: 6
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 1

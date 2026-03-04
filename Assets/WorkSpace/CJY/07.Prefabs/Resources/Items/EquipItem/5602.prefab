@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 5602
   Name_KR: "\uB4DC\uB798\uACE4 \uC2A4\uCF00\uC77C \uBA54\uC77C"
   Name_EN: Armor/5602
-  itemRank: 4
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 4

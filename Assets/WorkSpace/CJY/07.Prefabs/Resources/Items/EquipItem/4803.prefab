@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 4803
   Name_KR: "\uC5BC\uC74C \uB85C\uBE0C"
   Name_EN: Armor/4803
-  itemRank: 2
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 8

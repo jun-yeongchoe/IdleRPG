@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 2602
   Name_KR: "\uBC1C\uD0A4\uB9AC\uC758 \uC131\uAC80"
   Name_EN: Weapon/2602
-  itemRank: 4
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 4

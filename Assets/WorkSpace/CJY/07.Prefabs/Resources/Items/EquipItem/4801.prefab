@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 4801
   Name_KR: "\uAC15\uD654 \uAC15\uCCA0 \uAC11\uC637"
   Name_EN: Armor/4801
-  itemRank: 2
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 8

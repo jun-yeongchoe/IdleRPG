@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 6001
   Name_KR: "\uB2E4\uD06C \uBA54\uD14C\uC624 \uB85C\uBE0C"
   Name_EN: Armor/6001
-  itemRank: 5
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 2

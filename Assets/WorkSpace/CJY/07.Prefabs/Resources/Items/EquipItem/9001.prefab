@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 9001
   Name_KR: "\uACF5\uD5C8\uC758 \uC131\uBB3C"
   Name_EN: Accessory/9001
-  itemRank: 5
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 2

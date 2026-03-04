@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 5603
   Name_KR: "\uD0C0\uC774\uD0C4\uC758 \uD749\uBCBD"
   Name_EN: Armor/5603
-  itemRank: 4
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 4

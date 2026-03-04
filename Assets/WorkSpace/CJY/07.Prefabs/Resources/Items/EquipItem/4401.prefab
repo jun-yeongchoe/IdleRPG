@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 4401
   Name_KR: "\uC0AC\uC2AC \uAC11\uC637"
   Name_EN: Armor/4401
-  itemRank: 1
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 10

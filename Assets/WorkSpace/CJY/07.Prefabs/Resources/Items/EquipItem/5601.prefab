@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 5601
   Name_KR: "\uC131\uAE30\uC0AC\uC758 \uC131\uAC11"
   Name_EN: Armor/5601
-  itemRank: 4
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 4

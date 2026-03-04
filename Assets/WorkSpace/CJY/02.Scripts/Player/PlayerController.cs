@@ -52,7 +52,9 @@ public class PlayerController : MonoBehaviour
         {
             isCombat = true;
             playerMove.Stop();
+            GetComponent<ActiveSkill>().SetTarget(firstEnemy);
             playerAttack.Attack(firstEnemy);
+            
         }
         else
         {

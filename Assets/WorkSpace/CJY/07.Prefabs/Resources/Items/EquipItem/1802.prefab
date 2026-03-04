@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 1802
   Name_KR: "\uC9D1\uD589\uAD00\uC758 \uB300\uAC80"
   Name_EN: Weapon/1802
-  itemRank: 2
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 8

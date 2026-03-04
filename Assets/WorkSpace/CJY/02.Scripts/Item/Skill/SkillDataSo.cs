@@ -27,4 +27,14 @@ public class SkillDataSo : ItemBase
     public string EffectPrefabName;
     public SkillSpawnPoint spawnPoint;
     public float SplashRadius = 2f;
+
+     public override float GetStatMultiplier(int currentLevel)
+    {
+        return base.GetStatMultiplier(currentLevel);
+    }
+
+    public float GetFinalValue(int currentLevel)
+    {
+        return Damage_Coef * (1f + GetStatMultiplier(currentLevel));
+    }
 }

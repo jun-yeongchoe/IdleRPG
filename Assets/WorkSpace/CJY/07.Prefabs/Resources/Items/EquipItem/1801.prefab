@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 1801
   Name_KR: "\uB2EC\uBE5B \uC740\uAC80"
   Name_EN: Weapon/1801
-  itemRank: 2
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 8

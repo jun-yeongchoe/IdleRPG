@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 3002
   Name_KR: "\uB77C\uADF8\uB098\uB85C\uD06C"
   Name_EN: Weapon/3002
-  itemRank: 5
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 2

@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 8603
   Name_KR: "\uB4DC\uB798\uACE4\uC758 \uC2EC\uC7A5 \uBC18\uC9C0"
   Name_EN: Accessory/8603
-  itemRank: 4
+  itemRank: 0
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 4
