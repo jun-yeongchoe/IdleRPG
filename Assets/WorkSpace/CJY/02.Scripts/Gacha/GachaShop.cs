@@ -63,7 +63,7 @@ public class GachaShop : MonoBehaviour
         LoadPrefabs();
 
         // 테스트용 데이터 세팅
-        DataManager.Instance.ShopLevels[0] = 15;
+        // DataManager.Instance.ShopLevels[0] = 15;
         DataManager.Instance.Gem = 100000;
     }
 

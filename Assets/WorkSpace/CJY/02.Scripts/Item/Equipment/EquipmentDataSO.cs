@@ -14,4 +14,9 @@ public class EquipmentDataSO : ItemBase
     {
         return base.GetStatMultiplier(currentLevel);
     }
+
+    public float GetFinalValue(int currentLevel)
+    {
+        return Value * (1f + GetStatMultiplier(currentLevel));
+    }
 }

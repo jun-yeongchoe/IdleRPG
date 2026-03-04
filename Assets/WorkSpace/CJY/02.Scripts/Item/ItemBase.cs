@@ -45,7 +45,7 @@ public class ItemBase : MonoBehaviour
     // Upgrade에 필요한 재료 개수 반환
     public int GetRequiredComposeCount(int currentLevel)
     {
-        return BaseComposeCount + currentLevel;
+        return BaseComposeCount + currentLevel -1;
     }
 
     // 현 레벨에 따른 스탯 배율 계산 로직
