@@ -40,7 +40,7 @@ public class BaseItemWindow : MonoBehaviour
         if(itemData is EquipmentDataSO equipData)
         {
             float finalValue = equipData.GetFinalValue(currentLevel);
-            string format = $"+ {finalValue:f2} %";
+            string format = $"+ {(finalValue-1)*100:f2} %";
 
             switch (equipData.equipmentType)
             {

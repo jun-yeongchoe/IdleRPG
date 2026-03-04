@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
 {
+    private string animIsDead = "IsDead";
     public float currentHP, maxHP;
-
+    private Animator anim;
+    PlayerController pc;
     // [SerializeField] private Slider hpBar;
 
     void Start()
     {
         maxHP = PlayerStat.instance.hp;
         currentHP = maxHP;
-
+        anim = GetComponent<Animator>();
+        pc = GetComponent<PlayerController>();
         InvokeRepeating("RegenHP", 1f, 1f);
     }
 
@@ -55,9 +58,29 @@ public class PlayerHP : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player is dead!");
+        foreach(GameObject partner in pc.partnerSlot)
+        {
+            partner.SetActive(false);
+        }
+        anim.SetBool(animIsDead, true);
         currentHP = 0;
+        CommonPopup.Instance.ShowAlert("사망!", "캐릭터가 사망했습니다.", "부활", OnclickRevival);
         CancelInvoke("RegenHP");
     }
 
+    public void OnclickRevival()
+    {
+        Revival();
+    }
+
+    private void Revival()
+    {
+        currentHP = maxHP;
+        anim.SetBool(animIsDead, false);
+        foreach(GameObject partner in pc.partnerSlot)
+        {
+            partner.SetActive(true);
+        }
+
+    }
 }

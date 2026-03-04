@@ -64,7 +64,7 @@ public class PlayerStat : MonoBehaviour
                 }
 
                 // 장비 공식 적용
-                float bonusValue = data.BaseStatBoost + (level - 1) * data.StatPerLevel;
+                float bonusValue = data.GetFinalValue(level);
 
                 // ID 범위 분류
                 if (itemID <= 3999) weaponAtkBonus += bonusValue;
@@ -81,11 +81,11 @@ public class PlayerStat : MonoBehaviour
         
         // 공격력 계산
         float baseAtk = 10f + (DataManager.Instance.AtkLv - 1) * 10f;
-        atkPower = baseAtk * (1f + weaponAtkBonus + accessoryAtkBonus);
+        atkPower = baseAtk * (weaponAtkBonus + accessoryAtkBonus-1);
 
         // 체력 계산
         float baseHp = 100f + (DataManager.Instance.HpLv - 1) * 100f;
-        hp = baseHp * (1f + armorHpBonus + accessoryHpBonus);
+        hp = baseHp * (armorHpBonus + accessoryHpBonus-1);
         // 공격속도, 재생, 치명타 등은 레벨 기반이므로 장비 유무와 상관없이 계산됨
         atkSpeed = attackDelayDenominator / (1f + (DataManager.Instance.AtSpeedLv - 1) * 0.01f);
         hpGen = 7f + (DataManager.Instance.RecoverLv - 1) * 0.7f;
