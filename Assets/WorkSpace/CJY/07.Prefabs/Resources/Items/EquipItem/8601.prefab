@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 8601
   Name_KR: "\uC601\uD63C\uC758 \uB208 \uBC18\uC9C0"
   Name_EN: Accessory/8601
-  itemRank: 0
+  itemRank: 4
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 4

@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 1403
   Name_KR: "\uAC15\uD654 \uB871\uC18C\uB4DC"
   Name_EN: Weapon/1403
-  itemRank: 0
+  itemRank: 1
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 10

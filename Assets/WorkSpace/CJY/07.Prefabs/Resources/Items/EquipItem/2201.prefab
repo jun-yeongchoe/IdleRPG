@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 2201
   Name_KR: "\uC6A9\uAE30\uC0AC\uC758 \uBC29\uD328"
   Name_EN: Weapon/2201
-  itemRank: 0
+  itemRank: 3
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 6

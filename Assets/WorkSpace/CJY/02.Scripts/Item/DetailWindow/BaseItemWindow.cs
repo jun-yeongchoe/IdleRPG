@@ -21,15 +21,18 @@ public class BaseItemWindow : MonoBehaviour
 
     public EquipmentDataSO[] equipmentArr;
 
+    public ItemBase currentItemData;
+
     public void UpdateUI(ItemBase itemData, int currentLevel, int currentEa)
     {
+        currentItemData = itemData;
         icon.sprite = itemData.transform.Find("IconImage").GetComponent<Image>().sprite; // 아이콘
         nameText.text = itemData.Name_KR; //이름
         rankText.text = itemData.itemRank.ToString(); //랭크
         rankText.color = GetRankColor(itemData.itemRank); // 랭크 컬러
         levelText.text = $"Lv {currentLevel:D2}"; // 레벨
         int required = itemData.GetRequiredComposeCount(currentLevel); //총 요구량
-        countText.text = $"{currentEa / required}"; // 보유 수량 / 총 요구량
+        countText.text = $"{currentEa} / {required}"; // 보유 수량 / 총 요구량
 
         expSlider.maxValue = required; // 슬라이더 BG
         expSlider.value = currentEa; // 슬라이더 Fill box
@@ -69,5 +72,32 @@ public class BaseItemWindow : MonoBehaviour
             default: return Color.white;
         }
     }
+
+    public void OnClickMergeBtn()
+    {
+        if(currentItemData is EquipmentDataSO data)
+        {
+            ItemMerge itemMerge = GetComponent<ItemMerge>();
+            bool success = itemMerge.TryMerge(data.ID, data.equipmentType);
+
+            if (success)
+            {
+                InventoryList invenList = GetComponent<InventoryList>();
+                invenList.RefreshInvenUI(data.equipmentType);
+
+                var save = DataManager.Instance.InventoryDict[data.ID];
+                UpdateUI(data, save.level, save.value);
+            }
+        }
+        InventoryList list = GetComponent<InventoryList>();
+        list.RefreshList();
+    }
+
+    public void Refresh()
+    {
+        ItemSaveData currentDict = DataManager.Instance.InventoryDict[currentItemData.ID];
+        UpdateUI(currentItemData, currentDict.level, currentDict.value);
+    }
+
 
 }

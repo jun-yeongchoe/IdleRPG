@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 3401
   Name_KR: "\uCC3D\uC870\uC2E0\uC758 \uC77C\uACA9"
   Name_EN: Weapon/3401
-  itemRank: 0
+  itemRank: 6
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 1

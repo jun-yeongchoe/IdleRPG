@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 1401
   Name_KR: "\uC815\uC608 \uBCD1\uC0AC\uC758 \uAC80"
   Name_EN: Weapon/1401
-  itemRank: 0
+  itemRank: 1
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 10

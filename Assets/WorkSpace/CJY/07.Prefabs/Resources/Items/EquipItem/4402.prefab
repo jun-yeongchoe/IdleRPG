@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 4402
   Name_KR: "\uBB34\uAC70\uC6B4 \uAC00\uC8FD \uAC11\uC637"
   Name_EN: Armor/4402
-  itemRank: 0
+  itemRank: 1
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 10

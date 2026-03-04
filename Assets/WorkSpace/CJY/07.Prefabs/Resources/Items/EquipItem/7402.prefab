@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 7402
   Name_KR: "\uCCA0\uC81C \uC778\uC7A5 \uBC18\uC9C0"
   Name_EN: Accessory/7402
-  itemRank: 0
+  itemRank: 1
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 10

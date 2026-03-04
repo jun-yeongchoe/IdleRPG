@@ -167,7 +167,7 @@ MonoBehaviour:
   ID: 8202
   Name_KR: "\uC0AC\uD30C\uC774\uC5B4 \uBC18\uC9C0"
   Name_EN: Accessory/8202
-  itemRank: 0
+  itemRank: 3
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 6

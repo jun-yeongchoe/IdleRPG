@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 6402
   Name_KR: "\uC808\uB300\uC790\uC758 \uBC29\uBCBD"
   Name_EN: Armor/6402
-  itemRank: 0
+  itemRank: 6
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 1

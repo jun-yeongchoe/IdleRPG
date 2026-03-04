@@ -92,7 +92,7 @@ MonoBehaviour:
   ID: 9401
   Name_KR: "\uC601\uC6D0\uC758 \uB0A0\uAC1C"
   Name_EN: Accessory/9401
-  itemRank: 0
+  itemRank: 6
   itemType: 0
   Icon: {fileID: 0}
   BaseComposeCount: 1
