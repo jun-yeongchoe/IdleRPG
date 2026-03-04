@@ -20,6 +20,7 @@ public class DamageText : MonoBehaviour
 
     public void Setup(float damage)
     {
+        StopAllCoroutines();
         textMesh.text = ((int)damage).ToString();
 
         alpha = textMesh.color;
