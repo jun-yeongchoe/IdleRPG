@@ -53,7 +53,7 @@ public class SPDraw : MonoBehaviour
     [SerializeField] TextMeshProUGUI scrapText, oneDrawScrap;
 
     [Header("Slot UI Control")]
-    [SerializeField] private List<SPSlotUI> spSlots = new List<SPSlotUI>();
+    public List<SPSlotUI> spSlots = new List<SPSlotUI>();
     [SerializeField] private Button drawButton;
 
     [Header("Synergy Display")]
@@ -63,6 +63,8 @@ public class SPDraw : MonoBehaviour
 
     // 데이터 로더 참조
     private SPPointCSVLoader Loader => CSV_LoadManager.Instance.SP_CSV;
+    
+    private SPDataConnectToDataManager spDataCTD;
 
     public int CurrentTotalCost
     {
@@ -86,6 +88,7 @@ public class SPDraw : MonoBehaviour
         {
             synergyLevelUIs[i].Init(synergyNames[i]);
         }
+        spDataCTD = GetComponent<SPDataConnectToDataManager>();
     }
 
     public void OnClickSPChange()
@@ -118,6 +121,14 @@ public class SPDraw : MonoBehaviour
                 Color synergyColor = new Color(icon.color.x/255f, icon.color.y/255f, icon.color.z/255f, 1f);
                 slot.UpdateSlotUI(result, randSynergy, icon.synergySprite, synergyColor);
             }
+        }
+
+        spDataCTD.SPDataSaveToDataManager(); // DataManager에 특성 저장하는 로직
+        spDataCTD.SPDataSaveToPlayer(); // PlayerStat에 반영하는 로직
+        Debug.Log("[특성] 특성 포인트 출력 완료");
+        foreach(var SPDataValue in DataManager.Instance.TraitSlots)
+        {
+            Debug.Log($"[특성]{SPDataValue.slotIndex} / {SPDataValue.traitId} / {SPDataValue.isLocked}");
         }
     }
 

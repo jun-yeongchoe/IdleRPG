@@ -35,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
         // 공격 전 체력
         float hpBefore = currentTarget.stats.hp;
         
-        currentTarget.TakeDamage(attackData.damage);
+        // currentTarget.TakeDamage(attackData.damage);
         
         // 공격 후 체력
         float hpAfter = currentTarget.stats.hp;

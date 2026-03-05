@@ -563,6 +563,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 1.5
   isCombat: 0
+  partnerSlot:
+  - {fileID: 6632794549778489680}
+  - {fileID: 3613822733045804110}
+  - {fileID: 8815963095425010656}
 --- !u!114 &3173633856893323708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,7 +586,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6820830875522472369}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78277b5f7cfad164e9fe1d45e6dc6260, type: 3}
   m_Name: 
@@ -647,6 +651,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 639740253637664850}
   testTarget: {fileID: 0}
+  _currentSkillIndex: 0
+  isAutoMode: 0
 --- !u!1 &8479594075610017237
 GameObject:
   m_ObjectHideFlags: 0

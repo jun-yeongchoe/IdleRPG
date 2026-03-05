@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class SwordCollider : MonoBehaviour
@@ -15,8 +16,8 @@ public class SwordCollider : MonoBehaviour
             if (enemy != null)
             {
                 // float damage = atkStat.GetValue(playerStatus.atkPower);
-                float damage = PlayerStat.instance.atkPower;
-                enemy.TakeDamage(damage);
+                BigInteger damage = PlayerStat.instance.atkPower;
+                // enemy.TakeDamage(damage); -> BigInteger로 바꾸고나서 활성화 예정
                 Debug.Log("딜 : " + damage + " 적 : " + collision.name);
             }
         }

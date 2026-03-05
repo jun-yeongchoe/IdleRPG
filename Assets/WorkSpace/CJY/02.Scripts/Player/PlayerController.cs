@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private GameObject enemyManager;
     // 현재 추적 중인 적 리스트
     private List<Enemy> targetEnemies = new List<Enemy>();
+    public GameObject[] partnerSlot;
 
     private void Awake()
     {
