@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Numerics;
+using Vector3 = UnityEngine.Vector3;
 
 public class DamageTextManager : MonoBehaviour
 {
@@ -25,7 +27,7 @@ public class DamageTextManager : MonoBehaviour
         }
     }
 
-    public void ShowDamage(float damage, Vector3 position)
+    public void ShowDamage(BigInteger damage, Vector3 position)
     {
         if (poolQueue.Count == 0) return;
 

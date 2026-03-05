@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Numerics;
+using Vector3 = UnityEngine.Vector3;
 
 public class DamageText : MonoBehaviour
 {
@@ -18,10 +20,10 @@ public class DamageText : MonoBehaviour
         textMesh = GetComponent<TextMeshPro>();
     }
 
-    public void Setup(float damage)
+    public void Setup(BigInteger damage)
     {
         StopAllCoroutines();
-        textMesh.text = ((int)damage).ToString();
+        textMesh.text = damage.ToString();
 
         alpha = textMesh.color;
         alpha.a = 1f;

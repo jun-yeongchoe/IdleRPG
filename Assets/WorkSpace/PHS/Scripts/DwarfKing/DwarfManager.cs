@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 
 public class DwarfManager : MonoBehaviour
 {
@@ -17,8 +19,8 @@ public class DwarfManager : MonoBehaviour
     public bool isPlaying = false;
     public float currentTime = 0f;
     public int currentSection = 0;
-    public float currentBossHp = 0f;
-    public float currentBossMaxHp = 0f;
+    public BigInteger currentBossHp = 0;
+    public BigInteger currentBossMaxHp = 0;
 
     [Header("스폰 설정")]
     public GameObject bossPrefab;      //드워프 킹 프리팹
@@ -27,7 +29,7 @@ public class DwarfManager : MonoBehaviour
 
     //UI 갱신용 이벤트
     public Action<float> OnTimeChanged;
-    public Action<int, float, float> OnBossHpChanged; //(현재구간, 남은체력, 최대체력)
+    public Action<int, BigInteger, BigInteger> OnBossHpChanged; //(현재구간, 남은체력, 최대체력)
 
     private void Awake()
     {
@@ -87,7 +89,7 @@ public class DwarfManager : MonoBehaviour
     }
 
     //보스 피격 및 구간(Section) 처리(몬스터 스크립트에서 호출)
-    public void OnBossTakeDamage(float damage)
+    public void OnBossTakeDamage(BigInteger damage)
     {
         if (!isPlaying) return;
 
@@ -96,7 +98,7 @@ public class DwarfManager : MonoBehaviour
         //HP가 0 이하가 되면 다음 구간으로 넘어감
         while (currentBossHp <= 0 && currentSection < maxSection)
         {
-            float overflowDamage = Mathf.Abs(currentBossHp); //초과로 때린 데미지 보존
+            BigInteger overflowDamage = BigInteger.Abs(currentBossHp); //초과로 때린 데미지 보존
 
             currentSection++;
             CalculateNextSectionHp();
@@ -117,8 +119,9 @@ public class DwarfManager : MonoBehaviour
     //다음 구간의 체력 계산 로직 (기획서 공식 적용)
     private void CalculateNextSectionHp()
     {
+        double multiplier=System.Math.Pow(hpMultiplier,currentSection);
         //공식: 20000 * (1.8 ^ currentSection)
-        currentBossMaxHp = baseHp * Mathf.Pow(hpMultiplier, currentSection);
+        currentBossMaxHp = (BigInteger)(baseHp * multiplier);
         currentBossHp = currentBossMaxHp;
     }
 

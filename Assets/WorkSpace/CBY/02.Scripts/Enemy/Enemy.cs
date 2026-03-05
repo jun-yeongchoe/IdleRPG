@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Numerics;
 
 public class Enemy : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class Enemy : MonoBehaviour
         animator.ResetTrigger("Die");
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(BigInteger damage)
     {
         if (isDead) return;
 
