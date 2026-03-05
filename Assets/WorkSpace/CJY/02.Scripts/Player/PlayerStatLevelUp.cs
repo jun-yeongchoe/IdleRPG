@@ -171,7 +171,7 @@ public class PlayerStatLevelUp : MonoBehaviour
         PlayerStat.instance.SetAttackPower(); // PlayerStat 싱글톤의 atkPower 값 갱신
         // UI 업데이트
         atk_p_l.SetText("Lv.{0}",atk_p_level.Value); // .text사용에서 SetText 사용으로 변경하여 boxing 방지 -> 최적화
-        atk_p.SetText("{0}", PlayerStat.instance.atkPower);
+        atk_p.SetText(PlayerStat.instance.atkPower.ToCurren());
         atk_p_c.SetText("비용 : {0}", playerStatus.GetAtkCost());
     }
     private void OnChangedLevel2(int value)
@@ -179,7 +179,7 @@ public class PlayerStatLevelUp : MonoBehaviour
         playerStatus.hp = hp_level.Value;
         PlayerStat.instance.SetHP();
         hp_l.SetText("Lv.{0}",hp_level.Value);
-        hp.SetText("{0}", PlayerStat.instance.hp);
+        hp.SetText(PlayerStat.instance.hp.ToCurren());
         hp_c.SetText("비용 : {0}", playerStatus.GetHPCost());
     }
     private void OnChangedLevel3(int value)

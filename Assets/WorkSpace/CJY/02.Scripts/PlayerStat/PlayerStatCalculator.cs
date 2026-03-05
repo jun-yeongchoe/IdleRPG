@@ -39,10 +39,7 @@ using UnityEngine;
 public class PlayerStatCalculator : MonoBehaviour
 {
     public static PlayerStatCalculator instance{get; private set;}
-    private SPPointCSVLoader loader;
-
-    private string[] types = {"Attack_Damage", "Attack_Speed", "HP", "Critical_Chance", "Critical_Damage", "Gold_Bonus"};
-
+    
     void Awake()
     {
         if(instance == null)
@@ -55,104 +52,26 @@ public class PlayerStatCalculator : MonoBehaviour
         }
     }
 
-    public BigInteger FinalAtk => CalculateFinalAtk();
-    public BigInteger FinalHealth => CalculateFinalHealth();
-    public float FinalAtkSpeed => CalculateFinalAtkSpeed();
-    public float FinalCritChance => CalculateFinalCritChance();
-    public float FinalCritDamage => CalculateFinalCritDamage();
-
-    void Start()
-    {
-        loader = CSV_LoadManager.Instance.SP_CSV;
-    }
-
+    public BigInteger FinalAtk => PlayerStat.instance.atkPower;
+    public BigInteger FinalHealth => PlayerStat.instance.hp;
+    public float FinalAtkSpeed => PlayerStat.instance.atkSpeed;
+    public float FinalCritChance => PlayerStat.instance.criticalChance;
+    public float FinalCritDamage => PlayerStat.instance.criticalDamage;
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F1))
+        // 디버그용 출력 기능 유지
+        if (Input.GetKeyDown(KeyCode.F1))
         {
-            
-            Debug.Log("Final Atk: " + FinalAtk);
-            Debug.Log("Final Health: " + FinalHealth);
-            Debug.Log("Final Atk Speed: " + FinalAtkSpeed);
-            Debug.Log("Final Crit Chance: " + FinalCritChance);
-            Debug.Log("Final Crit Damage: " + FinalCritDamage);
+            Debug.Log($"[Ranking Stats] Atk: {FinalAtk}, HP: {FinalHealth}, Speed: {FinalAtkSpeed}, Crit: {FinalCritChance * 100}%, CritDmg: {FinalCritDamage * 100}%");
+            Debug.Log($"[Ranking Score] : {GetCurrentRankingScore()}");
         }
-        
     }
 
-    private BigInteger CalculateFinalAtk()
+    public BigInteger GetCurrentRankingScore()
     {
-        BigInteger baseAtk = new BigInteger(PlayerStat.instance.atkPower);
-        float totalMultiplier = 1.0f;
-
-        // 추후 인벤토리에 장착된 무기, 악세사리1, 악세사리2 등을 불러와서 계산
-        totalMultiplier += GetEquipmentMultiPlier(GetEquipmentDataSO(EquipmentType.Weapon));
-        totalMultiplier += GetEquipmentMultiPlier(GetEquipmentDataSO(EquipmentType.Accessory));
-        // 추후 특성포인트에 따른 공격력 배율도 추가
-        // 테스트용으로 일단 F등급의 공격력을 추가해둠. 추후에 변경 예정
-        var spData = loader.valueTable.Find(x=> x.type == types[0] && x.rank == "SS");
-        totalMultiplier += spData.rate;
-
-        return BigInteger.Multiply(baseAtk, new BigInteger(totalMultiplier * 100)) / 100;
-
+        return GetRankingScore(FinalAtk, FinalAtkSpeed, FinalCritChance, FinalCritDamage);
     }
-
-    private BigInteger CalculateFinalHealth()
-    {
-        BigInteger baseHP = new BigInteger(PlayerStat.instance.hp);
-        float totalMultiplier = 1.0f;
-
-        totalMultiplier += GetEquipmentMultiPlier(GetEquipmentDataSO(EquipmentType.Armor));
-        totalMultiplier += GetEquipmentMultiPlier(GetEquipmentDataSO(EquipmentType.Accessory));
-        // 추후 특성포인트에 따른 체력 배율도 추가
-        var spData = loader.valueTable.Find(x=> x.type == types[2] && x.rank == "F");
-        totalMultiplier += spData.rate;
-        return BigInteger.Multiply(baseHP, new BigInteger(totalMultiplier * 100)) / 100;
-    }
-
-    private float CalculateFinalAtkSpeed()
-    {
-        float baseAtkSpeed = PlayerStat.instance.atkSpeed;
-        float totalBonus = 1.0f;
-
-        var spData = loader.valueTable.Find(x=> x.type == types[1] && x.rank == "F");
-        totalBonus += spData.rate;
-        return baseAtkSpeed * totalBonus;
-    }
-
-    private float CalculateFinalCritChance()
-    {
-        float baseCritChance = PlayerStat.instance.criticalChance;
-        float totalBonus = 0.0f;
-        var spData = loader.valueTable.Find(x=> x.type == types[3] && x.rank == "F");
-        totalBonus += spData.rate;
-        return baseCritChance + totalBonus;
-
-    }
-
-    private float CalculateFinalCritDamage()
-    {
-        float baseCritDamage = PlayerStat.instance.criticalDamage;
-        float totalBonus = 0.0f;
-        var spData = loader.valueTable.Find(x=> x.type == types[4] && x.rank == "F");
-        totalBonus += spData.rate;
-        return baseCritDamage + totalBonus;
-    }
-
-    private float GetEquipmentMultiPlier(EquipmentDataSO equipmentData)
-    {
-        return 0f;
-    }
-
-    public EquipmentDataSO GetEquipmentDataSO(EquipmentType equipmentType)
-    {
-        return null;
-    }
-
-    /*****************************
-        Value : AtkDamage × AtkSpeed × [1 + Critical Rate× (Critical Damage - 1)]
-    *******************************/
 
     public BigInteger GetRankingScore(BigInteger atk, float atkSpeed, float critChance, float critDamage)
     {

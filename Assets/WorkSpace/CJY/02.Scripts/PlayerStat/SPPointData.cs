@@ -10,15 +10,13 @@ public class SPPointData
     public string Rank;
     public string Type;
     public float Rate;
-    public bool IsMultiply;
 
-    public SPPointData(int id, string rank, string type, float rate,  bool isMultiply)
+    public SPPointData(SPData data)
     {
-        ID = id;
-        Rank = rank;
-        Type = type;
-        Rate = rate;
-        IsMultiply = isMultiply;
+        ID = data.id;
+        Rank = data.rank;
+        Type = data.type;
+        Rate = data.rate;
     }
 
     public float GetSPPointBonus(string type, string rank)
@@ -29,4 +27,5 @@ public class SPPointData
         }
         else return Rate;
     }
+
 }

@@ -124,6 +124,7 @@ public class SPDraw : MonoBehaviour
         }
 
         spDataCTD.SPDataSaveToDataManager(); // DataManager에 특성 저장하는 로직
+        spDataCTD.SPDataSaveToPlayer(); // PlayerStat에 반영하는 로직
         Debug.Log("[특성] 특성 포인트 출력 완료");
         foreach(var SPDataValue in DataManager.Instance.TraitSlots)
         {

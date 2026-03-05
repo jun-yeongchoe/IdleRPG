@@ -8,6 +8,7 @@ public class CSV_LoadManager : MonoBehaviour
 
     public PlayerStatLoaderFromGoogleSheets playerStats_CSV;
     public SPPointCSVLoader SP_CSV;
+    
 
     public bool allLoaded = false;
 

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
 {
     private string animIsDead = "IsDead";
-    public float currentHP, maxHP;
+    public BigInteger currentHP, maxHP;
     private Animator anim;
     PlayerController pc;
     // [SerializeField] private Slider hpBar;
@@ -24,7 +25,7 @@ public class PlayerHP : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.T))
         {
-            TakeDamage(50f);
+            TakeDamage(50);
         }
 
         Debug.Log("Current HP : " + currentHP + " / " + maxHP);
@@ -32,7 +33,7 @@ public class PlayerHP : MonoBehaviour
 
     public void RefreshHP()
     {
-        float hpGap = PlayerStat.instance.hp - maxHP;
+        BigInteger hpGap = PlayerStat.instance.hp - maxHP;
         maxHP = PlayerStat.instance.hp;
         if(hpGap > 0) currentHP += hpGap;
         if(currentHP > maxHP) currentHP = maxHP;
@@ -42,15 +43,17 @@ public class PlayerHP : MonoBehaviour
     private void RegenHP()
     {
         if(currentHP >= maxHP) return;
-        currentHP = Mathf.Min(currentHP + PlayerStat.instance.hpGen, maxHP);
+        currentHP += (BigInteger)PlayerStat.instance.hpGen;
+        if (currentHP > maxHP) currentHP = maxHP;
     }
 
-    public void TakeDamage(float dmg)
+    public void TakeDamage(BigInteger dmg)
     {
-        currentHP = Mathf.Max(currentHP - dmg, 0);
+        currentHP -= dmg;
 
-        if(currentHP <= 0)
+        if (currentHP <= 0)
         {
+            currentHP = 0;
             Die();
         }
     }

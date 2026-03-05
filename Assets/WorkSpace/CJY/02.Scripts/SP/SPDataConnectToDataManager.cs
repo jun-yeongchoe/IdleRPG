@@ -13,7 +13,7 @@ public class SPDataAndLocked
 public class SPDataConnectToDataManager : MonoBehaviour
 {
     private SPDraw spDraw;
-
+    
     
     public Dictionary<int, SPDataAndLocked> eachSlotData = new Dictionary<int, SPDataAndLocked>();
 
@@ -51,6 +51,16 @@ public class SPDataConnectToDataManager : MonoBehaviour
             };
             int index = spDraw.spSlots.IndexOf(slot);
             eachSlotData[index] = slotData;
+        }
+    }
+
+    public void SPDataSaveToPlayer()
+    {
+        foreach(SPSlotUI slot in spDraw.spSlots)
+        {
+            SPData saveData = slot.spDataStorage;
+            SPPointData hasSP = new SPPointData(saveData);
+            PlayerStat.instance.hasSPData.Add(hasSP);
         }
     }
 

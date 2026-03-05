@@ -6,6 +6,7 @@ public class ItemDataManager : MonoBehaviour
 {
     public static ItemDataManager Instance { get; private set; }
 
+    EquipmentDataSO[] assets;
     // ID로 검색하기 위한 사전
     private Dictionary<int, EquipmentDataSO> equipmentDict = new Dictionary<int, EquipmentDataSO>();
 
@@ -16,11 +17,13 @@ public class ItemDataManager : MonoBehaviour
 
         LoadAllEquipments();
     }
+    void Start()
+    {
+        assets = Resources.LoadAll<EquipmentDataSO>("EquipItem");
+    }
 
     void LoadAllEquipments()
     {
-        EquipmentDataSO[] assets = Resources.LoadAll<EquipmentDataSO>("EquipItem");
-        
         foreach (var asset in assets)
         {
             if (!equipmentDict.ContainsKey(asset.ID))
