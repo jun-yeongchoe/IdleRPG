@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 public class GoldDungeonEnemySpawner : MonoBehaviour
 {
-    [Header("½ºÆù ¼³Á¤")]
+    [Header("ìŠ¤í° ì„¤ì •")]
     public GameObject enemyPrefab;
     public int spawnCount = 10;
     public float spawnRadius = 2f;
@@ -32,12 +32,12 @@ public class GoldDungeonEnemySpawner : MonoBehaviour
             Enemy enemy = go.GetComponent<Enemy>();
             if (enemy == null)
             {
-                Debug.LogError("Enemy ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù!");
+                Debug.LogError("Enemy ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤!");
                 continue;
             }
 
             aliveEnemies.Add(enemy);
-            enemy.OnEnemyDead += HandleEnemyDead; //ÇÙ½É ¿¬°á
+            enemy.OnEnemyDead += HandleEnemyDead; //í•µì‹¬ ì—°ê²°
         }
     }
 
@@ -45,6 +45,11 @@ public class GoldDungeonEnemySpawner : MonoBehaviour
     {
         enemy.OnEnemyDead -= HandleEnemyDead;
         aliveEnemies.Remove(enemy);
+
+        if (GoldDungeonManager.Instance != null)
+        {
+            GoldDungeonManager.Instance.OnEnemyKilled();
+        }
 
         if (aliveEnemies.Count == 0)
         {
