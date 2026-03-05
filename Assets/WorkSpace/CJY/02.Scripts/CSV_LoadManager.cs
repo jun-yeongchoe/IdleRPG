@@ -28,6 +28,7 @@ public class CSV_LoadManager : MonoBehaviour
     void Start()
     {
         EventManager.Instance.StartList("CSV_DataLoaded", CheckLoaded);
+        StartCoroutine(CheckLoadRoutine());
     }
 
     private void OnDestroy()

@@ -16,10 +16,13 @@ public class SPSlotUI : MonoBehaviour
 
     [SerializeField] private Image synergyIcon;
     public string currentSynergy;
+    public SPData spDataStorage;
+    
 
     public void UpdateSlotUI(SPData data, string synergyName, Sprite icon, Color synergyColor)
     {
         if (data == null) return;
+        spDataStorage = data;
         currentSynergy = synergyName;
 
         rankText.text = data.rank;
@@ -55,7 +58,7 @@ public class SPSlotUI : MonoBehaviour
             // 아이콘 자체의 색조(Tint)를 바꿀 경우
             synergyIcon.color = synergyColor; 
         }
-
+        
         SetRankColor(data.rank);
     }
 

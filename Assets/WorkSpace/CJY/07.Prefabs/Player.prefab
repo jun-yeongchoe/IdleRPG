@@ -563,7 +563,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 1.5
   isCombat: 0
-  partnerSlot: []
+  partnerSlot:
+  - {fileID: 6632794549778489680}
+  - {fileID: 3613822733045804110}
+  - {fileID: 8815963095425010656}
 --- !u!114 &3173633856893323708
 MonoBehaviour:
   m_ObjectHideFlags: 0

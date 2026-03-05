@@ -52,12 +52,13 @@ public class PlayerHP : MonoBehaviour
         if(currentHP <= 0)
         {
             Die();
-            
         }
     }
 
     private void Die()
     {
+        Debug.Log("플레이어 사망");
+        CancelInvoke("RegenHP");
         foreach(GameObject partner in pc.partnerSlot)
         {
             partner.SetActive(false);
@@ -65,7 +66,7 @@ public class PlayerHP : MonoBehaviour
         anim.SetBool(animIsDead, true);
         currentHP = 0;
         CommonPopup.Instance.ShowAlert("사망!", "캐릭터가 사망했습니다.", "부활", OnclickRevival);
-        CancelInvoke("RegenHP");
+        
     }
 
     public void OnclickRevival()
