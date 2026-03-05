@@ -55,6 +55,10 @@ public class CSV_LoadManager : MonoBehaviour
             {
                 EventManager.Instance.TriggerEvent("CSV_DataLoaded");
                 Debug.Log("CSVLoader_Event 등록 완료");
+
+                PlayerStat.instance.UpdateFinalStats();
+
+                EventManager.Instance.TriggerEvent("PlayerStatChange");
                 yield break; // 루틴 종료
             }
             yield return null;

@@ -70,8 +70,12 @@ public class PlayerStatLevelUp : MonoBehaviour
             crit_p_level.Value = playerStatus.criticalChance;
             crit_d_level.Value = playerStatus.criticalDamage;
         }
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.StartList("PlayerStatChange", LevelUIRefresh);
+        }
 
-            StartCoroutine(WaitForDataLoadAndUIRefresh());
+        StartCoroutine(WaitForDataLoadAndUIRefresh());
 
     }
 
@@ -97,6 +101,7 @@ public class PlayerStatLevelUp : MonoBehaviour
         atk_s_level.RemoveAction(OnChangedLevel4);
         crit_p_level.RemoveAction(OnChangedLevel5);
         crit_d_level.RemoveAction(OnChangedLevel6);
+        EventManager.Instance.StopList("PlayerStatChange", LevelUIRefresh);
     }
 
     public void OnClickLevelUp(StatType type)
@@ -150,11 +155,13 @@ public class PlayerStatLevelUp : MonoBehaviour
                 crit_d_level.Value= DataManager.Instance.CritDmgLv; 
                 break;
         }
+        PlayerStat.instance.UpdateFinalStats();
 
         if (EventManager.Instance != null) EventManager.Instance.TriggerEvent("StatChange");
+        EventManager.Instance.TriggerEvent("PlayerStatChange");
     }
 
-    private void LevelUIRefresh()
+    public void LevelUIRefresh()
     {
         OnChangedLevel1(atk_p_level.Value);
         OnChangedLevel2(hp_level.Value);
@@ -168,7 +175,6 @@ public class PlayerStatLevelUp : MonoBehaviour
     private void OnChangedLevel1(int value)
     {
         playerStatus.atkPower = atk_p_level.Value;  // Player SO의 atkPower(레벨) 값 변경
-        PlayerStat.instance.SetAttackPower(); // PlayerStat 싱글톤의 atkPower 값 갱신
         // UI 업데이트
         atk_p_l.SetText("Lv.{0}",atk_p_level.Value); // .text사용에서 SetText 사용으로 변경하여 boxing 방지 -> 최적화
         atk_p.SetText(PlayerStat.instance.atkPower.ToCurren());
@@ -177,7 +183,6 @@ public class PlayerStatLevelUp : MonoBehaviour
     private void OnChangedLevel2(int value)
     {
         playerStatus.hp = hp_level.Value;
-        PlayerStat.instance.SetHP();
         hp_l.SetText("Lv.{0}",hp_level.Value);
         hp.SetText(PlayerStat.instance.hp.ToCurren());
         hp_c.SetText("비용 : {0}", playerStatus.GetHPCost());
@@ -185,7 +190,6 @@ public class PlayerStatLevelUp : MonoBehaviour
     private void OnChangedLevel3(int value)
     {
         playerStatus.hpGen = hp_g_level.Value;
-        PlayerStat.instance.SetHPGen();
         hp_g_l.SetText("Lv.{0}",hp_g_level.Value); 
         hp_g.SetText("{0}", PlayerStat.instance.hpGen);
         hp_g_c.SetText("비용 : {0}", playerStatus.GetHPGenCost());
@@ -193,7 +197,6 @@ public class PlayerStatLevelUp : MonoBehaviour
     private void OnChangedLevel4(int value)
     {
         playerStatus.atkSpeed = atk_s_level.Value;
-        PlayerStat.instance.SetAtkSpeed();
         atk_s_l.SetText("Lv.{0}",atk_s_level.Value);
         float attacksPerSecond = 1f / PlayerStat.instance.atkSpeed;
         atk_s.text = attacksPerSecond.ToString("F2");
@@ -202,7 +205,6 @@ public class PlayerStatLevelUp : MonoBehaviour
     private void OnChangedLevel5(int value)
     {
         playerStatus.criticalChance = crit_p_level.Value;
-        PlayerStat.instance.SetCriticalChance();
         crit_p_l.SetText("Lv.{0}",crit_p_level.Value);
         // crit_p.SetText("{0:F3}", PlayerStat.instance.criticalChance);
         crit_p.text = PlayerStat.instance.criticalChance.ToString("F3");
@@ -211,7 +213,6 @@ public class PlayerStatLevelUp : MonoBehaviour
     private void OnChangedLevel6(int value)
     {
         playerStatus.criticalDamage = crit_d_level.Value;
-        PlayerStat.instance.SetCriticalDamage();
         crit_d_l.SetText("Lv.{0}",crit_d_level.Value);
         crit_d.SetText("{0}", PlayerStat.instance.criticalDamage);
         crit_d_c.SetText("비용 : {0}", playerStatus.GetCritDamageCost());

@@ -24,7 +24,6 @@ public class PlayerStat : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(gameObject);
     }
-
     void Start()
     {
         DataManager.Instance.Gold = 1000000;
@@ -39,6 +38,11 @@ public class PlayerStat : MonoBehaviour
     public void UpdateFinalStats()
     {
         if (DataManager.Instance == null || ItemDataManager.Instance == null) return;
+        if (PSD_CSV == null || !PSD_CSV.isLoaded) 
+        {
+            Debug.LogWarning("CSV 데이터가 아직 로드되지 않아 계산을 건너뜁니다.");
+            return;
+        }
 
         // 1. 장비 보너스 합산 변수 (초기값 0 = 증가량 없음)
         float totalAtkMultiplier = 0; // 공격력은 곱
@@ -123,6 +127,8 @@ public class PlayerStat : MonoBehaviour
         hpGen = hp_g_Data.BaseValue + (DataManager.Instance.RecoverLv - 1) * hp_g_Data.GrowthPerLevel;
         criticalChance = crit_p_Data.BaseValue + ((DataManager.Instance.CritPerLv - 1) * crit_p_Data.GrowthPerLevel) + totalCritChanceBonus;
         criticalDamage = crit_d_Data.BaseValue + ((DataManager.Instance.CritDmgLv - 1) * crit_d_Data.GrowthPerLevel) + totalCritDamageBonus;
+
+        EventManager.Instance.TriggerEvent("PlayerStatChange");
     }
 
     /// <summary>

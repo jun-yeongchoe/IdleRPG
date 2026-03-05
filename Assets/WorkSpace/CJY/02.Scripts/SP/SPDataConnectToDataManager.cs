@@ -56,11 +56,13 @@ public class SPDataConnectToDataManager : MonoBehaviour
 
     public void SPDataSaveToPlayer()
     {
+        PlayerStat.instance.hasSPData.Clear();
         foreach(SPSlotUI slot in spDraw.spSlots)
         {
             SPData saveData = slot.spDataStorage;
             SPPointData hasSP = new SPPointData(saveData);
             PlayerStat.instance.hasSPData.Add(hasSP);
+            PlayerStat.instance.UpdateFinalStats();
         }
     }
 
