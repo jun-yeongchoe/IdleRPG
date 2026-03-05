@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -89,17 +90,16 @@ public class DwarfUI : MonoBehaviour
         timerText.text = $"남은 시간: {remainTime:F2}초";
     }
 
-    private void UpdateBossHpUI(int section, float currentHp, float maxHp)
+    private void UpdateBossHpUI(int section, BigInteger currentHp, BigInteger maxHp)
     {
         sectionText.text = $"현재 구간: {section} 단계";
 
-        //정수로 깔끔하게 표시
-        bossHpText.text = $"{(int)currentHp} / {(int)maxHp}";
+        bossHpText.text = $"{currentHp} / {maxHp}";
 
         //체력바 게이지 비율(0~1) 갱신
         if (maxHp > 0)
         {
-            bossHpFill.fillAmount = currentHp / maxHp;
+            bossHpFill.fillAmount = (float)((double)currentHp / (double)maxHp);
         }
     }
 }
