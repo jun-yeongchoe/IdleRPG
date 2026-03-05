@@ -1,3 +1,4 @@
+using System.Numerics;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -33,12 +34,12 @@ public class PlayerAttack : MonoBehaviour
         var attackData = PlayerStat.instance.GetAttackDamage();
         
         // 공격 전 체력
-        float hpBefore = currentTarget.stats.hp;
+        BigInteger hpBefore = currentTarget.stats.hp;
         
-        // currentTarget.TakeDamage(attackData.damage);
+        currentTarget.TakeDamage(attackData.damage);
         
         // 공격 후 체력
-        float hpAfter = currentTarget.stats.hp;
+        BigInteger hpAfter = currentTarget.stats.hp;
 
         Debug.Log($"<color=cyan>[공격 성공]</color> {currentTarget.name} | 데미지: {attackData.damage} | 체력 변화: {hpBefore} -> {hpAfter}");
     }

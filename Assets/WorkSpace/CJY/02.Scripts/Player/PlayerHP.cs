@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -14,11 +15,30 @@ public class PlayerHP : MonoBehaviour
 
     void Start()
     {
-        maxHP = PlayerStat.instance.hp;
-        currentHP = maxHP;
+        EventManager.Instance.StartList("PlayerStatChange", OnStatChanged);
+
         anim = GetComponent<Animator>();
         pc = GetComponent<PlayerController>();
         InvokeRepeating("RegenHP", 1f, 1f);
+
+        OnStatChanged();
+    }
+
+    void OnDestroy()
+    {
+        EventManager.Instance.StopList("PlayerStatChange", OnStatChanged);
+    }
+    private void OnStatChanged()
+    {
+        if(maxHP <= 0)
+        {
+            maxHP = PlayerStat.instance.hp;
+            currentHP = maxHP;
+        }
+        else
+        {
+            RefreshHP();
+        }
     }
 
     void Update()
@@ -69,7 +89,6 @@ public class PlayerHP : MonoBehaviour
         anim.SetBool(animIsDead, true);
         currentHP = 0;
         CommonPopup.Instance.ShowAlert("사망!", "캐릭터가 사망했습니다.", "부활", OnclickRevival);
-        
     }
 
     public void OnclickRevival()
@@ -85,6 +104,5 @@ public class PlayerHP : MonoBehaviour
         {
             partner.SetActive(true);
         }
-
     }
 }

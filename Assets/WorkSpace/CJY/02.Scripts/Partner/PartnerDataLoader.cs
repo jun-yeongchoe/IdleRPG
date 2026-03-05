@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -64,7 +65,7 @@ public class PartnerDataLoader : MonoBehaviour
                 Name_KR = row[1],
                 Name_EN = row[2],
                 Rank = row[3],
-                Atk_Damage = float.Parse(row[4]),
+                Atk_Damage = BigInteger.Parse(row[4]),
                 Atk_Speed = float.Parse(row[5]),
                 Base_ComposeStat = float.Parse(row[6]),
                 Stat_Per_Lv = float.Parse(row[7]),

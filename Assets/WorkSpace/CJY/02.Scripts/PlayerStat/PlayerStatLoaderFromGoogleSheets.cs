@@ -48,10 +48,6 @@ public class PlayerStatLoaderFromGoogleSheets : MonoBehaviour
 
             string[] values = lines[i].Split(',');
 
-            foreach(var v in values)
-            {
-                Debug.Log(v);
-            }
 
             PlayerStatData_CSV stat = new PlayerStatData_CSV();
             stat.ID = ParseIntOnly(values[0]);
