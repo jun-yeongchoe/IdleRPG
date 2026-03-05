@@ -23,6 +23,10 @@ public class BaseItemWindow : MonoBehaviour
 
     public ItemBase currentItemData;
 
+    [Header("Inventory Slot")]
+    [SerializeField] private RectTransform myEquipSlot;
+    [SerializeField] private int mySlotIndex;
+
     public void UpdateUI(ItemBase itemData, int currentLevel, int currentEa)
     {
         currentItemData = itemData;
@@ -93,11 +97,72 @@ public class BaseItemWindow : MonoBehaviour
         list.RefreshList();
     }
 
+    public void OnClickEquipBtn()
+    {
+       
+        if(currentItemData is EquipmentDataSO data)
+        {
+            if (data.equipmentType == EquipmentType.Weapon && mySlotIndex != 0) return;
+            if (data.equipmentType == EquipmentType.Armor && mySlotIndex != 1) return;
+            if (data.equipmentType == EquipmentType.Accessory && (mySlotIndex < 2 || mySlotIndex > 3)) return;
+
+            
+            if (data.equipmentType == EquipmentType.Accessory)
+            {
+                int otherAccSlot = (mySlotIndex == 2) ? 3 : 2;
+                if (DataManager.Instance.EquipSlot[otherAccSlot] == data.ID)
+                {
+                    Debug.Log("이미 다른 슬롯에 장착된 악세서리입니다.");
+                    CommonPopup.Instance.ShowAlert("경고", "이미 다른 슬롯에 장착된 악세서리입니다.");
+                    return;
+                }
+            }
+            DataManager.Instance.EquipItem(mySlotIndex, data.ID);
+            PlayerStat.instance.UpdateFinalStats();
+
+            
+            UpdateEquipVisual(data.ID);
+
+            
+            InventoryList invenList = GetComponent<InventoryList>();
+            if (invenList != null) invenList.RefreshList();
+            
+            Debug.Log($"[Equip Success] 슬롯 {mySlotIndex}에 {data.Name_KR} 장착!");
+        }
+        
+    }
+
+    private void UpdateEquipVisual(int itemID)
+    {
+        if (myEquipSlot == null) return;
+        foreach (Transform child in myEquipSlot) Destroy(child.gameObject);
+
+        
+        GameObject prefab = ItemDataManager.Instance.GetEquipmentPrefab(itemID);
+
+        if (prefab != null)
+        {
+            GameObject instance = Instantiate(prefab, myEquipSlot);
+            RectTransform rect = instance.GetComponent<RectTransform>();
+
+            if (rect != null)
+            {
+                // Stretch 설정
+                rect.anchorMin = Vector2.zero;
+                rect.anchorMax = Vector2.one;
+                rect.offsetMin = Vector2.zero;
+                rect.offsetMax = Vector2.zero;
+                rect.localScale = Vector3.one;
+            }
+        }
+    }
+
     public void Refresh()
     {
         ItemSaveData currentDict = DataManager.Instance.InventoryDict[currentItemData.ID];
         UpdateUI(currentItemData, currentDict.level, currentDict.value);
     }
+
 
 
 }
