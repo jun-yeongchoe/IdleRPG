@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Numerics;
 
 public class Enemy : MonoBehaviour
 {
@@ -43,7 +44,7 @@ public class Enemy : MonoBehaviour
         animator.ResetTrigger("Die");
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(BigInteger damage)
     {
         if (isDead) return;
 
@@ -101,6 +102,11 @@ public class Enemy : MonoBehaviour
             int dropGold = 10 + (currentStage * 5);
 
             DataManager.Instance.AddGold(dropGold);
+        }
+
+        if (QuestManager.Instance != null)
+        {
+            QuestManager.Instance.AddQuestProgress(QuestGoalType.KillMonster, 1);
         }
     }
 

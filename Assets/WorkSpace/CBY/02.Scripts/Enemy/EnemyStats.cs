@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Numerics;
+using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    public float maxHp;
-    public float hp;
+    public BigInteger maxHp;
+    public BigInteger hp;
     public float attackPower;
     public float moveSpeed;
     public float attackRange;
@@ -11,7 +12,7 @@ public class EnemyStats : MonoBehaviour
 
     public void InitByStage(int stage)
     {
-        maxHp = 10f + stage * 5f;
+        maxHp = (BigInteger)(10f + stage * 5f);
         attackPower = 2f + stage * 1.2f;
         moveSpeed = 1.5f + stage * 0.05f;
         attackCooldown = Mathf.Max(0.5f, 1.5f - stage * 0.02f);
@@ -24,13 +25,14 @@ public class EnemyStats : MonoBehaviour
         hp = maxHp;
     }
 
-    public void ApplyDamage(float damage)
+    public void ApplyDamage(BigInteger damage)
     {
-        hp = Mathf.Max(0f, hp - damage);
+        hp -= damage;
+        if(hp < 0) hp = 0;
     }
 
     public bool IsDead()
     {
-        return hp <= 0f;
+        return hp <= 0;
     }
 }

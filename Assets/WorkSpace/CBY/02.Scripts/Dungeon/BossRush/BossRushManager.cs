@@ -1,13 +1,13 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class BossRushManager : MonoBehaviour
 {
-    [Header("º¸½º ¼³Á¤")]
+    [Header("ë³´ìŠ¤ ì„¤ì •")]
     public GameObject[] bossPrefabs;
     public Transform spawnPoint;
 
-    [Header("¿É¼Ç")]
+    [Header("ì˜µì…˜")]
     public float spawnDelay = 2f;
     public bool infiniteMode = false;
 
@@ -32,15 +32,11 @@ public class BossRushManager : MonoBehaviour
     {
         if (bossPrefabs.Length == 0) return;
 
-        GameObject bossObj;
+        int spawnIndex = 0;
 
         if (infiniteMode)
         {
-            bossObj = Instantiate(
-                bossPrefabs[Random.Range(0, bossPrefabs.Length)],
-                spawnPoint.position,
-                Quaternion.identity
-            );
+            spawnIndex = Random.Range(0, bossPrefabs.Length);
         }
         else
         {
@@ -49,29 +45,26 @@ public class BossRushManager : MonoBehaviour
                 ClearBossRush();
                 return;
             }
-
-            bossObj = Instantiate(
-                bossPrefabs[currentIndex],
-                spawnPoint.position,
-                Quaternion.identity
-            );
+            spawnIndex = currentIndex;
         }
 
-        //Stats ¼¼ÆÃ
-        BossStats stats = bossObj.GetComponent<BossStats>();
-        if (stats != null)
+        GameObject bossObj = Instantiate(bossPrefabs[spawnIndex], spawnPoint.position, Quaternion.identity);
+
+        //BossStatsì“°ì§€ë§ê³  Enemyì˜ OnEnableì—ì„œ ì–´ì§œí”¼ ìŠ¤í…Ÿ ì•Œì•„ì„œ ì´ˆê¸°í™”í•´ì¤Œ
+        Enemy bossEnemy = bossObj.GetComponent<Enemy>();
+        if (bossEnemy != null)
         {
-            int stage = infiniteMode ? defeatedCount + 1 : currentIndex + 1;
-            stats.InitByStage(stage);
-            stats.OnDeath += OnBossDead;
+            bossEnemy.OnEnemyDead += OnBossDead;
         }
 
         currentIndex++;
         BossRushUI.Instance.UpdateBossInfo(currentIndex, bossPrefabs.Length);
     }
 
-    private void OnBossDead()
+    private void OnBossDead(Enemy deadBoss)
     {
+        deadBoss.OnEnemyDead -= OnBossDead;
+
         if (waitingNextBoss) return;
 
         waitingNextBoss = true;
@@ -90,7 +83,7 @@ public class BossRushManager : MonoBehaviour
 
     private void ClearBossRush()
     {
-        Debug.Log("º¸½º ·¯½¬ Å¬¸®¾î!");
+        Debug.Log("ë³´ìŠ¤ ëŸ¬ì‰¬ í´ë¦¬ì–´!");
         BossRushUI.Instance.ShowClear();
     }
 }

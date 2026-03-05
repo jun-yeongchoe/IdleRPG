@@ -108,18 +108,6 @@ public class EnemySpawner : MonoBehaviour
         if (bossPrefab != null)
         {
             activeBoss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
-            
-            BossStats boss=activeBoss.GetComponent<BossStats>();
-
-            if (boss != null)
-            {
-                boss.InitByStage(DataManager.Instance.currentStageNum);
-                Debug.Log("보스 스텟 초기화 완료");
-            }
-            else
-            {
-                Debug.LogError("BossStats연결이 정상적으로 이루어지지 않았습니다!");
-            }
 
             activeBoss.SetActive(true);
         }
@@ -152,12 +140,6 @@ public class EnemySpawner : MonoBehaviour
 
         Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
         selectEnemy.transform.position = transform.position+new Vector3(randomPos.x, randomPos.y,0);
-
-        //EnemyStats stat = selectEnemy.GetComponent<EnemyStats>();
-        //if (stat != null)
-        //{
-        //    stat.InitByStage(DataManager.Instance.currentStageNum);
-        //}
 
         selectEnemy.SetActive(true);
     }
