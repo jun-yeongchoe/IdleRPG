@@ -108,6 +108,8 @@ public class Enemy : MonoBehaviour
         {
             QuestManager.Instance.AddQuestProgress(QuestGoalType.KillMonster, 1);
         }
+
+        StartCoroutine(DieRoutine());
     }
 
     public void ForceDisappear()
@@ -117,6 +119,14 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(false);
 
         OnEnemyDead?.Invoke(this);
+    }
+
+    private System.Collections.IEnumerator DieRoutine()
+    {
+        yield return new WaitForSeconds(1);
+
+        ForceDisappear();
+
     }
 
     public void OnAttackEnd()
