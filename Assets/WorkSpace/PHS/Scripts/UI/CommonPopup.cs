@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine.UI;
 using System;
+using DG.Tweening;
 public class CommonPopup : MonoBehaviour
 {
     public static CommonPopup Instance;
@@ -39,10 +40,13 @@ public class CommonPopup : MonoBehaviour
         bodyText.text = body;
         confirmText.text = btnText;
 
-        onConfirmCallback = OnConfirm;
+        onConfirmCallback = onConfirm;
 
         if (cancelButton != null) cancelButton.gameObject.SetActive(false); //취소 버튼 숨김
         contentObj.SetActive(true);
+
+        contentObj.transform.localScale= Vector3.zero;
+        contentObj.transform.DOScale(Vector3.one,0.3f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 
     //예/아니오 선택창
@@ -56,6 +60,9 @@ public class CommonPopup : MonoBehaviour
 
         if (cancelButton != null) cancelButton.gameObject.SetActive(true); //취소 버튼 보임
         contentObj.SetActive(true);
+
+        contentObj.transform.localScale = Vector3.zero;
+        contentObj.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack).SetUpdate(true);
     }
 
     private void OnConfirm()
