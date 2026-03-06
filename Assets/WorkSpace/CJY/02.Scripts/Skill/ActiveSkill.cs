@@ -130,6 +130,7 @@ public class ActiveSkill : MonoBehaviour
     public bool UseSkill(int skillIdx)
     {
         if(skillIdx <0 || skillIdx >= _equippedSkills.Count) return false;
+        if(targetEnemy == null) return false;
         SkillDataSo skill = _equippedSkills[skillIdx];
 
         if(Time.time >= _skillCoolTimers[skill.ID] + skill.Cooltime)
@@ -156,6 +157,8 @@ public class ActiveSkill : MonoBehaviour
     // 자동 사용
     private void HandleAutoSkill()
     {
+        if(targetEnemy == null || !targetEnemy.gameObject.activeInHierarchy)return;
+     
         for(int i = 0; i < _equippedSkills.Count; i++)
         {
             UseSkill(i);
@@ -171,7 +174,7 @@ public class ActiveSkill : MonoBehaviour
             
             // 여기서 실제로 타겟에게 데미지를 전달하는 로직
             Debug.Log($"{skillData.Name_KR} 적중! 데미지: {damage} (타격: {i + 1}/{skillData.StrikeCount})");
-            target.TakeDamage((int)damage);
+            target.TakeDamage(damage);
 
             yield return new WaitForSeconds(0.1f);
         }
@@ -200,5 +203,6 @@ public class ActiveSkill : MonoBehaviour
     public void SetTarget(Enemy e)
     {
         targetEnemy = e;
+        Debug.Log($"[타겟] {targetEnemy is not null} / {targetEnemy.name}");
     }
 }

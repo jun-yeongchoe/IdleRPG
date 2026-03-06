@@ -20,6 +20,12 @@ public class SPDataConnectToDataManager : MonoBehaviour
     void Start()
     {
         spDraw = GetComponent<SPDraw>();
+        EventManager.Instance.StartList("CSV_DataLoaded", RestoreSPUIFromDataManager);
+    }
+
+    void OnDestroy()
+    {
+        EventManager.Instance.StopList("CSV_DataLoaded", RestoreSPUIFromDataManager);
     }
 
     public void SPDataSaveToDataManager()
@@ -38,6 +44,37 @@ public class SPDataConnectToDataManager : MonoBehaviour
         }
 
     }
+
+    // public void LoadSPDataFromDataManager()
+    // {
+    //     if(DataManager.Instance.TraitSlots == null) return;
+
+    //     eachSlotData.Clear();
+
+    //     for(int i = 0; i < DataManager.Instance.TraitSlots.Length; i++)
+    //     {
+    //         TraitSaveData savedTrait = DataManager.Instance.TraitSlots[i];
+
+    //         if(savedTrait == null || savedTrait.traitId == 0)
+    //         {
+    //             eachSlotData[i] = new SPDataAndLocked {spdata = null, isLocked = false};
+    //             continue;
+    //         }
+
+    //         SPData data = CSV_LoadManager.Instance.SP_CSV.valueTable.Find(x => x.id == savedTrait.traitId);
+
+    //         if(data == null) Debug.LogWarning($"ID {savedTrait.traitId}에 해당하는 특성 데이터를 찾을수 없습니다.");
+
+    //         SPDataAndLocked restoredData = new SPDataAndLocked
+    //         {
+    //             spdata = data,
+    //             isLocked = savedTrait.isLocked
+    //         };
+    //         eachSlotData[i] = restoredData;
+
+    //     }
+    //     SPDataSaveToPlayer();
+    // }
 
     public void SPDataSaveToDict()
     {
@@ -64,6 +101,49 @@ public class SPDataConnectToDataManager : MonoBehaviour
             PlayerStat.instance.hasSPData.Add(hasSP);
             PlayerStat.instance.UpdateFinalStats();
         }
+    }
+
+    public void RestoreSPUIFromDataManager()
+    {
+        if (!CSV_LoadManager.Instance.allLoaded)
+        {
+            Debug.LogWarning("CSV 로드가 완료되지 않아 특성 UI를 복구할 수 없습니다.");
+            return;
+        }
+        for (int i = 0; i < DataManager.Instance.TraitSlots.Length; i++)
+        {
+            TraitSaveData savedData = DataManager.Instance.TraitSlots[i];
+
+            if (i < spDraw.spSlots.Count)
+            {
+                SPSlotUI slot = spDraw.spSlots[i];
+
+                if (savedData != null && savedData.traitId > 0)
+                {
+                    SPData actualData = CSV_LoadManager.Instance.SP_CSV.valueTable.Find(x => x.id == savedData.traitId);
+
+                    if (actualData != null)
+                    {
+                        slot.spDataStorage = actualData;
+                        slot.isLocked = savedData.isLocked;
+
+                        slot.UpdateSlotUI(actualData);
+
+                        slot.RefreshLockUI();
+                    }
+                }
+                else
+                {
+                    slot.spDataStorage = null;
+                    slot.isLocked = false;
+                    slot.UpdateSlotUI(null);
+                    slot.RefreshLockUI();
+                }
+            }
+        }
+
+        SPDataSaveToPlayer();
+        Debug.Log("게임을 끄기 전 장착했던 특성 UI 복구 완료!");
     }
 
     /********************************************

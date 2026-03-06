@@ -19,7 +19,7 @@ public class SPSlotUI : MonoBehaviour
     public SPData spDataStorage;
     
 
-    public void UpdateSlotUI(SPData data, string synergyName, Sprite icon, Color synergyColor)
+    public void UpdateSlotUI(SPData data, string synergyName = null, Sprite icon = null, Color synergyColor = default)
     {
         if (data == null) return;
         spDataStorage = data;
@@ -77,12 +77,17 @@ public class SPSlotUI : MonoBehaviour
         }
     }
 
+    public void RefreshLockUI()
+    {
+        if (lockImage != null) lockImage.SetActive(isLocked);
+        if (UnlockImage != null) UnlockImage.SetActive(!isLocked);
+    }
+
     public void ToggleLock()
     {
         isLocked = !isLocked;
-        lockImage.SetActive(isLocked);
-        UnlockImage.SetActive(!isLocked);
+        RefreshLockUI();
 
-        GetComponentInParent<SPDraw>().UpdateDrawCostUI();
+        if (GetComponentInParent<SPDraw>() != null) GetComponentInParent<SPDraw>().UpdateDrawCostUI();
     }
 }
