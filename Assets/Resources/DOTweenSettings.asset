@@ -44,6 +44,10 @@ MonoBehaviour:
     physics2DEnabled: 1
     spriteEnabled: 1
     uiEnabled: 1
+<<<<<<< HEAD
+=======
+    uiToolkitEnabled: 0
+>>>>>>> dev
     textMeshProEnabled: 0
     tk2DEnabled: 0
     deAudioEnabled: 0
