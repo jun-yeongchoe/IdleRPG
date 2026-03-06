@@ -108,6 +108,8 @@ public class Enemy : MonoBehaviour
         {
             QuestManager.Instance.AddQuestProgress(QuestGoalType.KillMonster, 1);
         }
+
+        StartCoroutine(DieRoutine());
     }
 
     public void ForceDisappear()
@@ -119,6 +121,14 @@ public class Enemy : MonoBehaviour
         OnEnemyDead?.Invoke(this);
     }
 
+    private System.Collections.IEnumerator DieRoutine()
+    {
+        yield return new WaitForSeconds(1);
+
+        ForceDisappear();
+
+    }
+
     public void OnAttackEnd()
     {
         if (animator == null) return;
@@ -128,14 +138,6 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// Die 애니메이션이 끝났을 때 호출
     /// </summary>
-    public void OnDieEnd()
-    {
-        //여기서만 사망 확정 통보
-        OnEnemyDead?.Invoke(this);
-
-        gameObject.SetActive(false);
-    }
-
 
     public bool IsDead()
     {
