@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -16,18 +15,18 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject[] enemyPool;
 
-    private bool isWaiting=false;
+    private bool isWaiting = false;
 
     private int currentWave = 0;
     private const int maxNormalWave = 5;
 
     private void Awake()
     {
-        enemyPool=new GameObject[poolSize];
+        enemyPool = new GameObject[poolSize];
 
         for (int i = 0; i < poolSize; i++)
         {
-            enemyPool[i]=Instantiate(enemyPrefab,transform);
+            enemyPool[i] = Instantiate(enemyPrefab, transform);
             enemyPool[i].SetActive(false);
         }
     }
@@ -46,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(isWaiting) return;
+        if (isWaiting) return;
 
         if (activeBoss != null)
         {
@@ -57,12 +56,12 @@ public class EnemySpawner : MonoBehaviour
         }
 
         int activeCount = 0;
-        for (int i = 0; i < poolSize; i++) 
+        for (int i = 0; i < poolSize; i++)
         {
             if (enemyPool[i].activeSelf) activeCount++;
         }
 
-        if (activeCount ==0)
+        if (activeCount == 0)
         {
             StartCoroutine(CheckNextWave());
         }
@@ -115,9 +114,9 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnWave()
     {
-        for (int i = 0; i < poolSize; i++) 
+        for (int i = 0; i < poolSize; i++)
         {
-            if (!enemyPool[i].activeSelf) 
+            if (!enemyPool[i].activeSelf)
             {
                 Spawn();
             }
@@ -127,10 +126,10 @@ public class EnemySpawner : MonoBehaviour
     void Spawn()
     {
         GameObject selectEnemy = null;
-        for (int i = 0; i < poolSize; i++) 
+        for (int i = 0; i < poolSize; i++)
         {
-            if (!enemyPool[i].activeSelf) 
-            { 
+            if (!enemyPool[i].activeSelf)
+            {
                 selectEnemy = enemyPool[i];
                 break;
             }
@@ -139,7 +138,7 @@ public class EnemySpawner : MonoBehaviour
         if (selectEnemy == null) return;
 
         Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
-        selectEnemy.transform.position = transform.position+new Vector3(randomPos.x, randomPos.y,0);
+        selectEnemy.transform.position = transform.position + new Vector3(randomPos.x, randomPos.y, 0);
 
         selectEnemy.SetActive(true);
     }
