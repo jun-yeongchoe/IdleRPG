@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class PartnerController : MonoBehaviour
@@ -72,7 +73,7 @@ public class PartnerController : MonoBehaviour
         if(target != null)
         {
             EffectManager.Instance.PlayEffect("EarthBeam", target.transform.position);
-            float damage = (partnerStat != null)? partnerStat.currentAtkDamage : 0f;
+            BigInteger damage = (partnerStat != null)? partnerStat.currentAtkDamage : 0;
             target.TakeDamage(damage);
 
             Debug.Log($"[Partner] {gameObject.name}가 {target.name}에게 {damage} 의 피해를 입힘.");

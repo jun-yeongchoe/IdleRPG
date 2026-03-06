@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using System.Numerics;
 
 public class PartnerDataBinder : MonoBehaviour
 {
     [Header("Binded Data")]
     public PartnerData myData;
-    public float currentAtkDamage;
+    public BigInteger currentAtkDamage;
     public float currentAtkSpeed;
 
     private void Start()

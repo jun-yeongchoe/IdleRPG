@@ -27,6 +27,11 @@ public class BaseItemWindow : MonoBehaviour
     [SerializeField] private RectTransform myEquipSlot;
     [SerializeField] private int mySlotIndex;
 
+    void OnEnable()
+    {
+        RestoreEquipVisual();
+    }
+    
     public void UpdateUI(ItemBase itemData, int currentLevel, int currentEa)
     {
         currentItemData = itemData;
@@ -155,6 +160,15 @@ public class BaseItemWindow : MonoBehaviour
                 rect.localScale = Vector3.one;
             }
         }
+    }
+
+    private void RestoreEquipVisual()
+    {
+        if (mySlotIndex < 0 || mySlotIndex >= DataManager.Instance.EquipSlot.Length) return;
+        int savedItemID = DataManager.Instance.EquipSlot[mySlotIndex];
+
+        UpdateEquipVisual(savedItemID);
+
     }
 
     public void Refresh()

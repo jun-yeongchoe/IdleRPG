@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 [System.Serializable]
@@ -9,7 +10,7 @@ public class PartnerData
     public string Name_KR;
     public string Name_EN;
     public string Rank;
-    public float Atk_Damage;
+    public BigInteger Atk_Damage;
     public float Atk_Speed;
 
     // 동료 레벨업시 증가하는 스탯과 관련된 파라미터
