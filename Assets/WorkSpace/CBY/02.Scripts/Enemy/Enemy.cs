@@ -63,7 +63,6 @@ public class Enemy : MonoBehaviour
 
         if (stats.IsDead())
         {
-            isDead = true;
             fsm.ChangeState(EnemyStateType.Die);
         }
     }
