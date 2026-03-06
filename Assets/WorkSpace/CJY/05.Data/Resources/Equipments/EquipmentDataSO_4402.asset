@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c3d2aaa80db5343a081d2590387a68, type: 3}
+  m_Name: EquipmentDataSO_4402
+  m_EditorClassIdentifier: 
+  ID: 4402
+  Name_KR: "\uBB34\uAC70\uC6B4 \uAC00\uC8FD \uAC11\uC637"
+  Name_EN: heavy_leather_armor
+  itemRank: 1
+  itemType: 0
+  Icon: {fileID: 0}
+  BaseComposeCount: 10
+  BaseStatBoost: 0.2
+  StatPerLevel: 0.02
+  equipmentType: 1
+  Value: 1.19
+  Description: "\uC9C8\uAE34 \uAC00\uC8FD\uC744 \uC5EC\uB7EC \uACB9 \uB367\uB300\uC5B4
+    \uBC29\uC5B4\uB825\uC744 \uB192\uC778 \uAC11\uC637\uC785\uB2C8\uB2E4."

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c3d2aaa80db5343a081d2590387a68, type: 3}
+  m_Name: EquipmentDataSO_3003
+  m_EditorClassIdentifier: 
+  ID: 3003
+  Name_KR: "\uC2EC\uC5F0\uC758 \uB0AB"
+  Name_EN: abyss_scythe
+  itemRank: 5
+  itemType: 0
+  Icon: {fileID: 0}
+  BaseComposeCount: 2
+  BaseStatBoost: 0.7
+  StatPerLevel: 0.1
+  equipmentType: 0
+  Value: 1.6
+  Description: "\uBAA8\uB4E0 \uC0DD\uBA85\uB825\uC744 \uBE68\uC544\uB4E4\uC774\uB294
+    \uCC28\uAC00\uC6B4 \uC5B4\uB460\uC758 \uB0AB\uC785\uB2C8\uB2E4."
