@@ -138,14 +138,6 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// Die 애니메이션이 끝났을 때 호출
     /// </summary>
-    public void OnDieEnd()
-    {
-        //여기서만 사망 확정 통보
-        OnEnemyDead?.Invoke(this);
-
-        gameObject.SetActive(false);
-    }
-
 
     public bool IsDead()
     {
