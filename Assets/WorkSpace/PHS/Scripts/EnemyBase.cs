@@ -76,8 +76,8 @@ public class EnemyBase : MonoBehaviour
             animator.SetBool("IsMoving", true);
             Vector3 dir=diff.normalized;
 
-            transform.position += dir * moveSpeed * Time.deltaTime;
             dir.y = 0;
+            transform.position += dir * moveSpeed * Time.deltaTime;
         }
     }
     private void Attack()

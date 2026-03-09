@@ -51,7 +51,7 @@ public class BossRushManager : MonoBehaviour
         GameObject bossObj = Instantiate(bossPrefabs[spawnIndex], spawnPoint.position, Quaternion.identity);
 
         //BossStats쓰지말고 Enemy의 OnEnable에서 어짜피 스텟 알아서 초기화해줌
-        Enemy bossEnemy = bossObj.GetComponent<Enemy>();
+        EnemyBase bossEnemy = bossObj.GetComponent<EnemyBase>();
         if (bossEnemy != null)
         {
             bossEnemy.OnEnemyDead += OnBossDead;
@@ -61,7 +61,7 @@ public class BossRushManager : MonoBehaviour
         BossRushUI.Instance.UpdateBossInfo(currentIndex, bossPrefabs.Length);
     }
 
-    private void OnBossDead(Enemy deadBoss)
+    private void OnBossDead(EnemyBase deadBoss)
     {
         deadBoss.OnEnemyDead -= OnBossDead;
 
