@@ -101,7 +101,7 @@ MonoBehaviour:
   skillTargetType: 1
   StrikeCount: 10
   Damage_Coef: 3
-  Cooltime: 90
+  Cooltime: 10
   EffectPrefabName: FX_GalaxyShard
   spawnPoint: 1
   SplashRadius: 2

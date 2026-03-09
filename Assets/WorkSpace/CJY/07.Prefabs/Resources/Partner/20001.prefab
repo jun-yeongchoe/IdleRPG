@@ -134,13 +134,11 @@ MonoBehaviour:
     Name_KR: 
     Name_EN: 
     Rank: 
-    Atk_Damage: 0
     Atk_Speed: 0
     Base_ComposeStat: 0
     Stat_Per_Lv: 0
     Prefab_Path: 
     Description_KR: 
-  currentAtkDamage: 0
   currentAtkSpeed: 0
 --- !u!1 &1182003339295917604
 GameObject:

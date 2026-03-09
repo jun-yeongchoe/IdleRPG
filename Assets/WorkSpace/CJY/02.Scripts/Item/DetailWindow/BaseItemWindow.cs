@@ -4,8 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
 public class BaseItemWindow : MonoBehaviour
 {
     [Header("Basic UI Settings")]
@@ -24,14 +22,27 @@ public class BaseItemWindow : MonoBehaviour
     public ItemBase currentItemData;
 
     [Header("Inventory Slot")]
-    [SerializeField] private RectTransform myEquipSlot;
+    // [SerializeField] private RectTransform myEquipSlot;
     [SerializeField] private int mySlotIndex;
 
     void OnEnable()
     {
-        RestoreEquipVisual();
+        int equippedId = DataManager.Instance.EquipSlot[mySlotIndex];
+
+        if(equippedId > 0)
+        {
+            EquipmentDataSO data = ItemDataManager.Instance.GetEquipment(equippedId);
+            if(data != null)
+            {
+                if(DataManager.Instance.InventoryDict.TryGetValue(equippedId, out ItemSaveData save))
+                {
+                    UpdateUI(data, save.level, save.value);
+                }
+            }
+        }
     }
-    
+
+
     public void UpdateUI(ItemBase itemData, int currentLevel, int currentEa)
     {
         currentItemData = itemData;
@@ -104,7 +115,6 @@ public class BaseItemWindow : MonoBehaviour
 
     public void OnClickEquipBtn()
     {
-       
         if(currentItemData is EquipmentDataSO data)
         {
             if (data.equipmentType == EquipmentType.Weapon && mySlotIndex != 0) return;
@@ -125,51 +135,17 @@ public class BaseItemWindow : MonoBehaviour
             DataManager.Instance.EquipItem(mySlotIndex, data.ID);
             PlayerStat.instance.UpdateFinalStats();
 
-            
-            UpdateEquipVisual(data.ID);
+            // UpdateEquipVisual(data.ID);
 
-            
-            InventoryList invenList = GetComponent<InventoryList>();
-            if (invenList != null) invenList.RefreshList();
+            // InventoryList invenList = GetComponent<InventoryList>();
+            // if (invenList != null) invenList.RefreshList();
+
+            StartCoroutine(DBManager.Instance.WaitServerReq());
             
             Debug.Log($"[Equip Success] 슬롯 {mySlotIndex}에 {data.Name_KR} 장착!");
         }
-        
     }
 
-    private void UpdateEquipVisual(int itemID)
-    {
-        if (myEquipSlot == null) return;
-        foreach (Transform child in myEquipSlot) Destroy(child.gameObject);
-
-        
-        GameObject prefab = ItemDataManager.Instance.GetEquipmentPrefab(itemID);
-
-        if (prefab != null)
-        {
-            GameObject instance = Instantiate(prefab, myEquipSlot);
-            RectTransform rect = instance.GetComponent<RectTransform>();
-
-            if (rect != null)
-            {
-                // Stretch 설정
-                rect.anchorMin = Vector2.zero;
-                rect.anchorMax = Vector2.one;
-                rect.offsetMin = Vector2.zero;
-                rect.offsetMax = Vector2.zero;
-                rect.localScale = Vector3.one;
-            }
-        }
-    }
-
-    private void RestoreEquipVisual()
-    {
-        if (mySlotIndex < 0 || mySlotIndex >= DataManager.Instance.EquipSlot.Length) return;
-        int savedItemID = DataManager.Instance.EquipSlot[mySlotIndex];
-
-        UpdateEquipVisual(savedItemID);
-
-    }
 
     public void Refresh()
     {

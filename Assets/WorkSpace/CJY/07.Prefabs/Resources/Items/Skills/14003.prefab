@@ -100,7 +100,7 @@ MonoBehaviour:
   StatPerLevel: 0.05
   skillTargetType: 1
   StrikeCount: 5
-  Damage_Coef: 2
+  Damage_Coef: 4
   Cooltime: 25
   EffectPrefabName: FX_MeteorSwarm
   spawnPoint: 1
