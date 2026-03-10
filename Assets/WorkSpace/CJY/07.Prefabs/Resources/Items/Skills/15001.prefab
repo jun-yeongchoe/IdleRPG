@@ -176,7 +176,7 @@ MonoBehaviour:
   skillTargetType: 0
   StrikeCount: 1
   Damage_Coef: 12
-  Cooltime: 20
+  Cooltime: 8
   EffectPrefabName: FX_VoidSphere
   spawnPoint: 1
   SplashRadius: 2

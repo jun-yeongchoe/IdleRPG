@@ -176,7 +176,7 @@ MonoBehaviour:
   skillTargetType: 1
   StrikeCount: 1
   Damage_Coef: 20
-  Cooltime: 60
+  Cooltime: 15
   EffectPrefabName: FX_HolyLight
   spawnPoint: 2
   SplashRadius: 2

@@ -113,6 +113,8 @@ public class GoogleLogin : MonoBehaviour
             }
 
             user = task.Result.User;
+            DBManager.Instance.userId = user.UserId;
+            DBManager.Instance.userName = user.DisplayName;
             isLoginTaskComplete = true;
         });
     }

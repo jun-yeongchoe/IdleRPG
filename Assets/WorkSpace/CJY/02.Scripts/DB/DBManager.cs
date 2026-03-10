@@ -11,6 +11,8 @@ using System;
 public class DBManager : MonoBehaviour
 {
     public static DBManager Instance;
+    public string userId, userName;
+    
 
     private DatabaseReference dbReference;
     // private bool isDataLoadComplete = false; --> 기존
@@ -20,7 +22,7 @@ public class DBManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI userNameTxt, userStageLevelTxt, userGoldTxt, userAttackTxt;
 
     [Header("Data Reference (SO)")]
-    public PlayerStatus playerStatus; 
+    // public PlayerStatus playerStatus; 
 
     private string tempJsonData;
 
@@ -81,11 +83,6 @@ public class DBManager : MonoBehaviour
         
         // 플레이어 접속할 때, 접속종료할 때, 저장/로드 할 데이터를 새로 정의할것. -> 저장 후에 계산으로 출력가능한 데이터는 저장x
 
-        if (playerStatus == null)
-        {
-            Debug.LogError("playerStatus ScriptableObject가 할당되지 않았습니다! Inspector 확인하세요.");
-            return;
-        }
 
         if (DataManager.Instance == null)
         {
@@ -100,153 +97,97 @@ public class DBManager : MonoBehaviour
         }
 
         // 서버 데이터를 SO에 동기화
-        playerStatus.userName = FirebaseAuth.DefaultInstance.CurrentUser.DisplayName;
-        playerStatus.gold = DataManager.Instance.Gold;
-        playerStatus.gem = DataManager.Instance.Gem;
-        playerStatus.atkPower =DataManager.Instance.AtkLv;
-        playerStatus.hp =DataManager.Instance.HpLv;
-        playerStatus.atkSpeed =DataManager.Instance.AtSpeedLv;
-        playerStatus.hpGen =DataManager.Instance.RecoverLv;
-        playerStatus.criticalChance =DataManager.Instance.CritPerLv;
-        playerStatus.criticalDamage =DataManager.Instance.CritDmgLv;
+        // playerStatus.userName = FirebaseAuth.DefaultInstance.CurrentUser.DisplayName;
+        // playerStatus.gold = DataManager.Instance.Gold;
+        // playerStatus.gem = DataManager.Instance.Gem;
+        // playerStatus.atkPower =DataManager.Instance.AtkLv;
+        // playerStatus.hp =DataManager.Instance.HpLv;
+        // playerStatus.atkSpeed =DataManager.Instance.AtSpeedLv;
+        // playerStatus.hpGen =DataManager.Instance.RecoverLv;
+        // playerStatus.criticalChance =DataManager.Instance.CritPerLv;
+        // playerStatus.criticalDamage =DataManager.Instance.CritDmgLv;
 
-        // UI 텍스트 업데이트
-        userNameTxt.text = "UserName : " + playerStatus.userName;
-        userStageLevelTxt.text = "UserJewel : " + playerStatus.gem.ToString();
-        userGoldTxt.text = "UserGold : " + playerStatus.gold.ToString();
-        userAttackTxt.text = "UserAttackPower : " + playerStatus.atkPower.ToString();
+        // // UI 텍스트 업데이트
+        // userNameTxt.text = "UserName : " + playerStatus.userName;
+        // userStageLevelTxt.text = "UserJewel : " + playerStatus.gem.ToString();
+        // userGoldTxt.text = "UserGold : " + playerStatus.gold.ToString();
+        // userAttackTxt.text = "UserAttackPower : " + playerStatus.atkPower.ToString();
         
-        Debug.Log($"[로그인 성공] {playerStatus.userName}님의 데이터를 서버에서 불러와 UI에 표시했습니다.");
+        // Debug.Log($"[로그인 성공] {playerStatus.userName}님의 데이터를 서버에서 불러와 UI에 표시했습니다.");
     }
-
-    // [저장] SO데이터를 서버 저장(기존)
-    // public void SaveSOData()
-    // {
-    //     if(FirebaseAuth.DefaultInstance.CurrentUser == null) 
-    //     {
-    //         Debug.Log("로그인 전이므로 저장 불가"); 
-    //         return;
-    //     }
-
-    //     string userId = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
-    //     if (string.IsNullOrEmpty(userId)) return;
-
-    //     if(dbReference == null) 
-    //     {
-    //         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-            
-    //         if(dbReference == null)
-    //         {
-    //             Debug.LogError("Firebase Database 참조를 가져오지 못했습니다. 저장을 중단합니다.");
-    //             return;
-    //         }
-    //     }
-    //     if(DataManager.Instance == null)
-    //     {
-    //         Debug.LogError("DataManager 인스턴스가 없습니다. 저장을 중단합니다.");
-    //         return;
-    //     }
-    //     string json = DataManager.Instance.SendJson();
-
-    //      if(string.IsNullOrEmpty(json))
-    //      {
-    //         Debug.LogError("JSON 데이터가 비어 있습니다. 저장을 중단합니다.");
-    //         return;
-    //      }
-
-
-    //     dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json).ContinueWith(task => 
-    //     {
-    //         if (task.IsFaulted || task.IsCanceled) 
-    //         {
-    //             Debug.LogError($"서버 저장 실패: {task.Exception?.Message}");
-    //         }
-    //         else if(task.IsCompleted)
-    //         {
-                
-    //             UserData currentData = playerStatus.ToUserData();
-    //             SaveUserData(userId, currentData); // 내부 저장 로직 호출
-    //             Debug.Log("서버에 SO 데이터 저장 완료!");
-    //         }
-    //     });
-        
-    // }
-
-    //[불러오기] 앱 시작 시 서버에서 데이터를 가져와 SO에 담을 때 사용
     
     public void SaveSOData()
-{
-    Debug.Log("<color=yellow>[로그 1] SaveSOData 호출됨</color>");
-
-    if (FirebaseAuth.DefaultInstance.CurrentUser == null) 
     {
-        Debug.LogWarning("저장 실패: 로그인된 유저가 없음");
-        return;
+        Debug.Log("<color=yellow>[로그 1] SaveSOData 호출됨</color>");
+
+        if (FirebaseAuth.DefaultInstance.CurrentUser == null) 
+        {
+            Debug.LogWarning("저장 실패: 로그인된 유저가 없음");
+            return;
+        }
+
+        // 코루틴 실행
+        Debug.Log("<color=yellow>[로그 2] SaveDataRoutine 코루틴 시작 시도</color>");
+        StartCoroutine(SaveDataRoutine());
     }
 
-    // 코루틴 실행
-    Debug.Log("<color=yellow>[로그 2] SaveDataRoutine 코루틴 시작 시도</color>");
-    StartCoroutine(SaveDataRoutine());
-}
+    IEnumerator SaveDataRoutine()
+    {
+        Debug.Log("<color=cyan>[로그 3] SaveDataRoutine 진입 성공</color>");
 
-private IEnumerator SaveDataRoutine()
-{
-    Debug.Log("<color=cyan>[로그 3] SaveDataRoutine 진입 성공</color>");
+        string userId = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        string json = DataManager.Instance.SendJson();
 
-    string userId = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
-    string json = DataManager.Instance.SendJson();
+        if (string.IsNullOrEmpty(json)) {
+            Debug.LogError("저장 실패: JSON 데이터가 비어있음");
+            yield break;
+        }
 
-    if (string.IsNullOrEmpty(json)) {
-        Debug.LogError("저장 실패: JSON 데이터가 비어있음");
-        yield break;
+        // 점수 계산 및 검증
+        var calc = PlayerStatCalculator.instance;
+        double rankingScore = (double)calc.GetRankingScore(calc.FinalAtk, calc.FinalAtkSpeed, calc.FinalCritChance, calc.FinalCritDamage);
+        if (double.IsInfinity(rankingScore) || double.IsNaN(rankingScore)) rankingScore = 0;
+
+        Debug.Log($"<color=cyan>[로그 4] 데이터 준비 완료 (Score: {rankingScore})</color>");
+
+        // Step 1: users 저장
+        var userTask = dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json);
+        yield return new WaitUntil(() => userTask.IsCompleted);
+
+        if (userTask.IsFaulted) {
+            Debug.LogError($"[에러] users 저장 실패: {userTask.Exception}");
+            yield break;
+        }
+
+        Debug.Log("<color=lime>[로그 6] Step 1(users) 저장 완료!</color>");
+
+        
+        // 닉네임이 null일 경우를 대비해 확실히 처리
+        // string safeNickname = "UnknownPlayer";
+        // if (playerStatus != null && !string.IsNullOrEmpty(playerStatus.userName)) {
+        //     safeNickname = playerStatus.userName;
+        // } 
+        // else if (FirebaseAuth.DefaultInstance.CurrentUser != null) {
+        //     safeNickname = FirebaseAuth.DefaultInstance.CurrentUser.DisplayName ?? "User_" + userId.Substring(0, 4);
+        // }
+
+        Debug.Log("<color=yellow>[로그 7] rankings 데이터 구성 중...</color>");
+
+        Dictionary<string, object> rankingData = new Dictionary<string, object>();
+        rankingData["Nickname"] = userName;
+        rankingData["Score"] = rankingScore;
+
+        Debug.Log("<color=yellow>[로그 8] rankings 노드 업데이트 요청 보냄...</color>");
+        var rankingTask = dbReference.Child("rankings").Child(userId).UpdateChildrenAsync(rankingData);
+        
+        yield return new WaitUntil(() => rankingTask.IsCompleted);
+
+        if (rankingTask.IsFaulted) {
+            Debug.LogError($"[에러] rankings 저장 실패: {rankingTask.Exception}");
+        } else {
+            Debug.Log("<color=orange>[최종 저장 완료] rankings 노드 반영 성공!</color>");
+        }
     }
-
-    // 점수 계산 및 검증
-    var calc = PlayerStatCalculator.instance;
-    double rankingScore = (double)calc.GetRankingScore(calc.FinalAtk, calc.FinalAtkSpeed, calc.FinalCritChance, calc.FinalCritDamage);
-    if (double.IsInfinity(rankingScore) || double.IsNaN(rankingScore)) rankingScore = 0;
-
-    Debug.Log($"<color=cyan>[로그 4] 데이터 준비 완료 (Score: {rankingScore})</color>");
-
-    // Step 1: users 저장
-    var userTask = dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json);
-    yield return new WaitUntil(() => userTask.IsCompleted);
-
-    if (userTask.IsFaulted) {
-        Debug.LogError($"[에러] users 저장 실패: {userTask.Exception}");
-        yield break;
-    }
-
-    Debug.Log("<color=lime>[로그 6] Step 1(users) 저장 완료!</color>");
-
-    
-    
-    // 닉네임이 null일 경우를 대비해 확실히 처리
-    string safeNickname = "UnknownPlayer";
-    if (playerStatus != null && !string.IsNullOrEmpty(playerStatus.userName)) {
-        safeNickname = playerStatus.userName;
-    } 
-    else if (FirebaseAuth.DefaultInstance.CurrentUser != null) {
-        safeNickname = FirebaseAuth.DefaultInstance.CurrentUser.DisplayName ?? "User_" + userId.Substring(0, 4);
-    }
-
-    Debug.Log("<color=yellow>[로그 7] rankings 데이터 구성 중...</color>");
-
-    Dictionary<string, object> rankingData = new Dictionary<string, object>();
-    rankingData["Nickname"] = safeNickname;
-    rankingData["Score"] = rankingScore;
-
-    Debug.Log("<color=yellow>[로그 8] rankings 노드 업데이트 요청 보냄...</color>");
-    var rankingTask = dbReference.Child("rankings").Child(userId).UpdateChildrenAsync(rankingData);
-    
-    yield return new WaitUntil(() => rankingTask.IsCompleted);
-
-    if (rankingTask.IsFaulted) {
-        Debug.LogError($"[에러] rankings 저장 실패: {rankingTask.Exception}");
-    } else {
-        Debug.Log("<color=orange>[최종 저장 완료] rankings 노드 반영 성공!</color>");
-    }
-}
 
     public void LoadUserData(string userId)
     {
@@ -303,5 +244,14 @@ private IEnumerator SaveDataRoutine()
 
         if(loadingPanel != null) loadingPanel.SetActive(false);
     } 
+
+    //서버 저장 & 로드 코루틴
+    public IEnumerator WaitServerReq()
+    {
+        Debug.Log("서버 저장 시작...");
+        yield return StartCoroutine(SaveDataRoutine()); 
+
+        EventManager.Instance.TriggerEvent("ServerDataChange");
+    }
 
 }

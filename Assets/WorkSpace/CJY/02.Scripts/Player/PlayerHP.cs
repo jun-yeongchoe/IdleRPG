@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
 {
-    private string animIsDead = "IsDead";
+    private string animIsDead = "Die";
     public BigInteger currentHP, maxHP;
     private Animator anim;
     PlayerController pc;
@@ -81,14 +81,15 @@ public class PlayerHP : MonoBehaviour
     private void Die()
     {
         Debug.Log("플레이어 사망");
+        PlayerStat.instance.isDead = true;
         CancelInvoke("RegenHP");
         foreach(GameObject partner in pc.partnerSlot)
         {
             partner.SetActive(false);
         }
-        anim.SetBool(animIsDead, true);
+        anim.SetTrigger(animIsDead);
         currentHP = 0;
-        CommonPopup.Instance.ShowAlert("사망!", "캐릭터가 사망했습니다.", "부활", OnclickRevival);
+        StartCoroutine(ShowPopupAfterAnimation());
     }
 
     public void OnclickRevival()
@@ -98,11 +99,26 @@ public class PlayerHP : MonoBehaviour
 
     private void Revival()
     {
+        DataManager.Instance.currentStageNum = 1;
+        PlayerStat.instance.isDead = false;
         currentHP = maxHP;
+        anim.speed = 1;
         anim.SetBool(animIsDead, false);
+        InvokeRepeating("RegenHP", 1f, 1f);
+
         foreach(GameObject partner in pc.partnerSlot)
         {
             partner.SetActive(true);
         }
+    }
+
+    IEnumerator ShowPopupAfterAnimation()
+    {
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        float waitTime = stateInfo.length * 0.7f;
+        yield return new WaitForSeconds(waitTime);
+        anim.speed = 0;
+
+        CommonPopup.Instance.ShowAlert("사망!", "캐릭터가 사망했습니다.", "부활", OnclickRevival);
     }
 }
