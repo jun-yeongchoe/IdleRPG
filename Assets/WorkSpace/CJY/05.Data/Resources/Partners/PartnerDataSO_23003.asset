@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f849186bdefc5db459c724e980130ba2, type: 3}
+  m_Name: PartnerDataSO_23003
+  m_EditorClassIdentifier: 
+  ID: 23003
+  Name_KR: "\uACE0\uB300 \uBCF4\uC11D"
+  Name_EN: Ancient Gem
+  itemRank: 3
+  itemType: 0
+  Icon: {fileID: 0}
+  BaseComposeCount: 6
+  BaseStatBoost: 0
+  StatPerLevel: 0.04
+  AttackDamage: 1500
+  AttackSpeed: 0.9
+  PrefabPath: Partner/Epic_Gem
+  Description: "3\uAC08\uB798\uB85C \uD37C\uC9C0\uB294 \uBCF4\uC11D \uD30C\uD3B8"
