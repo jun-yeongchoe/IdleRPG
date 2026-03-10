@@ -53,6 +53,7 @@ public class GachaShop : MonoBehaviour
 
     void Awake()
     {
+        currentShopIndex = -1;
         string objName = gameObject.name;
         if(currentShopIndex == -1)
         {

@@ -26,7 +26,7 @@ public class DBManager : MonoBehaviour
 
     private string tempJsonData;
 
-    [SerializeField] GameObject loadingPanel;
+    // [SerializeField] GameObject loadingPanel;
     bool isProcessing = false;
 
     void Awake()
@@ -195,19 +195,19 @@ public class DBManager : MonoBehaviour
     }
 
     // 기존 단순 저장 로직 (필요 시 내부 호출용)
-    private void SaveUserData(string userId, UserData data)
-    {
-        string json = JsonUtility.ToJson(data);
-        dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json).ContinueWith(task => {
-            if (task.IsCompleted) Debug.Log("초기 데이터 저장 완료!");
-        });
-    }
+    // private void SaveUserData(string userId, UserData data)
+    // {
+    //     string json = JsonUtility.ToJson(data);
+    //     dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json).ContinueWith(task => {
+    //         if (task.IsCompleted) Debug.Log("초기 데이터 저장 완료!");
+    //     });
+    // }
 
-    IEnumerator LoadUserDataCo(string userId)
+    public IEnumerator LoadUserDataCo(string userId)
     {
         if(dbReference == null) dbReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        if(loadingPanel != null) loadingPanel.SetActive(true);
+        // if(loadingPanel != null) loadingPanel.SetActive(true);
         isProcessing = false;
 
         var task = dbReference.Child("users").Child(userId).GetValueAsync();
@@ -242,7 +242,7 @@ public class DBManager : MonoBehaviour
             Debug.Log("SyncDataAndRefreshUI 호출 완료");
         }
 
-        if(loadingPanel != null) loadingPanel.SetActive(false);
+        // if(loadingPanel != null) loadingPanel.SetActive(false);
     } 
 
     //서버 저장 & 로드 코루틴
