@@ -106,7 +106,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (bossPrefab != null)
         {
-            activeBoss = Instantiate(bossPrefab, transform.position, Quaternion.identity);
+            activeBoss = Instantiate(bossPrefab, transform.position, Quaternion.identity, transform);
 
             activeBoss.SetActive(true);
         }
