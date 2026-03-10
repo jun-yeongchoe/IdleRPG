@@ -29,13 +29,18 @@ public class EnemyBase : MonoBehaviour
 
     private void Awake()
     {
+        enemyManager = GetComponentInParent<EnemyManager>();
         animator = GetComponentInChildren<Animator>();
     }
 
-    public void Init(int stage, EnemyManager Manager)
-    { 
-        this.enemyManager = Manager;
-        this.target=Manager.GetPlayerTransform();
+    public void OnEnable()
+    {
+        if (enemyManager != null) 
+        { 
+            target=enemyManager.GetPlayerTransform();
+        }
+
+        int stage = DataManager.Instance != null ? DataManager.Instance.currentStageNum : 1;
 
         maxHp = (BigInteger)(data.maxHp + stage * 5f);
         hp = maxHp;
@@ -64,9 +69,9 @@ public class EnemyBase : MonoBehaviour
         {
             animator.SetBool("IsMoving", false);
 
-            if (!isAttacking && Time.time - lastAttackTime >= attackCooldown)
+            if (!isAttacking)
             {
-                Attack();
+                StartCoroutine(Attack());
             }
         }
         else 
@@ -80,25 +85,23 @@ public class EnemyBase : MonoBehaviour
             transform.position += dir * moveSpeed * Time.deltaTime;
         }
     }
-    private void Attack()
-    {
-        isAttacking = true;
-        lastAttackTime = Time.time;
+    private IEnumerator Attack()
+    { 
+        isAttacking=true;
 
         animator.SetBool("IsAttacking", true);
         animator.SetTrigger("Attack");
 
-        PlayerHP playerHp = target.GetComponent<PlayerHP>();
-        if (playerHp != null)
+        PlayerHP playerHP=target.GetComponent<PlayerHP>();
+        if (playerHP != null) 
         {
-            playerHp.TakeDamage((BigInteger)attackPower);
+            playerHP.TakeDamage((BigInteger)attackPower);
         }
-    }
 
-    public void OnAttackEnd()
-    {
-        isAttacking = false;
+        yield return new WaitForSeconds(attackCooldown);
+
         animator.SetBool("IsAttacking", false);
+        isAttacking = false;
     }
 
     public void TakeDamage(BigInteger damage)

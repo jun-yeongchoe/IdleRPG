@@ -19,6 +19,8 @@ public class ParallaxBackground : MonoBehaviour
 
     private float width;
 
+    private int lastStageNum = -1;
+
     void Start()
     {
         sprite1 = GetComponent<SpriteRenderer>();
@@ -36,6 +38,11 @@ public class ParallaxBackground : MonoBehaviour
 
     void Update()
     {
+        if (DataManager.Instance != null && DataManager.Instance.currentStageNum != lastStageNum)
+        {
+            UpdateBackgroundTexture();
+        }
+
         sprite1.transform.Translate(Vector3.left * scrollSpeed * Time.deltaTime);
         sprite2.transform.Translate(Vector3.left * scrollSpeed * Time.deltaTime);
 
@@ -56,6 +63,9 @@ public class ParallaxBackground : MonoBehaviour
 
         //현재 스테이지 번호 가져오기 (예: 1~10은 챕터1, 11~20은 챕터2)
         int currentStage = DataManager.Instance.currentStageNum;
+
+        lastStageNum = currentStage;
+
         int index = ((currentStage - 1) / 10) % chapterSprites.Length;
 
         Sprite currentSprite = chapterSprites[index];
