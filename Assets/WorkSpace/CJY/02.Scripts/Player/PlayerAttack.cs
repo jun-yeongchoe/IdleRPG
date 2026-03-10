@@ -1,11 +1,11 @@
-using System.Numerics;
+﻿using System.Numerics;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
     Animator anim;
     private float lastAttackTime = 0f;
-    private Enemy currentTarget; // 현재 락온된 타겟
+    private EnemyBase currentTarget; // 현재 락온된 타겟
 
     private void Awake()
     {
@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     // 컨트롤러에서 대상을 지정해 공격 호출
-    public void Attack(Enemy target)
+    public void Attack(EnemyBase target)
     {
         currentTarget = target;
 
@@ -34,12 +34,12 @@ public class PlayerAttack : MonoBehaviour
         var attackData = PlayerStat.instance.GetAttackDamage();
         
         // 공격 전 체력
-        BigInteger hpBefore = currentTarget.stats.hp;
+        BigInteger hpBefore = currentTarget.hp;
         
         currentTarget.TakeDamage(attackData.damage);
         
         // 공격 후 체력
-        BigInteger hpAfter = currentTarget.stats.hp;
+        BigInteger hpAfter = currentTarget.hp;
 
         Debug.Log($"<color=cyan>[공격 성공]</color> {currentTarget.name} | 데미지: {attackData.damage} | 체력 변화: {hpBefore} -> {hpAfter}");
     }

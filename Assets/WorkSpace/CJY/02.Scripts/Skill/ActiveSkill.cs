@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -10,7 +10,7 @@ public class ActiveSkill : MonoBehaviour
     [Header("Settings")]
     public Transform firePoint;
     public Transform testTarget;
-    private Enemy targetEnemy;
+    private EnemyBase targetEnemy;
 
     private List<SkillDataSo> _equippedSkills = new List<SkillDataSo>();
     private Dictionary<int, SkillDataSo> _skillDatabase = new Dictionary<int, SkillDataSo>();
@@ -167,7 +167,7 @@ public class ActiveSkill : MonoBehaviour
     }
 
 
-    private IEnumerator ProcessStrikes(SkillDataSo skillData, Transform firePoint, Enemy target, BigInteger damage)
+    private IEnumerator ProcessStrikes(SkillDataSo skillData, Transform firePoint, EnemyBase target, BigInteger damage)
     {
         for (int i = 0; i < skillData.StrikeCount; i++)
         {
@@ -181,7 +181,7 @@ public class ActiveSkill : MonoBehaviour
         }
     }
 
-    private void SpawnEffect(SkillDataSo skillData, Transform firePoint, Enemy target)
+    private void SpawnEffect(SkillDataSo skillData, Transform firePoint, EnemyBase target)
     {
         UnityEngine.Vector3 spawnPos = UnityEngine.Vector3.zero;
 
@@ -201,7 +201,7 @@ public class ActiveSkill : MonoBehaviour
         EffectManager.Instance.PlayEffect(skillData.EffectPrefabName, spawnPos);
     }
 
-    public void SetTarget(Enemy e)
+    public void SetTarget(EnemyBase e)
     {
         targetEnemy = e;
         Debug.Log($"[타겟] {targetEnemy is not null} / {targetEnemy.name}");

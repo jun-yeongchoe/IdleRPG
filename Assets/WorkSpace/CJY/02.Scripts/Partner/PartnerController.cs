@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -68,7 +68,7 @@ public class PartnerController : MonoBehaviour
 
     private void ActiveSkill()
     {
-        Enemy target = playerController.GetCurrentTarget();
+        EnemyBase target = playerController.GetCurrentTarget();
 
         if(target != null)
         {

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
@@ -12,7 +12,7 @@ public class SwordCollider : MonoBehaviour
     {
         if (collision.CompareTag("EnemyTest"))
         {
-            Enemy enemy = collision.GetComponent<Enemy>();
+            EnemyBase enemy = collision.GetComponent<EnemyBase>();
             if (enemy != null)
             {
                 // float damage = atkStat.GetValue(playerStatus.atkPower);

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     
     private GameObject enemyManager;
     // 현재 추적 중인 적 리스트
-    private List<Enemy> targetEnemies = new List<Enemy>();
+    private List<EnemyBase> targetEnemies = new List<EnemyBase>();
     public GameObject[] partnerSlot;
 
     private void Awake()
@@ -38,10 +38,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // 2. 리스트의 첫 번째 적 상태 확인
-        Enemy firstEnemy = targetEnemies[0];
+        EnemyBase firstEnemy = targetEnemies[0];
 
-        // 객체가 파괴되었거나(null), stats의 IsDead()가 true라면 리스트에서 제거
-        if (firstEnemy == null || firstEnemy.stats.IsDead()) 
+        // 객체가 파괴되면 리스트에서 제거
+        if (firstEnemy == null || firstEnemy.hp<=0) 
         {
             targetEnemies.RemoveAt(0);
             return; 
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         {
             foreach (Transform monster in spawner)
             {
-                Enemy enemy = monster.GetComponent<Enemy>();
+                EnemyBase enemy = monster.GetComponent<EnemyBase>();
                 if (enemy != null && !targetEnemies.Contains(enemy))
                 {
                     targetEnemies.Add(enemy);
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         playerMove.Move();
     }
 
-    public Enemy GetCurrentTarget()
+    public EnemyBase GetCurrentTarget()
     {
         if(targetEnemies != null && targetEnemies.Count > 0)
         {
