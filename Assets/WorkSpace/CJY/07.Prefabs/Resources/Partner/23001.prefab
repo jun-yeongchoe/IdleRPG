@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3402766167306978921}
   - component: {fileID: 1229633428206508141}
+  - component: {fileID: 4174860064767398427}
+  - component: {fileID: -634454356697598939}
   m_Layer: 0
   m_Name: 23001
   m_TagString: Untagged
@@ -55,6 +57,43 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4174860064767398427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062574215659605798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41770be6567c2444d967298a14ea7f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myData:
+    ID: 0
+    Name_KR: 
+    Name_EN: 
+    Rank: 
+    Atk_Speed: 0
+    Base_ComposeStat: 0
+    Stat_Per_Lv: 0
+    Prefab_Path: 
+    Description_KR: 
+  currentAtkSpeed: 0
+--- !u!114 &-634454356697598939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062574215659605798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1c5659ae6250a40a89c3cd84844fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  weapon: {fileID: 7630906011226850763}
 --- !u!1 &6592655184612765954
 GameObject:
   m_ObjectHideFlags: 0

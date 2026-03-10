@@ -66,17 +66,24 @@ public class PlayerController : MonoBehaviour
     // 계층 구조를 뒤져서 리스트를 채우는 무거운 작업 (필요할 때만 호출)
     void RefreshEnemyList()
     {
+        targetEnemies.Clear(); // 찌꺼기 제거를 위해 클리어 후 시작 권장
         foreach (Transform spawner in enemyManager.transform)
         {
             foreach (Transform monster in spawner)
             {
                 EnemyBase enemy = monster.GetComponent<EnemyBase>();
-                if (enemy != null && !targetEnemies.Contains(enemy))
+                // 활성화된 적만 추가
+                if (enemy != null && enemy.gameObject.activeInHierarchy && enemy.hp > 0)
                 {
                     targetEnemies.Add(enemy);
                 }
             }
         }
+
+        targetEnemies.Sort((a, b) => 
+            Vector3.Distance(transform.position, a.transform.position)
+            .CompareTo(Vector3.Distance(transform.position, b.transform.position))
+        );
     }
 
     void SetMoveState()
