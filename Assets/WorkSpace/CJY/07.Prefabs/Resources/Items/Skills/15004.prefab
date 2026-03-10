@@ -175,8 +175,8 @@ MonoBehaviour:
   StatPerLevel: 0.1
   skillTargetType: 1
   StrikeCount: 20
-  Damage_Coef: 0.6
-  Cooltime: 22
+  Damage_Coef: 2
+  Cooltime: 20
   EffectPrefabName: FX_ThousandArrow
   spawnPoint: 1
   SplashRadius: 2

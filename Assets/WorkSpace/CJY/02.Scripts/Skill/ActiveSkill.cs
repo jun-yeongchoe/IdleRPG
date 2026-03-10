@@ -129,6 +129,7 @@ public class ActiveSkill : MonoBehaviour
 
     public bool UseSkill(int skillIdx)
     {
+        if(PlayerStat.instance.isDead) return false;
         if(skillIdx <0 || skillIdx >= _equippedSkills.Count) return false;
         if(targetEnemy == null) return false;
         SkillDataSo skill = _equippedSkills[skillIdx];

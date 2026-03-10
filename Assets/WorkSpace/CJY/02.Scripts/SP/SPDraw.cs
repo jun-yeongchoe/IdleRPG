@@ -91,6 +91,11 @@ public class SPDraw : MonoBehaviour
         spDataCTD = GetComponent<SPDataConnectToDataManager>();
     }
 
+    void OnEnable()
+    {
+        RefreshAllSPSlots();
+    }
+
     public void OnClickSPChange()
     {
         if (spSlots.All(slot => slot.isLocked)) return;
@@ -201,6 +206,36 @@ public class SPDraw : MonoBehaviour
             if (counts.ContainsKey(ui.synergyName.ToLower()))
                 ui.UpdateLevel(counts[ui.synergyName.ToLower()]);
         }
+    }
+
+   
+    public void RefreshAllSPSlots()
+    {
+        if (DataManager.Instance == null || DataManager.Instance.TraitSlots == null) return;
+
+        var savedTraits = DataManager.Instance.TraitSlots;
+
+        for (int i = 0; i < spSlots.Count; i++)
+        {
+            if (i >= savedTraits.Length) break;
+
+            var save = savedTraits[i];
+
+            spSlots[i].isLocked = save.isLocked;
+            spSlots[i].RefreshLockUI();
+
+            if (save.traitId > 0)
+            {
+                SPData csvData = Loader.GetSPDataByID(save.traitId); 
+                
+                if (csvData != null)
+                {
+                    spSlots[i].UpdateSlotUI(csvData, null, null);
+                }
+            }
+        }
+
+        UpdateDrawCostUI();
     }
 
     public SynergyIconData GetSynergyData(string sName) => synergyIcons.Find(x => x.synergyName.ToLower() == sName.ToLower());

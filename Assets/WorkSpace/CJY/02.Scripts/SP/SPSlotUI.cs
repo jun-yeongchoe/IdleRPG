@@ -90,4 +90,5 @@ public class SPSlotUI : MonoBehaviour
 
         if (GetComponentInParent<SPDraw>() != null) GetComponentInParent<SPDraw>().UpdateDrawCostUI();
     }
+
 }

@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Idle_Project.sln"
+    "dotnet.defaultSolution": "Project_Idle_02.sln"
 }

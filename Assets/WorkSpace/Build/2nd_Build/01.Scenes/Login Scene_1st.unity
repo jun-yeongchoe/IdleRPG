@@ -3599,11 +3599,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674b0ec5563d34c498464cc985c1e49f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userId: 
   userNameTxt: {fileID: 275899560}
   userStageLevelTxt: {fileID: 1481452358}
   userGoldTxt: {fileID: 2089132951}
   userAttackTxt: {fileID: 916140254}
-  playerStatus: {fileID: 11400000, guid: 585433539f289e347bc407191b0cd5f3, type: 2}
+  playerStatus: {fileID: 11400000, guid: f35726ab70213794eab43e0fc747ae24, type: 2}
   loadingPanel: {fileID: 597816298}
 --- !u!4 &1889972586
 Transform:

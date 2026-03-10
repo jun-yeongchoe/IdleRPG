@@ -19,6 +19,8 @@ public class PlayerStat : MonoBehaviour
 
     public List<SPPointData> hasSPData = new List<SPPointData>();
     private string[] spType = {"Attack_Damage", "Attack_Speed", "HP", "Critical_Chance","Critical_Damage"};
+
+    public bool isDead = false;
     void Awake()
     {
         if (instance == null) instance = this;
