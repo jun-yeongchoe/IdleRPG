@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private MenuSet charMenu_Skill;
     [SerializeField] private MenuSet charMenu_SP;
     [SerializeField] private MenuSet charMenu_Inventory_Slot_W, charMenu_Inventory_Slot_A,charMenu_Inventory_Slot_AC1,charMenu_Inventory_Slot_AC2;
+    [SerializeField] private MenuSet TopMenu;
 #endregion
 
 
@@ -115,6 +116,11 @@ public class UIManager : MonoBehaviour
     public void OnClickCharMenu_Inventory_Slot_AC2()
     {
         ToggleMenu(charMenu_Inventory_Slot_AC2);
+    }
+
+    public void OnClickTopMenu()
+    {
+        ToggleMenu(TopMenu);
     }
     #endregion
 

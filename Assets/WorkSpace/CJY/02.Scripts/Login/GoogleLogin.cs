@@ -16,13 +16,11 @@ public class GoogleLogin : MonoBehaviour
     private FirebaseAuth auth;
     private FirebaseUser user;
 
-    [Header("Login UI")]
-    [SerializeField] TextMeshProUGUI loginTxt, userIdTxt, userEmailTxt, loadingTxt,Username;
-    [SerializeField] Image profileImg;
-    [SerializeField] GameObject loginPanel;
-
     // 메인 스레드에서 UI를 업데이트하기 위한 플래그
     private bool isLoginTaskComplete = false;
+
+    // 로그아웃을 통해 돌아온 경우 자동 로그인을 방지하기 위한 변수
+    public static bool isLogoutCalled = false;
 
     void Start()
     {
@@ -40,23 +38,19 @@ public class GoogleLogin : MonoBehaviour
         if (dependencyStatus == DependencyStatus.Available) {
             auth = FirebaseAuth.DefaultInstance;
 
-            if(DBManager.Instance != null)
+            if (!isLogoutCalled)
             {
-                Debug.Log("DBManager 인스턴스가 존재합니다.");
-            }
-            else
-            {
-                Debug.LogError("DBManager 인스턴스가 존재하지 않습니다. Hierarchy에 DBManager 오브젝트를 생성하고 스크립트를 붙여주세요.");
-            }
-
-            if (auth.CurrentUser != null) {
+                if (auth.CurrentUser != null) 
+                {
                 user = auth.CurrentUser;
                 isLoginTaskComplete = true; // 메인 스레드 UI 업데이트 신호
                 Debug.Log("Firebase 세션이 남아있어 자동 로그인 되었습니다: " + user.DisplayName);
-            }
-            else {
-            
-            TrySilentGoogleLogin();
+                }
+                else 
+                {
+                    TrySilentGoogleLogin();
+                    isLogoutCalled = false;
+                }
             }
         }
     });
@@ -78,12 +72,8 @@ public class GoogleLogin : MonoBehaviour
     {
         if (isLoginTaskComplete)
         {
-            
                 isLoginTaskComplete = false;
-                UpdateUI();
-                loadingTxt.gameObject.SetActive(true);
                 LoadingSceneController.LoadScene(gameScene);
-                // StartCoroutine(Delay());
             
         }
     }
@@ -119,68 +109,5 @@ public class GoogleLogin : MonoBehaviour
         });
     }
 
-    private void UpdateUI()
-    {
-        if (user == null) return;
 
-        if (DBManager.Instance != null)
-        {
-            Debug.Log("신규 유저 혹은 초기 설정을 위해 SO 데이터를 서버에 저장합니다.");
-            DBManager.Instance.LoadUserData(user.UserId); 
-        }
-        else
-        {
-            Debug.LogError("Hierarchy에 DBManager 오브젝트가 없습니다! 오브젝트를 생성하고 스크립트를 붙여주세요.");
-        }
-
-        loginTxt.text = "Sign In Status : Login";
-        
-        userIdTxt.text = "UserId : " + user.DisplayName; 
-        userEmailTxt.text = "UserEmail : " + user.Email;
-        Username.text = "UserName : " + user.DisplayName;
-
-        if (user.PhotoUrl != null)
-        {
-            StartCoroutine(LoadImage(user.PhotoUrl.ToString()));
-        }
-    }
-
-    public void OnClickLogout()
-    {
-        GoogleSignIn.DefaultInstance.SignOut();
-        auth.SignOut();
-        Debug.Log("로그아웃 되었습니다.");
-
-        loginTxt.text = "Sign In Status : Logout";
-        userEmailTxt.text = "UserEmail : ";
-        userIdTxt.text = "UserId : ";
-        profileImg.sprite = null;
-
-        if(!loginPanel.activeSelf) loginPanel.SetActive(true);
-    }
-
-    IEnumerator LoadImage(string imageUri)
-    {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(imageUri);
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.Success)
-        {
-            Texture2D texture = DownloadHandlerTexture.GetContent(www);
-            profileImg.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        }
-        else
-        {
-            Debug.Log("이미지 로드 실패");
-        }
-    }
-
-    // IEnumerator Delay()
-    // {
-    //     yield return new WaitForSecondsRealtime(5f);
-    //     LoadingSceneController.LoadScene(gameScene);
-    //     loginPanel.SetActive(false);
-    //     yield return null;
-    //     loadingTxt.gameObject.SetActive(false);
-    // }
 }
