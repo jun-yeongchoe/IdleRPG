@@ -25,7 +25,10 @@ public class DataManager : MonoBehaviour
     public int backgroundCount = 3;
 
     public int[] EquipSlot=new int[4];
-    public int[] SkillSlot = new int[5];
+    public int[] SkillSlot = new int[6];
+    public int[] CompanionSlot=new int[3];
+
+    public List<string> SynergyName = new List<string>();
 
     //계산 로직(배경 순환: 10스테이지=1챕터, 매 챕터 클리어시 배경 전환을 위한 함수)
     public BackGroundType BackgroundIndex()
@@ -133,6 +136,9 @@ public class DataManager : MonoBehaviour
         data.EquipSlot=EquipSlot;
         data.SkillSlot = SkillSlot;
 
+        data.CompanionSlot=CompanionSlot;
+        data.SynergyName = SynergyName;
+
         data.GoldDungeonTicket = GoldDungeonTicket;
         data.BossRushTicket = BossRushTicket;
         data.DwarfKingTicket = DwarfKingTicket;
@@ -183,13 +189,31 @@ public class DataManager : MonoBehaviour
             EquipSlot = new int[4];
         }
 
-        if (data.SkillSlot != null && data.SkillSlot.Length == 5)
+        if (data.SkillSlot != null && data.SkillSlot.Length == 6)
         {
             SkillSlot = data.SkillSlot;
         }
         else
         {
-            SkillSlot = new int[] { 0, 1, 2, -1, -1 };
+            SkillSlot = new int[] { 0, 1, 2, -1, -1 , -1};
+        }
+
+        if (data.CompanionSlot != null && data.CompanionSlot.Length == 3)
+        {
+            CompanionSlot = data.CompanionSlot;
+        }
+        else 
+        {
+            CompanionSlot = new int[] { -1, -1, -1 };
+        }
+
+        if (data.SynergyName != null)
+        {
+            SynergyName = data.SynergyName;
+        }
+        else 
+        {
+            SynergyName = new List<string>();
         }
 
         if (data.GoldDungeonTicket != -1) GoldDungeonTicket = data.GoldDungeonTicket;
@@ -333,6 +357,9 @@ public class GameDataDTO
 
     public int[] EquipSlot;
     public int[] SkillSlot;
+
+    public int[] CompanionSlot;
+    public List<string> SynergyName;
 
     public int[] ShopLevels;
     public int[] ShopExps;
