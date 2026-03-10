@@ -18,7 +18,7 @@ public class ActiveSkill : MonoBehaviour
 
     [SerializeField] private int _currentSkillIndex = 0;
 
-    public bool isAutoMode = false;
+    public bool isAutoMode = true;
     private Dictionary<int, float> _skillCoolTimers = new Dictionary<int, float>();
 
 
@@ -51,25 +51,25 @@ public class ActiveSkill : MonoBehaviour
 
     private void RefreshEquippedSKill()
     {
-        int[] forTest = { 
-        10001, 10002, 10003, 10004, 
-        11001, 11002, 11003, 11004, 
-        12001, 12002, 12003, 12004, 
-        13001, 13002, 13003, 13004, 
-        14001, 14002, 14003, 14004, 
-        15001, 15002, 15003, 15004, 
-        16001, 16002, 16003, 16004 
-        };
+        // int[] forTest = { 
+        // 10001, 10002, 10003, 10004, 
+        // 11001, 11002, 11003, 11004, 
+        // 12001, 12002, 12003, 12004, 
+        // 13001, 13002, 13003, 13004, 
+        // 14001, 14002, 14003, 14004, 
+        // 15001, 15002, 15003, 15004, 
+        // 16001, 16002, 16003, 16004 
+        // };
 
-        if (DataManager.Instance != null)
-        {
-            // DataManager의 SkillSlot(크기 6)에 랜덤 ID 할당
-            for (int i = 0; i < DataManager.Instance.SkillSlot.Length; i++)
-            {
-                int randomIndex = UnityEngine.Random.Range(0, forTest.Length);
-                DataManager.Instance.SkillSlot[i] = forTest[randomIndex];
-            }
-        }
+        // if (DataManager.Instance != null)
+        // {
+        //     // DataManager의 SkillSlot(크기 6)에 랜덤 ID 할당
+        //     for (int i = 0; i < DataManager.Instance.SkillSlot.Length; i++)
+        //     {
+        //         int randomIndex = UnityEngine.Random.Range(0, forTest.Length);
+        //         DataManager.Instance.SkillSlot[i] = forTest[randomIndex];
+        //     }
+        // }
         
         _equippedSkills.Clear();
         if(DataManager.Instance == null) return;
@@ -145,12 +145,9 @@ public class ActiveSkill : MonoBehaviour
 
     private void ExecuteSkill(SkillDataSo skill)
     {
-        // 데미지 계산: FinalAtk * DamageCoef
-        // BigInteger와 float 연산을 위해 100을 곱하고 나누는 방식 사용
         BigInteger finalAtk = PlayerStatCalculator.instance.FinalAtk;
         BigInteger damagePerStrike = (finalAtk * (long)(skill.Damage_Coef * 100)) / 100;
        
-
         // StrikeCount만큼 이펙트 반복 실행
         StartCoroutine(ProcessStrikes(skill, firePoint, targetEnemy, damagePerStrike));
     }
@@ -205,5 +202,20 @@ public class ActiveSkill : MonoBehaviour
     {
         targetEnemy = e;
         Debug.Log($"[타겟] {targetEnemy is not null} / {targetEnemy.name}");
+    }
+
+    public List<SkillDataSo> GetEquippedSkills()
+    {
+        return _equippedSkills;
+    }
+
+    
+    public float GetLastUsedTime(int skillId)
+    {
+        if (_skillCoolTimers.TryGetValue(skillId, out float time))
+        {
+            return time;
+        }
+        return -999f;
     }
 }

@@ -30,7 +30,6 @@ public class PlayerStat : MonoBehaviour
     {
         DataManager.Instance.Gold = 1000000;
         PSD_CSV = CSV_LoadManager.Instance.playerStats_CSV;
-        // 게임 시작 시 한 번 계산
         UpdateFinalStats();
     }
 
@@ -46,7 +45,6 @@ public class PlayerStat : MonoBehaviour
             return;
         }
 
-        // 1. 장비 보너스 합산 변수 (초기값 0 = 증가량 없음)
         float totalAtkMultiplier = 0; // 공격력은 곱
         int[] atkEquipmentTargetSlot = {0,2,3};
 
@@ -86,14 +84,13 @@ public class PlayerStat : MonoBehaviour
             float bonusValue = data.GetFinalValue(level);
             totalHpMultiplier += bonusValue - 1;
         }
-
+        // 유사한 스크립트 하나로 합쳐서 정리할것.
 
         float totalAtkSpeedMultiplier = 0; //공속은 합
 
         float totalCritChanceBonus = 0;   //치적은 합   
         float totalCritDamageBonus = 0;   //치피는 합
 
-        // 2. 특성 계산
         foreach(var spdata in hasSPData)
         {
             if(spdata.Type == spType[0]) totalAtkMultiplier += spdata.Rate;
@@ -101,9 +98,7 @@ public class PlayerStat : MonoBehaviour
             else if(spdata.Type == spType[2]) totalHpMultiplier += spdata.Rate;
             else if(spdata.Type == spType[3]) totalCritChanceBonus += spdata.Rate;
             else if(spdata.Type == spType[4]) totalCritDamageBonus += spdata.Rate;
-        }
-
-        // 3. 최종 스탯 계산 (장비가 없으면 Bonus 값들이 0이 되어 기본 스탯만 남음)
+        } // 간단히 수정할 수 있으면 수정할것 -> 간단한 형태로
 
         // 스탯 증가값 및 베이스 값 로드
         var atk_Data = PSD_CSV.GetStat(PSD_CSV.playerStatDataList[0].StatName);
@@ -181,4 +176,6 @@ public class PlayerStat : MonoBehaviour
         UpdateFinalStats();
     }
     #endregion
+
+    // 더티플래그 디자인 패턴을 써서 필요한 시점에만 Refresh 가능하다.
 }

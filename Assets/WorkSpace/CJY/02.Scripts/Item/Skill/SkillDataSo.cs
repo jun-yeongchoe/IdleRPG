@@ -37,4 +37,5 @@ public class SkillDataSo : ItemBase
     {
         return Damage_Coef * (1f + GetStatMultiplier(currentLevel));
     }
+
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,8 @@ public class BaseSkillWindow : MonoBehaviour
 
     public ItemBase currentItemData;
     public Image equip, unEquip;
+
+    public static SkillDataSo pickedSkill;
 
     public void UpdateUI(ItemBase itemData, int currentLevel, int currentEa)
     {
@@ -84,44 +87,22 @@ public class BaseSkillWindow : MonoBehaviour
     public void OnClickEquipBtn()
     {
         if (currentItemData == null) return;
-
-        int skillID = currentItemData.ID;
-        int[] skillSlots = DataManager.Instance.SkillSlot;
-
-        // 1. 이미 장착되어 있는지 확인 (중복 장착 방지)
-        for (int i = 0; i < skillSlots.Length; i++)
+        if(currentItemData is SkillDataSo data)
         {
-            if (skillSlots[i] == skillID)
+            int[] skillSlots = DataManager.Instance.SkillSlot;
+            for(int i = 0; i< skillSlots.Length; i++)
             {
-                // 이미 장착되어 있다면 해제 (선택 사항)
-                skillSlots[i] = -1; // -1 또는 0으로 빈 슬롯 처리
-                Debug.Log($"{skillID} 스킬 장착 해제");
-                UpdateEquipButtonText(false);
-                return;
+                if(skillSlots[i] == data.ID) 
+                {
+                    CommonPopup.Instance.ShowAlert("경고!", "이미 장착된 스킬입니다.", "확인");
+                    return;
+                }
             }
-        }
-        bool equipped = false;
-        for (int i = 0; i < skillSlots.Length; i++)
-        {
-            if (skillSlots[i] == -1 || skillSlots[i] == 0) // 빈 슬롯 조건
-            {
-                skillSlots[i] = skillID;
-                Debug.Log($"{i}번 슬롯에 {skillID} 스킬 장착 완료");
-                equipped = true;
-                break;
-            }
+            pickedSkill = data;
+
+            this.gameObject.SetActive(false);
         }
 
-        if (!equipped)
-        {
-            Debug.LogWarning("장착 슬롯이 가득 찼습니다!");
-        }
-        else
-        {
-            UpdateEquipButtonText(true);
-            // 필요 시 슬롯 UI를 갱신하는 이벤트를 호출하세요.
-            EventManager.Instance.TriggerEvent("SkillSlotChanged");
-        }
     }
 
     private void UpdateEquipButtonText(bool isEquipped)
