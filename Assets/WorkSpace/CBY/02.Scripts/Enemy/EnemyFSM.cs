@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyFSM : MonoBehaviour
 {
@@ -12,6 +12,9 @@ public class EnemyFSM : MonoBehaviour
     {
         this.enemy = enemy;
         target = manager.GetPlayerTransform();
+
+        currentState = null;
+        currentType = EnemyStateType.None;
     }
 
     public void ChangeState(EnemyStateType type)
