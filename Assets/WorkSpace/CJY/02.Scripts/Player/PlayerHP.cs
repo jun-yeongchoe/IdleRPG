@@ -105,6 +105,7 @@ public class PlayerHP : MonoBehaviour
         anim.speed = 1;
         anim.SetBool(animIsDead, false);
         InvokeRepeating("RegenHP", 1f, 1f);
+        transform.rotation = UnityEngine.Quaternion.Euler(0,0,0);
 
         foreach(GameObject partner in pc.partnerSlot)
         {

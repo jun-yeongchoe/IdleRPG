@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float attackRange = 1.5f;
     public bool isCombat = false;
     
-    private GameObject enemyManager;
+    [SerializeField]private GameObject enemyManager;
     // 현재 추적 중인 적 리스트
     private List<EnemyBase> targetEnemies = new List<EnemyBase>();
     public GameObject[] partnerSlot;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     void CheckEnemyDistance()
     {
         if (enemyManager == null) return;
-
+        targetEnemies.RemoveAll(e => e == null || !e.gameObject.activeInHierarchy || e.hp <= 0);
         // 1. 리스트가 비어있으면 갱신
         if (targetEnemies.Count == 0)
         {
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         EnemyBase firstEnemy = targetEnemies[0];
 
         // 객체가 파괴되면 리스트에서 제거
-        if (firstEnemy == null || firstEnemy.hp<=0) 
+        if (firstEnemy == null || firstEnemy.hp<=0 || !firstEnemy.gameObject.activeInHierarchy) 
         {
             targetEnemies.RemoveAt(0);
             return; 

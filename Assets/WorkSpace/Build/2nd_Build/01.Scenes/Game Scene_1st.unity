@@ -82632,7 +82632,7 @@ PrefabInstance:
     - target: {fileID: 8123418751613534522, guid: eaf746fc52e062d44a9cc1b3d6733b31, type: 3}
       propertyPath: enemyPrefab
       value: 
-      objectReference: {fileID: 1152869089299272716, guid: f30be1b66c79ab2458f14191f8dfb372, type: 3}
+      objectReference: {fileID: 1432549849029411033, guid: ada3b6472ea64f64b946e9c498099338, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -97701,6 +97701,10 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5107358052955396851, guid: 1a6874204bb04bb4ba7f6e898c00c5f0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6287374391720773588, guid: 1a6874204bb04bb4ba7f6e898c00c5f0, type: 3}
       propertyPath: testTarget
       value: 
@@ -97717,7 +97721,8 @@ PrefabInstance:
       propertyPath: playerStatus
       value: 
       objectReference: {fileID: 11400000, guid: f35726ab70213794eab43e0fc747ae24, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5107358052955396851, guid: 1a6874204bb04bb4ba7f6e898c00c5f0, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1982575000322816754, guid: 1a6874204bb04bb4ba7f6e898c00c5f0, type: 3}
     m_AddedGameObjects: []
