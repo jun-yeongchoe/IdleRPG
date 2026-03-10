@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using Firebase.Extensions;
 using System;
+using System.Numerics;
 
 public class DBManager : MonoBehaviour
 {
@@ -15,19 +16,13 @@ public class DBManager : MonoBehaviour
     
 
     private DatabaseReference dbReference;
-    // private bool isDataLoadComplete = false; --> 기존
-    // private UserData loadedData;
 
     [Header("UI Reference")]
     [SerializeField] TextMeshProUGUI userNameTxt, userStageLevelTxt, userGoldTxt, userAttackTxt;
 
-    [Header("Data Reference (SO)")]
-    // public PlayerStatus playerStatus; 
-
     private string tempJsonData;
 
-    // [SerializeField] GameObject loadingPanel;
-    bool isProcessing = false;
+    public bool IsDataLoaded = false;
 
     void Awake()
     {
@@ -44,21 +39,11 @@ public class DBManager : MonoBehaviour
         // 데이터베이스 루트 참조 가져오기
         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        // DataManager 연동 
         string userId = FirebaseAuth.DefaultInstance.CurrentUser?.UserId;
         if (!string.IsNullOrEmpty(userId))
         {
             StartCoroutine(LoadUserDataCo(userId));
         }
-    }
-
-    void Update()
-    {
-        // if (isDataLoadComplete)
-        // {
-        //     isDataLoadComplete = false;
-        //     SyncDataAndRefreshUI(); // 동기화 및 UI 갱신
-        // }
     }
 
     private void OnApplicationQuit()
@@ -78,44 +63,6 @@ public class DBManager : MonoBehaviour
         if (pause) SaveSOData();
     }
 
-    public void SyncDataAndRefreshUI()
-    {
-        
-        // 플레이어 접속할 때, 접속종료할 때, 저장/로드 할 데이터를 새로 정의할것. -> 저장 후에 계산으로 출력가능한 데이터는 저장x
-
-
-        if (DataManager.Instance == null)
-        {
-            Debug.LogError("DataManager.Instance가 null입니다. Awake 순서나 DontDestroy 확인.");
-            return;
-        }
-
-        if (FirebaseAuth.DefaultInstance.CurrentUser == null)
-        {
-            Debug.LogWarning("CurrentUser가 null인데 SyncDataAndRefreshUI 호출됨");
-            return;
-        }
-
-        // 서버 데이터를 SO에 동기화
-        // playerStatus.userName = FirebaseAuth.DefaultInstance.CurrentUser.DisplayName;
-        // playerStatus.gold = DataManager.Instance.Gold;
-        // playerStatus.gem = DataManager.Instance.Gem;
-        // playerStatus.atkPower =DataManager.Instance.AtkLv;
-        // playerStatus.hp =DataManager.Instance.HpLv;
-        // playerStatus.atkSpeed =DataManager.Instance.AtSpeedLv;
-        // playerStatus.hpGen =DataManager.Instance.RecoverLv;
-        // playerStatus.criticalChance =DataManager.Instance.CritPerLv;
-        // playerStatus.criticalDamage =DataManager.Instance.CritDmgLv;
-
-        // // UI 텍스트 업데이트
-        // userNameTxt.text = "UserName : " + playerStatus.userName;
-        // userStageLevelTxt.text = "UserJewel : " + playerStatus.gem.ToString();
-        // userGoldTxt.text = "UserGold : " + playerStatus.gold.ToString();
-        // userAttackTxt.text = "UserAttackPower : " + playerStatus.atkPower.ToString();
-        
-        // Debug.Log($"[로그인 성공] {playerStatus.userName}님의 데이터를 서버에서 불러와 UI에 표시했습니다.");
-    }
-    
     public void SaveSOData()
     {
         Debug.Log("<color=yellow>[로그 1] SaveSOData 호출됨</color>");
@@ -131,12 +78,29 @@ public class DBManager : MonoBehaviour
         StartCoroutine(SaveDataRoutine());
     }
 
-    IEnumerator SaveDataRoutine()
+    public IEnumerator SaveDataRoutine()
     {
         Debug.Log("<color=cyan>[로그 3] SaveDataRoutine 진입 성공</color>");
 
         string userId = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
         string json = DataManager.Instance.SendJson();
+
+        if (dbReference == null)
+        {
+            Debug.LogWarning("[에러찾기]dbReference가 Null입니다. 다시 가져오기를 시도합니다.");
+            dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+            
+            if (dbReference == null)
+            {
+                Debug.LogError("[에러찾기]파이어베이스 참조를 가져오지 못했습니다. 저장을 중단합니다.");
+                yield break;
+            }
+        }
+
+        if (FirebaseAuth.DefaultInstance.CurrentUser == null) {
+            Debug.LogError("[에러찾기]로그인된 유저가 없습니다.");
+            yield break;
+        }
 
         if (string.IsNullOrEmpty(json)) {
             Debug.LogError("저장 실패: JSON 데이터가 비어있음");
@@ -145,12 +109,11 @@ public class DBManager : MonoBehaviour
 
         // 점수 계산 및 검증
         var calc = PlayerStatCalculator.instance;
-        double rankingScore = (double)calc.GetRankingScore(calc.FinalAtk, calc.FinalAtkSpeed, calc.FinalCritChance, calc.FinalCritDamage);
-        if (double.IsInfinity(rankingScore) || double.IsNaN(rankingScore)) rankingScore = 0;
+        BigInteger rankingScore = calc.GetRankingScore(calc.FinalAtk, calc.FinalAtkSpeed, calc.FinalCritChance, calc.FinalCritDamage);
 
         Debug.Log($"<color=cyan>[로그 4] 데이터 준비 완료 (Score: {rankingScore})</color>");
 
-        // Step 1: users 저장
+    
         var userTask = dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json);
         yield return new WaitUntil(() => userTask.IsCompleted);
 
@@ -161,16 +124,7 @@ public class DBManager : MonoBehaviour
 
         Debug.Log("<color=lime>[로그 6] Step 1(users) 저장 완료!</color>");
 
-        
-        // 닉네임이 null일 경우를 대비해 확실히 처리
-        // string safeNickname = "UnknownPlayer";
-        // if (playerStatus != null && !string.IsNullOrEmpty(playerStatus.userName)) {
-        //     safeNickname = playerStatus.userName;
-        // } 
-        // else if (FirebaseAuth.DefaultInstance.CurrentUser != null) {
-        //     safeNickname = FirebaseAuth.DefaultInstance.CurrentUser.DisplayName ?? "User_" + userId.Substring(0, 4);
-        // }
-
+      
         Debug.Log("<color=yellow>[로그 7] rankings 데이터 구성 중...</color>");
 
         Dictionary<string, object> rankingData = new Dictionary<string, object>();
@@ -194,56 +148,43 @@ public class DBManager : MonoBehaviour
         StartCoroutine(LoadUserDataCo(userId));
     }
 
-    // 기존 단순 저장 로직 (필요 시 내부 호출용)
-    // private void SaveUserData(string userId, UserData data)
-    // {
-    //     string json = JsonUtility.ToJson(data);
-    //     dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json).ContinueWith(task => {
-    //         if (task.IsCompleted) Debug.Log("초기 데이터 저장 완료!");
-    //     });
-    // }
-
     public IEnumerator LoadUserDataCo(string userId)
     {
+        IsDataLoaded = false;
+        Debug.Log("<color=white>[DB] 로드 시작</color>");
+
         if(dbReference == null) dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-
-        // if(loadingPanel != null) loadingPanel.SetActive(true);
-        isProcessing = false;
-
+        
         var task = dbReference.Child("users").Child(userId).GetValueAsync();
         yield return new WaitUntil(() => task.IsCompleted);
 
-        if (task.IsFaulted)
-        {
-            Debug.LogError("데이터 로드 실패");
-        }
-        else if (task.IsCompleted)
+        if (task.IsCompleted && !task.IsFaulted)
         {
             DataSnapshot snapshot = task.Result;
-            if (snapshot.Exists)
-            {
+            if (snapshot.Exists) {
                 tempJsonData = snapshot.GetRawJsonValue();
+                Debug.Log($"[DB] 데이터 수신: {tempJsonData}");
             }
-            else
-            {
-                Debug.Log("신규 유저 : 초기 데이터 생성");
-                DataManager.Instance.Gold = 10000;  //테스트용
+            else {
+                Debug.Log("[DB] 신규 유저 데이터 생성");
+                DataManager.Instance.Gold = 10000;
                 tempJsonData = DataManager.Instance.SendJson();
-                dbReference.Child("users").Child(userId).SetRawJsonValueAsync(tempJsonData);
+                var setTask = dbReference.Child("users").Child(userId).SetRawJsonValueAsync(tempJsonData);
+                yield return new WaitUntil(() => setTask.IsCompleted);
             }
 
-            DataManager.Instance.LoadJson(tempJsonData);
-
-            Debug.Log($"LoadJson 후 Gold 예시: {DataManager.Instance.Gold}");
-            Debug.Log("==========================");
-            Debug.Log($"JSON 원본 : {tempJsonData}");
-            Debug.Log("==========================");
-            SyncDataAndRefreshUI();
-            Debug.Log("SyncDataAndRefreshUI 호출 완료");
+            try {
+                Debug.Log("[DB] DataManager.LoadJson 시도");
+                DataManager.Instance.LoadJson(tempJsonData);
+                
+                IsDataLoaded = true; 
+                Debug.Log("<color=lime>[DB] IsDataLoaded 완료 처리됨!</color>");
+            }
+            catch (Exception e) {
+                Debug.LogError($"[DB] 로드 중 예외 발생: {e.Message}");
+            }
         }
-
-        // if(loadingPanel != null) loadingPanel.SetActive(false);
-    } 
+    }
 
     //서버 저장 & 로드 코루틴
     public IEnumerator WaitServerReq()

@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  weapon: {fileID: 7955364047388680920}
 --- !u!114 &2134382365188561698
 MonoBehaviour:
   m_ObjectHideFlags: 0

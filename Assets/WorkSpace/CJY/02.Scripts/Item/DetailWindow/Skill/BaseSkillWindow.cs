@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +24,9 @@ public class BaseSkillWindow : MonoBehaviour
     public SkillDataSo[] skillArr;
 
     public ItemBase currentItemData;
+    public Image equip, unEquip;
+
+    public static SkillDataSo pickedSkill;
 
     public void UpdateUI(ItemBase itemData, int currentLevel, int currentEa)
     {
@@ -78,6 +83,46 @@ public class BaseSkillWindow : MonoBehaviour
         SkillInventoryList list = FindObjectOfType<SkillInventoryList>();
         list.RefreshList();
     }
+
+    public void OnClickEquipBtn()
+    {
+        if (currentItemData == null) return;
+        if(currentItemData is SkillDataSo data)
+        {
+            int[] skillSlots = DataManager.Instance.SkillSlot;
+            for(int i = 0; i< skillSlots.Length; i++)
+            {
+                if(skillSlots[i] == data.ID) 
+                {
+                    CommonPopup.Instance.ShowAlert("경고!", "이미 장착된 스킬입니다.", "확인");
+                    return;
+                }
+            }
+            pickedSkill = data;
+
+            this.gameObject.SetActive(false);
+        }
+
+    }
+
+    private void UpdateEquipButtonText(bool isEquipped)
+    {
+        if (equip != null && unEquip != null)
+        {
+            if(isEquipped)
+            {
+                unEquip.gameObject.SetActive(true);
+                equip.gameObject.SetActive(false);
+            }
+            else
+            {
+                unEquip.gameObject.SetActive(false);
+                equip.gameObject.SetActive(true);
+            }
+
+        }
+    }
+
 
     public void Refresh()
     {

@@ -19,12 +19,15 @@ public class PartnerController : MonoBehaviour
     private PartnerDataBinder partnerStat;
     private float lastAttackTime = 0f;
 
+    [SerializeField] private Transform weapon;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
         playerController = FindObjectOfType<PlayerController>();
         partnerStat = GetComponent<PartnerDataBinder>();
         Debug.Log(playerController is null);
+        if(weapon == null) Debug.Log("무기가 없는 객체임");
     }
 
     private void FixedUpdate()
@@ -48,14 +51,15 @@ public class PartnerController : MonoBehaviour
 
         currentState = State.Walk;
         anim.SetBool("isWalking", true);
+        if(weapon != null) weapon.gameObject.SetActive(false);
     }
 
     private void Attack()
     {
         currentState = State.Attack;
         anim.SetBool("isWalking", false);
+        if(weapon != null) weapon.gameObject.SetActive(true);
         
-
         float attackInterval = 1f/(partnerStat != null? partnerStat.currentAtkSpeed : 1f);
 
         if(Time.time - lastAttackTime >= attackInterval)
