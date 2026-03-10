@@ -12,11 +12,13 @@ public class Equipment_Slot : MonoBehaviour
     {
         RefreshUI();
 
+        EventManager.Instance.StartList("EquipChange", RefreshUI);
         EventManager.Instance.StartList("ServerDataChange", RefreshUI);
     }
 
     void OnDisable()
     {
+        EventManager.Instance.StopList("EquipChange", RefreshUI);
         EventManager.Instance.StopList("ServerDataChange", RefreshUI);
     }
 

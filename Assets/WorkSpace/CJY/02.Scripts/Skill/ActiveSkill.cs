@@ -51,7 +51,7 @@ public class ActiveSkill : MonoBehaviour
 
     private void RefreshEquippedSKill()
     {
-        int[] availableIds = { 
+        int[] forTest = { 
         10001, 10002, 10003, 10004, 
         11001, 11002, 11003, 11004, 
         12001, 12002, 12003, 12004, 
@@ -66,8 +66,8 @@ public class ActiveSkill : MonoBehaviour
             // DataManager의 SkillSlot(크기 6)에 랜덤 ID 할당
             for (int i = 0; i < DataManager.Instance.SkillSlot.Length; i++)
             {
-                int randomIndex = UnityEngine.Random.Range(0, availableIds.Length);
-                DataManager.Instance.SkillSlot[i] = availableIds[randomIndex];
+                int randomIndex = UnityEngine.Random.Range(0, forTest.Length);
+                DataManager.Instance.SkillSlot[i] = forTest[randomIndex];
             }
         }
         

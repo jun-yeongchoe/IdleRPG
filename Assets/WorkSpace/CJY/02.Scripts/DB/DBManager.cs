@@ -20,7 +20,6 @@ public class DBManager : MonoBehaviour
     [Header("UI Reference")]
     [SerializeField] TextMeshProUGUI userNameTxt, userStageLevelTxt, userGoldTxt, userAttackTxt;
 
-
     private string tempJsonData;
 
     public bool IsDataLoaded = false;
@@ -40,7 +39,6 @@ public class DBManager : MonoBehaviour
         // 데이터베이스 루트 참조 가져오기
         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        // DataManager 연동 
         string userId = FirebaseAuth.DefaultInstance.CurrentUser?.UserId;
         if (!string.IsNullOrEmpty(userId))
         {
@@ -65,8 +63,6 @@ public class DBManager : MonoBehaviour
         if (pause) SaveSOData();
     }
 
-
-    
     public void SaveSOData()
     {
         Debug.Log("<color=yellow>[로그 1] SaveSOData 호출됨</color>");
@@ -153,42 +149,42 @@ public class DBManager : MonoBehaviour
     }
 
     public IEnumerator LoadUserDataCo(string userId)
-{
-    IsDataLoaded = false;
-    Debug.Log("<color=white>[DB] 로드 시작</color>");
-
-    if(dbReference == null) dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-    
-    var task = dbReference.Child("users").Child(userId).GetValueAsync();
-    yield return new WaitUntil(() => task.IsCompleted);
-
-    if (task.IsCompleted && !task.IsFaulted)
     {
-        DataSnapshot snapshot = task.Result;
-        if (snapshot.Exists) {
-            tempJsonData = snapshot.GetRawJsonValue();
-            Debug.Log($"[DB] 데이터 수신: {tempJsonData}");
-        }
-        else {
-            Debug.Log("[DB] 신규 유저 데이터 생성");
-            DataManager.Instance.Gold = 10000;
-            tempJsonData = DataManager.Instance.SendJson();
-            var setTask = dbReference.Child("users").Child(userId).SetRawJsonValueAsync(tempJsonData);
-            yield return new WaitUntil(() => setTask.IsCompleted);
-        }
+        IsDataLoaded = false;
+        Debug.Log("<color=white>[DB] 로드 시작</color>");
 
-        try {
-            Debug.Log("[DB] DataManager.LoadJson 시도");
-            DataManager.Instance.LoadJson(tempJsonData);
-            
-            IsDataLoaded = true; 
-            Debug.Log("<color=lime>[DB] IsDataLoaded 완료 처리됨!</color>");
-        }
-        catch (Exception e) {
-            Debug.LogError($"[DB] 로드 중 예외 발생: {e.Message}");
+        if(dbReference == null) dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+        
+        var task = dbReference.Child("users").Child(userId).GetValueAsync();
+        yield return new WaitUntil(() => task.IsCompleted);
+
+        if (task.IsCompleted && !task.IsFaulted)
+        {
+            DataSnapshot snapshot = task.Result;
+            if (snapshot.Exists) {
+                tempJsonData = snapshot.GetRawJsonValue();
+                Debug.Log($"[DB] 데이터 수신: {tempJsonData}");
+            }
+            else {
+                Debug.Log("[DB] 신규 유저 데이터 생성");
+                DataManager.Instance.Gold = 10000;
+                tempJsonData = DataManager.Instance.SendJson();
+                var setTask = dbReference.Child("users").Child(userId).SetRawJsonValueAsync(tempJsonData);
+                yield return new WaitUntil(() => setTask.IsCompleted);
+            }
+
+            try {
+                Debug.Log("[DB] DataManager.LoadJson 시도");
+                DataManager.Instance.LoadJson(tempJsonData);
+                
+                IsDataLoaded = true; 
+                Debug.Log("<color=lime>[DB] IsDataLoaded 완료 처리됨!</color>");
+            }
+            catch (Exception e) {
+                Debug.LogError($"[DB] 로드 중 예외 발생: {e.Message}");
+            }
         }
     }
-}
 
     //서버 저장 & 로드 코루틴
     public IEnumerator WaitServerReq()

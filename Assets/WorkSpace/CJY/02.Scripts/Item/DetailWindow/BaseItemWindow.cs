@@ -133,6 +133,7 @@ public class BaseItemWindow : MonoBehaviour
                 }
             }
             DataManager.Instance.EquipItem(mySlotIndex, data.ID);
+            EventManager.Instance.TriggerEvent("EquipChange");
             PlayerStat.instance.UpdateFinalStats();
 
             // UpdateEquipVisual(data.ID);

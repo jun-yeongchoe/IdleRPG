@@ -30,14 +30,12 @@ public class PlayerController : MonoBehaviour
     {
         if (enemyManager == null) return;
         targetEnemies.RemoveAll(e => e == null || !e.gameObject.activeInHierarchy || e.hp <= 0);
-        // 1. 리스트가 비어있으면 갱신
         if (targetEnemies.Count == 0)
         {
             RefreshEnemyList();
             if (targetEnemies.Count == 0) { SetMoveState(); return; }
         }
 
-        // 2. 리스트의 첫 번째 적 상태 확인
         EnemyBase firstEnemy = targetEnemies[0];
 
         // 객체가 파괴되면 리스트에서 제거
@@ -47,7 +45,6 @@ public class PlayerController : MonoBehaviour
             return; 
         }
 
-        // 3. 살아있다면 거리 체크
         float dist = firstEnemy.transform.position.x - transform.position.x;
         if (dist > 0 && dist <= attackRange)
         {
