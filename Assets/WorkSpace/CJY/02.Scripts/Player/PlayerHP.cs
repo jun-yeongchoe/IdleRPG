@@ -48,7 +48,7 @@ public class PlayerHP : MonoBehaviour
             TakeDamage(50);
         }
 
-        Debug.Log("Current HP : " + currentHP + " / " + maxHP);
+        // Debug.Log("Current HP : " + currentHP + " / " + maxHP);
     }
 
     public void RefreshHP()
