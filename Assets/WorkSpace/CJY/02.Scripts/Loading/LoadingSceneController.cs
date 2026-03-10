@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class LoadingSceneController : MonoBehaviour
 {
     static string nextScene;
-    static string LoadingScene = "LoadingScene";
+    static string LoadingScene = "Loading Scene_1st";
 
     [SerializeField] Image progressBar;
 

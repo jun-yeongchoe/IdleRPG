@@ -12,7 +12,7 @@ public class GoogleLogin : MonoBehaviour
 {
     [Header("Google Settings")]
     private string webClientId = "817724772015-cpr9qe1clkj5d1b0cj7hie4qaa2lqe9i.apps.googleusercontent.com"; //
-
+    private string gameScene = "Game Scene_1st";
     private FirebaseAuth auth;
     private FirebaseUser user;
 
@@ -82,8 +82,8 @@ public class GoogleLogin : MonoBehaviour
                 isLoginTaskComplete = false;
                 UpdateUI();
                 loadingTxt.gameObject.SetActive(true);
-                StartCoroutine(Delay());
-            
+                LoadingSceneController.LoadScene(gameScene);
+                // StartCoroutine(Delay());
             
         }
     }
@@ -175,11 +175,12 @@ public class GoogleLogin : MonoBehaviour
         }
     }
 
-    IEnumerator Delay()
-    {
-        yield return new WaitForSecondsRealtime(5f);
-        loginPanel.SetActive(false);
-        yield return null;
-        loadingTxt.gameObject.SetActive(false);
-    }
+    // IEnumerator Delay()
+    // {
+    //     yield return new WaitForSecondsRealtime(5f);
+    //     LoadingSceneController.LoadScene(gameScene);
+    //     loginPanel.SetActive(false);
+    //     yield return null;
+    //     loadingTxt.gameObject.SetActive(false);
+    // }
 }
