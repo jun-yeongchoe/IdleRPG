@@ -3600,11 +3600,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userId: 
+  userName: 
   userNameTxt: {fileID: 275899560}
   userStageLevelTxt: {fileID: 1481452358}
   userGoldTxt: {fileID: 2089132951}
   userAttackTxt: {fileID: 916140254}
-  playerStatus: {fileID: 11400000, guid: f35726ab70213794eab43e0fc747ae24, type: 2}
   loadingPanel: {fileID: 597816298}
 --- !u!4 &1889972586
 Transform:
