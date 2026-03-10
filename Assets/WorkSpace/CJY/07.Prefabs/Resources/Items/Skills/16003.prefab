@@ -176,7 +176,7 @@ MonoBehaviour:
   skillTargetType: 1
   StrikeCount: 5
   Damage_Coef: 5
-  Cooltime: 80
+  Cooltime: 15
   EffectPrefabName: FX_GodWrath
   spawnPoint: 1
   SplashRadius: 2

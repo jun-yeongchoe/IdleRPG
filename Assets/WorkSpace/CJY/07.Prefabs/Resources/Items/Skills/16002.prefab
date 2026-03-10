@@ -176,7 +176,7 @@ MonoBehaviour:
   skillTargetType: 1
   StrikeCount: 1
   Damage_Coef: 20
-  Cooltime: 120
+  Cooltime: 12
   EffectPrefabName: FX_GenesisLight
   spawnPoint: 1
   SplashRadius: 2

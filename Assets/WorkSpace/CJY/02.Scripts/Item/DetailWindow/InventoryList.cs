@@ -75,9 +75,6 @@ public class InventoryList : MonoBehaviour
 
                         CreateTextBoxes(slot.transform, itemQuantity, itemLevel);
 
-                        
-
-
                         Button btn = slot.AddComponent<Button>();
                         btn.transition = Selectable.Transition.ColorTint;
                         Navigation nav = new();

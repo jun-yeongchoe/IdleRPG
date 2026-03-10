@@ -120,5 +120,10 @@ public class SPPointCSVLoader : MonoBehaviour
         if (candidates.Count == 0) return null;
         return candidates[UnityEngine.Random.Range(0, candidates.Count)];
     }
+
+    public SPData GetSPDataByID(int id)
+    {
+        return valueTable.Find(x => x.id == id);
+    }
     #endregion
 }
