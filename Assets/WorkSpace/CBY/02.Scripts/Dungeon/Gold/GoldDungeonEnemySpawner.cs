@@ -8,7 +8,7 @@ public class GoldDungeonEnemySpawner : MonoBehaviour
     public int spawnCount = 10;
     public float spawnRadius = 2f;
 
-    private readonly List<Enemy> aliveEnemies = new();
+    private readonly List<EnemyBase> aliveEnemies = new();
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class GoldDungeonEnemySpawner : MonoBehaviour
                 transform
             );
 
-            Enemy enemy = go.GetComponent<Enemy>();
+            EnemyBase enemy = go.GetComponent<EnemyBase>();
             if (enemy == null)
             {
                 Debug.LogError("Enemy 컴포넌트가 없습니다!");
@@ -41,7 +41,7 @@ public class GoldDungeonEnemySpawner : MonoBehaviour
         }
     }
 
-    void HandleEnemyDead(Enemy enemy)
+    void HandleEnemyDead(EnemyBase enemy)
     {
         enemy.OnEnemyDead -= HandleEnemyDead;
         aliveEnemies.Remove(enemy);
