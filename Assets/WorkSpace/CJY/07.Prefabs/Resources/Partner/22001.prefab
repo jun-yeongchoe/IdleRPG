@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8386545628202301787}
   - component: {fileID: 3107645254835759625}
-  - component: {fileID: 981254114140290339}
   m_Layer: 0
   m_Name: PFCP_06_Striker_m_walk_right_8_0
   m_TagString: Untagged
@@ -116,27 +115,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &981254114140290339
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6461244655668769144}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 813de974bb8fdfd4c96833ecc23edbea, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6635499390562109915
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +159,7 @@ Animator:
   m_GameObject: {fileID: 6635499390562109915}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7f7cff8ce472f454db59c6c178500f5d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
