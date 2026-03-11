@@ -9,6 +9,9 @@ public class EnemyBase : MonoBehaviour
     [Header("Base Data")]
     public EnemyDataSO data;
 
+    [Header("Dungeons")]
+    public bool isDungeon = false;      //던전 들어가는 몬스터용 체크박스임
+
     [Header("Current Stats")]
     public BigInteger maxHp;
     public BigInteger hp;
@@ -35,27 +38,47 @@ public class EnemyBase : MonoBehaviour
 
     public void OnEnable()
     {
-        if (enemyManager != null) 
-        { 
-            target=enemyManager.GetPlayerTransform();
+        if (enemyManager != null)
+        {
+            target = enemyManager.GetPlayerTransform();
+        }
+        else 
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if(playerObj != null) target = playerObj.transform;
         }
 
-        int stage = DataManager.Instance != null ? DataManager.Instance.currentStageNum : 1;
+        if(!isDungeon)
+        {
+            int stage = DataManager.Instance != null ? DataManager.Instance.currentStageNum : 1;
 
-        maxHp = (BigInteger)(data.maxHp + stage * 5f);
-        hp = maxHp;
-        attackPower = data.attackPower + stage * 1.2f;
-        moveSpeed = data.moveSpeed + stage * 0.05f;
-        attackRange = data.attackRange;
-        attackCooldown = Mathf.Max(0.5f, data.attackCooldown - stage * 0.02f);
+            maxHp = (BigInteger)(data.maxHp + stage * 5f);
+            hp = maxHp;
+            attackPower = data.attackPower + stage * 1.2f;
+            moveSpeed = data.moveSpeed + stage * 0.05f;
+            attackRange = data.attackRange;
+            attackCooldown = Mathf.Max(0.5f, data.attackCooldown - stage * 0.02f);
+        }
+        else
+        {
+            maxHp = data.maxHp;
+            hp = maxHp;
+            attackPower = data.attackPower;
+            moveSpeed = data.moveSpeed;
+            attackRange = data.attackRange;
+            attackCooldown = data.attackCooldown;
+        }
 
         isDead = false;
         isAttacking = false;
         lastAttackTime = 0f;
 
-        animator.SetBool("IsMoving",false);
-        animator.SetBool("IsAttacking",false);
-        animator.Play("Idle", 0, 0f);
+        if (animator != null)
+        {
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsAttacking", false);
+            animator.Play("Idle", 0, 0f);
+        }
     }
 
     private void Update()
@@ -108,6 +131,15 @@ public class EnemyBase : MonoBehaviour
     {
         if (isDead) return;
 
+        if (isDungeon && DwarfManager.Instance != null && DwarfManager.Instance.isPlaying)
+        {
+            DwarfManager.Instance.OnBossTakeDamage(damage);
+
+            if (DamageTextManager.Instance != null)
+                DamageTextManager.Instance.ShowDamage(damage, transform.position);
+
+            return;
+        }
         hp -= damage;
         if (hp < 0) hp = 0; // 마이너스 방지
 
@@ -126,7 +158,7 @@ public class EnemyBase : MonoBehaviour
         animator.SetTrigger("Die");
 
         //보상 지급 로직
-        if (DataManager.Instance != null)
+        if (DataManager.Instance != null&&!isDungeon)
         {
             int currentStage = DataManager.Instance.currentStageNum;
             int dropGold = 10 + (currentStage * 5);
