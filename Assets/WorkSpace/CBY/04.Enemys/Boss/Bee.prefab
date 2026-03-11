@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4579807366198325096}
   - component: {fileID: 4579807366198325098}
   - component: {fileID: 4579807366198325099}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: SpritBee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,9 +116,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4579807366511369191}
   - component: {fileID: 8273707687404134545}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Bee
-  m_TagString: Untagged
+  m_TagString: EnemyTest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

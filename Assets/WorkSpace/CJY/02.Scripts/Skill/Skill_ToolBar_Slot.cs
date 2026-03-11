@@ -14,6 +14,7 @@ public class Skill_ToolBar_Slot : MonoBehaviour
 
     void Start()
     {
+        SkillToolBarBinding();
         EventManager.Instance.StartList(slotChangeEvent, SkillToolBarBinding);
     }
     void OnDestroy()
