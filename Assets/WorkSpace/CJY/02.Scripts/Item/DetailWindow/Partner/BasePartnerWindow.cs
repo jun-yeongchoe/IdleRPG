@@ -22,6 +22,8 @@ public class BasePartnerWindow : MonoBehaviour
     public PartnerDataSO[] partnerArr;
 
     public ItemBase currentItemData;
+    public static PartnerDataSO pickedPartner;
+
 
     public void UpdateUI(ItemBase itemData, int currentLevel, int currentEa)
     {
@@ -77,6 +79,27 @@ public class BasePartnerWindow : MonoBehaviour
         }
         PartnerInventoryList list = FindObjectOfType<PartnerInventoryList>();
         list.RefreshList();
+    }
+
+    public void OnClickEquipBtn()
+    {
+        if (currentItemData == null) return;
+        if(currentItemData is PartnerDataSO data)
+        {
+            int[] partnerSlots = DataManager.Instance.CompanionSlot;
+            for(int i = 0; i< partnerSlots.Length; i++)
+            {
+                if(partnerSlots[i] == data.ID) 
+                {
+                    CommonPopup.Instance.ShowAlert("경고!", "이미 장착된 동료입니다.", "확인");
+                    return;
+                }
+            }
+            pickedPartner = data;
+
+            this.gameObject.SetActive(false);
+        }
+
     }
 
     public void Refresh()
