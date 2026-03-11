@@ -82,6 +82,7 @@ public class DwarfManager : MonoBehaviour
         eb.maxHp = currentBossMaxHp;
         eb.hp = currentBossHp;
         isPlaying = true;
+        if(isPlaying) eb.isDungeon = true;
 
         Debug.Log("드워프 킹 던전 입장!");
     }
@@ -141,6 +142,11 @@ public class DwarfManager : MonoBehaviour
     private void EndDungeon()
     {
         isPlaying = false;
+        if (!isPlaying)
+        {
+            EnemyBase eb = currentBoss.GetComponent<EnemyBase>();
+            eb.isDungeon = false;
+        }
 
         if (currentBoss != null)
         {
@@ -161,9 +167,9 @@ public class DwarfManager : MonoBehaviour
                 $"드워프 킹 던전 탐벌 완료!\n\n도달 구간: {currentSection} 단계\n획득 스크랩: {rewardScrap}개",
                 "확인",
                 () => {
-                    SceneManager.LoadScene("Game Scene_1st");
                     //원래 스테이지 로비로 복귀하는 로직 추가해주기
                     Debug.Log("로비 복귀");
+                    SceneManager.LoadScene("Game Scene_1st");
                 }
             );
         }
