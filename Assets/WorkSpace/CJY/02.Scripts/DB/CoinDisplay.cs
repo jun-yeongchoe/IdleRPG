@@ -36,12 +36,12 @@ public class CoinDisplay : MonoBehaviour
         {
             EventManager.Instance.StartList("UpdateCoinUI", UpdateCoinDisplay);
         }
+        UpdateCoinDisplay();
     }
 
     private void OnChangedGold(BigInteger newValue)
     {
-        // ToString("N0")를 사용하면 1,000,000 처럼 쉼표가 붙어 더 읽기 편합니다.
-        goldText.text = newValue.ToString();
+        goldText.text = newValue.ToString("N0");
     }
 
     private void OnChangedGem(BigInteger newValue)
