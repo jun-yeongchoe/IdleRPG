@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1999510364549135797}
   - component: {fileID: 8427124629649415006}
   - component: {fileID: 854370736891979990}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: Medesa
-  m_TagString: Untagged
+  m_TagString: EnemyTest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bdbf45df9ae1e564cb0afc4693a50afd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 10.24, y: 10.24}

@@ -34,9 +34,12 @@ public class DwarfUI : MonoBehaviour
             DwarfManager.Instance.OnTimeChanged += UpdateTimerUI;
             DwarfManager.Instance.OnBossHpChanged += UpdateBossHpUI;
         }
+        UpdateBossHpUI(DwarfManager.Instance.currentSection, 
+                       DwarfManager.Instance.currentBossHp, 
+                       DwarfManager.Instance.currentBossMaxHp);
 
         //초기 화면 세팅
-        ShowEntryPanel();
+        // ShowEntryPanel();
     }
 
     private void OnDestroy()
@@ -92,6 +95,7 @@ public class DwarfUI : MonoBehaviour
 
     private void UpdateBossHpUI(int section, BigInteger currentHp, BigInteger maxHp)
     {
+        Debug.Log("UI 업데이트 호출됨!");
         sectionText.text = $"현재 구간: {section} 단계";
 
         bossHpText.text = $"{currentHp} / {maxHp}";
