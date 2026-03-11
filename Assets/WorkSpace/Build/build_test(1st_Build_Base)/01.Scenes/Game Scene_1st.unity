@@ -4857,6 +4857,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279154be05d1a5d44b75343490655153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rankTable: []
+  valueTable: []
+  synergyTable: []
+  isLoaded: 0
 --- !u!4 &245975495
 Transform:
   m_ObjectHideFlags: 0
@@ -7772,21 +7776,79 @@ MonoBehaviour:
     panel: {fileID: 1898206962}
     normalIcon: {fileID: 1948011558}
     closeIcon: {fileID: 927077315}
+    ignoreClose: 0
   partnerMenu:
     menuName: Partner
     panel: {fileID: 72936323}
     normalIcon: {fileID: 627849988}
     closeIcon: {fileID: 1239536156}
+    ignoreClose: 0
   dungeonMenu:
     menuName: Dungeon
     panel: {fileID: 715708539}
     normalIcon: {fileID: 461053145}
     closeIcon: {fileID: 1220231418}
+    ignoreClose: 0
   shopMenu:
     menuName: Shop
     panel: {fileID: 1309437759}
     normalIcon: {fileID: 229390773}
     closeIcon: {fileID: 1570897199}
+    ignoreClose: 0
+  questMenu:
+    menuName: 
+    panel: {fileID: 0}
+    normalIcon: {fileID: 0}
+    closeIcon: {fileID: 0}
+    ignoreClose: 0
+  charMenu_Inventory:
+    menuName: 
+    panel: {fileID: 0}
+    normalIcon: {fileID: 0}
+    closeIcon: {fileID: 0}
+    ignoreClose: 0
+  charMenu_Skill:
+    menuName: 
+    panel: {fileID: 0}
+    normalIcon: {fileID: 0}
+    closeIcon: {fileID: 0}
+    ignoreClose: 0
+  charMenu_SP:
+    menuName: 
+    panel: {fileID: 0}
+    normalIcon: {fileID: 0}
+    closeIcon: {fileID: 0}
+    ignoreClose: 0
+  charMenu_Inventory_Slot_W:
+    menuName: 
+    panel: {fileID: 0}
+    normalIcon: {fileID: 0}
+    closeIcon: {fileID: 0}
+    ignoreClose: 0
+  charMenu_Inventory_Slot_A:
+    menuName: 
+    panel: {fileID: 0}
+    normalIcon: {fileID: 0}
+    closeIcon: {fileID: 0}
+    ignoreClose: 0
+  charMenu_Inventory_Slot_AC1:
+    menuName: 
+    panel: {fileID: 0}
+    normalIcon: {fileID: 0}
+    closeIcon: {fileID: 0}
+    ignoreClose: 0
+  charMenu_Inventory_Slot_AC2:
+    menuName: 
+    panel: {fileID: 0}
+    normalIcon: {fileID: 0}
+    closeIcon: {fileID: 0}
+    ignoreClose: 0
+  TopMenu:
+    menuName: 
+    panel: {fileID: 0}
+    normalIcon: {fileID: 0}
+    closeIcon: {fileID: 0}
+    ignoreClose: 0
 --- !u!4 &431658158
 Transform:
   m_ObjectHideFlags: 0
@@ -22825,7 +22887,7 @@ Transform:
   m_GameObject: {fileID: 1426746596}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -0.5, z: -10}
+  m_LocalPosition: {x: 8.535866, y: -0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

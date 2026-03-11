@@ -10,7 +10,7 @@ public class SkillManager : MonoBehaviour
     public List<SkillData> allSkills;
 
     [Header("장착된 스킬 (저장 데이터 연동 예정)")]
-    public int[] equippedSkillIndexes = new int[] { 0, 1, 2, -1, -1 };
+    public int[] equippedSkillIndexes = new int[] { 0, 1, 2, -1, -1, -1 };
 
     private void Awake()
     {
