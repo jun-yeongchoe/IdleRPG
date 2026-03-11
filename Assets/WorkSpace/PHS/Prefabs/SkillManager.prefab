@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSkills: []
-  equippedSkillIndexes: 000000000100000002000000ffffffffffffffff
+  equippedSkillIndexes: 000000000100000002000000ffffffffffffffffffffffff
