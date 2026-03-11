@@ -180,6 +180,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcf93536f5a7a23439da79dfa2b9e647, type: 3}
+--- !u!1 &128363091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 128363092}
+  - component: {fileID: 128363093}
+  m_Layer: 0
+  m_Name: GoldDungeon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &128363092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128363091}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -372.55444, y: -447.6921, z: 0.04245063}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 349855229405411257}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &128363093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128363091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30223c466425ef44eb6f045a89a58024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewardText: {fileID: 0}
 --- !u!1 &178681335
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,6 +924,53 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa3c819ed414cb9479860322138b285a, type: 3}
+--- !u!1 &2041109936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2041109937}
+  - component: {fileID: 2041109938}
+  m_Layer: 0
+  m_Name: BossRush
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2041109937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041109936}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -372.55444, y: -447.6921, z: 0.04245063}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 349855229405411257}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2041109938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041109936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d22343f911a07f43a02377f8d2542ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossCountText: {fileID: 0}
+  defeatedText: {fileID: 0}
+  clearPanel: {fileID: 0}
 --- !u!1001 &2062863375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1041,6 +1133,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2800370174538457794, guid: c21cd02ab9c75034097f82b09d8764da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1646230084}
+    - targetCorrespondingSourceObject: {fileID: 2800370174538457794, guid: c21cd02ab9c75034097f82b09d8764da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2041109937}
+    - targetCorrespondingSourceObject: {fileID: 2800370174538457794, guid: c21cd02ab9c75034097f82b09d8764da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 128363092}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c21cd02ab9c75034097f82b09d8764da, type: 3}
 --- !u!224 &349855229405411257 stripped
