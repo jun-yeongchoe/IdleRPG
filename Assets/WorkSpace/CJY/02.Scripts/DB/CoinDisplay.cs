@@ -41,12 +41,12 @@ public class CoinDisplay : MonoBehaviour
 
     private void OnChangedGold(BigInteger newValue)
     {
-        goldText.text = newValue.ToString("N0");
+        goldText.text = newValue.ToCurren().ToString();
     }
 
     private void OnChangedGem(BigInteger newValue)
     {
-        gemText.text = newValue.ToString();
+        gemText.text = newValue.ToCurren().ToString();
     }
 
     // 수동으로 갱신해야 할 때 호출
