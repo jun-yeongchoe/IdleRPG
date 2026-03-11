@@ -105,7 +105,5 @@ public class BossRushManager : MonoBehaviour
         {
             BossRushUI.Instance.ShowClear();
         }
-
-            BossRushUI.Instance.ShowClear();
     }
 }

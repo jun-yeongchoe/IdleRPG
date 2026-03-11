@@ -7,8 +7,8 @@ public class BossRushUI : MonoBehaviour
 {
     public static BossRushUI Instance;
 
-    public Text bossCountText;
-    public Text defeatedText;
+    public TextMeshProUGUI bossCountText;
+    public TextMeshProUGUI defeatedText;
     public GameObject clearPanel;
 
     private void Awake()
