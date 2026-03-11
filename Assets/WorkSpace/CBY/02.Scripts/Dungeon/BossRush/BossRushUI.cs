@@ -1,12 +1,14 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class BossRushUI : MonoBehaviour
 {
     public static BossRushUI Instance;
 
-    public Text bossCountText;
-    public Text defeatedText;
+    public TextMeshProUGUI bossCountText;
+    public TextMeshProUGUI defeatedText;
     public GameObject clearPanel;
 
     private void Awake()
@@ -17,12 +19,12 @@ public class BossRushUI : MonoBehaviour
 
     public void UpdateBossInfo(int current, int total)
     {
-        bossCountText.text = $"º¸½º {current} / {total}";
+        bossCountText.text = $"ë³´ìŠ¤ {current} / {total}";
     }
 
     public void UpdateDefeated(int count)
     {
-        defeatedText.text = $"Ã³Ä¡ ¼ö : {count}";
+        defeatedText.text = $"ì²˜ì¹˜ ìˆ˜ : {count}";
     }
 
     public void ShowClear()
