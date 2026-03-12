@@ -207,7 +207,7 @@ public class PlayerStatLevelUp : MonoBehaviour
         playerStatus.criticalChance = crit_p_level.Value;
         crit_p_l.SetText("Lv.{0}",crit_p_level.Value);
         // crit_p.SetText("{0:F3}", PlayerStat.instance.criticalChance);
-        crit_p.text = PlayerStat.instance.criticalChance.ToString("F3");
+        crit_p.text = (PlayerStat.instance.criticalChance*100).ToString("F1");
         crit_p_c.SetText("비용 : {0}", playerStatus.GetCritChanceCost());
     }
     private void OnChangedLevel6(int value)

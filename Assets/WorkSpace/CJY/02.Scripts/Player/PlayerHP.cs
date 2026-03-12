@@ -11,7 +11,6 @@ public class PlayerHP : MonoBehaviour
     public BigInteger currentHP, maxHP;
     private Animator anim;
     PlayerController pc;
-    // [SerializeField] private Slider hpBar;
 
     void Start()
     {
@@ -70,6 +69,10 @@ public class PlayerHP : MonoBehaviour
     public void TakeDamage(BigInteger dmg)
     {
         currentHP -= dmg;
+        Debug.Log($"[PlayerHP]현재체력 : {currentHP}/{maxHP}");
+        float randomX = UnityEngine.Random.Range(0.1f, 0.3f);
+        float randomY = UnityEngine.Random.Range(0.6f, 0.8f);
+        DamageTextManager.Instance.ShowDamage(dmg, this.gameObject.transform.position + new UnityEngine.Vector3(randomX,randomY,0));
 
         if (currentHP <= 0)
         {
@@ -99,6 +102,7 @@ public class PlayerHP : MonoBehaviour
 
     private void Revival()
     {
+        Time.timeScale = 1;
         DataManager.Instance.currentStageNum = 1;
         PlayerStat.instance.isDead = false;
         currentHP = maxHP;
@@ -118,6 +122,7 @@ public class PlayerHP : MonoBehaviour
         float waitTime = stateInfo.length * 0.7f;
         yield return new WaitForSeconds(waitTime);
         anim.speed = 0;
+        Time.timeScale = 0;
 
         CommonPopup.Instance.ShowAlert("사망!", "캐릭터가 사망했습니다.", "부활", OnclickRevival);
     }

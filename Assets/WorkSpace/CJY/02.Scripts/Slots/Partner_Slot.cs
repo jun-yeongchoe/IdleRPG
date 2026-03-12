@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Partner_Slot : MonoBehaviour
 {
     [Header("UI References")]
-    public Image[] slotIcons; // 6개의 슬롯 Image 컴포넌트 연결
+    public Image[] slotIcons; // 3개의 슬롯 Image 컴포넌트 연결
     public Sprite emptySlotSprite; // 빈 슬롯일 때 표시할 기본 이미지
 
     private string prefabPath = "Items/Partners/"; 
@@ -34,7 +34,7 @@ public class Partner_Slot : MonoBehaviour
             if (partnerID <= 0)
             {
                 slotIcons[i].sprite = emptySlotSprite;
-                slotIcons[i].color = new Color(1, 1, 1, 0);
+                slotIcons[i].color = new Color(1, 1, 1, 1);
                 continue;
             }
 

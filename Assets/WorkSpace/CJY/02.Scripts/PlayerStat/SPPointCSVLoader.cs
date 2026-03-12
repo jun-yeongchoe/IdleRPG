@@ -125,5 +125,19 @@ public class SPPointCSVLoader : MonoBehaviour
     {
         return valueTable.Find(x => x.id == id);
     }
+
+    public float GetSynergyEffect(string name, int required)
+    {   
+        float synergyEffect = 0;
+        foreach(var data in synergyTable)
+        {
+            if(data.synergyName == name && data.requiredCount == required)
+            {
+                synergyEffect = data.effectValue;
+                if(synergyEffect > 0) break;
+            }
+        }
+        return synergyEffect;
+    }
     #endregion
 }

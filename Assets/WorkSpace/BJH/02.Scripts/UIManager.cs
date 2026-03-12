@@ -48,6 +48,7 @@ public class UIManager : MonoBehaviour
     public void OnClickDungeon()
     {
         ToggleMenu(dungeonMenu);
+        EventManager.Instance.TriggerEvent("OpenDungeonTab");
     }
 
     public void OnClickShop()

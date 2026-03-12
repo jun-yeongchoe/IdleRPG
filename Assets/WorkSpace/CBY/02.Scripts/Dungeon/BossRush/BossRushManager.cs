@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// 보스러시에도 enemymanager 필수임
 /// </summary>
@@ -99,6 +100,7 @@ public class BossRushManager : MonoBehaviour
             CommonPopup.Instance.ShowAlert("보스 클리어!", $"보스를 정복했습니다!\n획득 보석: {rewardGem}개", "확인", () =>
             {
                 BossRushUI.Instance.ShowClear();
+                SceneManager.LoadScene("Game Scene_1st");
             });
         }
         else 

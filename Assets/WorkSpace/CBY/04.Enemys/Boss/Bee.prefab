@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2ff26d1f23af0fc4f8b1c9a905cc050a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 10.24, y: 10.24}
@@ -151,7 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860ee82b33cbb094190899265cefb6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: f383db9f8f5db0e4b949a012fa165b16, type: 2}
+  data: {fileID: 11400000, guid: 12f6fff5555e0a841b47cea7e8e446b8, type: 2}
+  isDungeon: 0
   attackPower: 0
   moveSpeed: 0
   attackRange: 0
