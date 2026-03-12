@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DwarfUI : MonoBehaviour
+public class BossRushPanelUI : MonoBehaviour
 {
     [Header("패널 관리")]
     public GameObject entryPanel;   //입장 전 로비 화면
@@ -72,7 +72,7 @@ public class DwarfUI : MonoBehaviour
         // 1. 매니저에게 입장 처리 지시
         if (DwarfManager.Instance != null)
         {
-            DwarfManager.Instance.EnterDungeon();
+            // DwarfManager.Instance.EnterBossRush();
 
             // 2. 입장이 성공적으로 되었다면 (isPlaying == true), 인게임 UI로 전환
             if (DwarfManager.Instance.isPlaying)

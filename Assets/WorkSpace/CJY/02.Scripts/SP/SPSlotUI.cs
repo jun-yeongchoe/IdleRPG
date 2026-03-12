@@ -14,7 +14,7 @@ public class SPSlotUI : MonoBehaviour
     public GameObject lockImage, UnlockImage;
     public bool isLocked = false;
 
-    [SerializeField] private Image synergyIcon;
+    [SerializeField] public Image synergyIcon;
     public string currentSynergy;
     public SPData spDataStorage;
     
@@ -47,16 +47,20 @@ public class SPSlotUI : MonoBehaviour
         // N2는 소수점 둘째자리까지 표시 (공속의 미세한 변화를 보여주기 위함)
         valueText.text = $"{data.type} +{displayRate:N2}{suffix}";
 
-        if(synergyIcon != null && icon != null)
-        {
-            synergyIcon.sprite = icon;
-            // synergyIcon.gameObject.SetActive(true);
-        }
+        // if(synergyIcon != null && icon != null)
+        // {
+        //     synergyIcon.sprite = icon;
+        //     // synergyIcon.gameObject.SetActive(true);
+        // }
 
         if (synergyIcon != null)
         {
-            // 아이콘 자체의 색조(Tint)를 바꿀 경우
-            synergyIcon.color = synergyColor; 
+            if(icon != null)
+            {
+                synergyIcon.gameObject.SetActive(true);
+                synergyIcon.sprite = icon;
+                synergyIcon.color = synergyColor;
+            }
         }
         
         SetRankColor(data.rank);

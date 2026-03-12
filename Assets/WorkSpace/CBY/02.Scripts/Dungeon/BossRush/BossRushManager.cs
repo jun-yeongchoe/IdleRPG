@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
+/// <summary>
+/// 보스러시에도 enemymanager 필수임
+/// </summary>
 public class BossRushManager : MonoBehaviour
 {
     [Header("보스 설정")]
@@ -48,9 +51,9 @@ public class BossRushManager : MonoBehaviour
             spawnIndex = currentIndex;
         }
 
-        GameObject bossObj = Instantiate(bossPrefabs[spawnIndex], spawnPoint.position, Quaternion.identity);
+        GameObject bossObj = Instantiate(bossPrefabs[spawnIndex], spawnPoint.position, Quaternion.identity, transform);
 
-        //BossStats쓰지말고 Enemy의 OnEnable에서 어짜피 스텟 알아서 초기화해줌
+        //EnemyBase의 OnEnable에서 어짜피 스텟 알아서 초기화해줌
         EnemyBase bossEnemy = bossObj.GetComponent<EnemyBase>();
         if (bossEnemy != null)
         {
@@ -84,6 +87,25 @@ public class BossRushManager : MonoBehaviour
     private void ClearBossRush()
     {
         Debug.Log("보스 러쉬 클리어!");
-        BossRushUI.Instance.ShowClear();
+
+        int rewardGem = 500 + (defeatedCount * 10);
+
+        if (DataManager.Instance != null)
+        { 
+            DataManager.Instance.AddGem(rewardGem);
+        }
+
+        if (CommonPopup.Instance != null)
+        {
+            CommonPopup.Instance.ShowAlert("보스 클리어!", $"보스를 정복했습니다!\n획득 보석: {rewardGem}개", "확인", () =>
+            {
+                BossRushUI.Instance.ShowClear();
+                SceneManager.LoadScene("Game Scene_1st");
+            });
+        }
+        else 
+        {
+            BossRushUI.Instance.ShowClear();
+        }
     }
 }

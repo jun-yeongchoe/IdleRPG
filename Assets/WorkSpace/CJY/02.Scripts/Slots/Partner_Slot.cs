@@ -1,53 +1,81 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Partner_Slot : MonoBehaviour
 {
-    [SerializeField] private RectTransform container;
-    [SerializeField] private int slotIndex;
+    [Header("UI References")]
+    public Image[] slotIcons; // 3개의 슬롯 Image 컴포넌트 연결
+    public Sprite emptySlotSprite; // 빈 슬롯일 때 표시할 기본 이미지
+
+    private string prefabPath = "Items/Partners/"; 
 
     void OnEnable()
     {
-        RefreshUI();
-
-        EventManager.Instance.StartList("ServerDataChange", RefreshUI);
+        RefreshSkillSlots();
+        EventManager.Instance.StartList("PartnerSlotChanged", RefreshSkillSlots);
     }
 
     void OnDisable()
     {
-        EventManager.Instance.StopList("ServerDataChange", RefreshUI);
+        EventManager.Instance.StopList("PartnerSlotChanged", RefreshSkillSlots);
     }
 
-    private void RefreshUI()
+    public void RefreshSkillSlots()
     {
-        if(slotIndex < 0 ||slotIndex >=DataManager.Instance.EquipSlot.Length) return; 
+        int[] partnerSlots = DataManager.Instance.CompanionSlot;
 
-        int currentID = DataManager.Instance.EquipSlot[slotIndex]; // Partnerslot 추가하면 만들기
-        UpdateSlot(currentID);
-    }
-
-    private void UpdateSlot(int id)
-    {
-        foreach (Transform child in container) Destroy(child.gameObject);
-
-        
-        GameObject prefab = ItemDataManager.Instance.GetEquipmentPrefab(id);
-
-        if (prefab != null)
+        for (int i = 0; i < slotIcons.Length; i++)
         {
-            GameObject instance = Instantiate(prefab, container);
-            RectTransform rect = instance.GetComponent<RectTransform>();
+            int partnerID = partnerSlots[i];
 
-            if (rect != null)
+            
+            if (partnerID <= 0)
             {
-                // Stretch 설정
-                rect.anchorMin = Vector2.zero;
-                rect.anchorMax = Vector2.one;
-                rect.offsetMin = Vector2.zero;
-                rect.offsetMax = Vector2.zero;
-                rect.localScale = Vector3.one;
+                slotIcons[i].sprite = emptySlotSprite;
+                slotIcons[i].color = new Color(1, 1, 1, 1);
+                continue;
             }
+
+            
+            GameObject partnerPrefab = Resources.Load<GameObject>(prefabPath + partnerID.ToString());
+
+            if (partnerPrefab != null && partnerPrefab.TryGetComponent(out PartnerDataSO partnerData))
+            {
+                
+                slotIcons[i].sprite = GetPartnerIcon(partnerPrefab);
+                slotIcons[i].color = Color.white;
+            }
+            else
+            {
+                slotIcons[i].sprite = emptySlotSprite;
+                Debug.LogWarning($"슬롯 {i}: {partnerID} 프리팹 로드 실패");
+            }
+        }
+    }
+
+    private Sprite GetPartnerIcon(GameObject prefab)
+    {
+        var iconTransform = prefab.transform.Find("IconImage");
+        if (iconTransform != null)
+        {
+            return iconTransform.GetComponent<Image>().sprite;
+        }
+        return null;
+    }
+
+    public void OnClickMySlot(int index)
+    {
+        Debug.Log("온클릭슬롯(인덱스 : "+index + ")");
+        if(BasePartnerWindow.pickedPartner != null)
+        {
+            int partnerID = BasePartnerWindow.pickedPartner.ID;
+
+            DataManager.Instance.CompanionSlot[index] = partnerID;
+            EventManager.Instance.TriggerEvent("PartnerSlotChanged");
+
+            BasePartnerWindow.pickedPartner = null;
         }
     }
 }

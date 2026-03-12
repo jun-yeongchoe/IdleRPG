@@ -110,8 +110,9 @@ public class DBManager : MonoBehaviour
         // 점수 계산 및 검증
         var calc = PlayerStatCalculator.instance;
         BigInteger rankingScore = calc.GetRankingScore(calc.FinalAtk, calc.FinalAtkSpeed, calc.FinalCritChance, calc.FinalCritDamage);
+        double scoreToSave = (double) rankingScore;
 
-        Debug.Log($"<color=cyan>[로그 4] 데이터 준비 완료 (Score: {rankingScore})</color>");
+        Debug.Log($"<color=cyan>[로그 4] 데이터 준비 완료 (Score: {scoreToSave})</color>");
 
     
         var userTask = dbReference.Child("users").Child(userId).SetRawJsonValueAsync(json);
@@ -129,7 +130,7 @@ public class DBManager : MonoBehaviour
 
         Dictionary<string, object> rankingData = new Dictionary<string, object>();
         rankingData["Nickname"] = userName;
-        rankingData["Score"] = rankingScore;
+        rankingData["Score"] = scoreToSave;
 
         Debug.Log("<color=yellow>[로그 8] rankings 노드 업데이트 요청 보냄...</color>");
         var rankingTask = dbReference.Child("rankings").Child(userId).UpdateChildrenAsync(rankingData);
@@ -153,6 +154,8 @@ public class DBManager : MonoBehaviour
         IsDataLoaded = false;
         Debug.Log("<color=white>[DB] 로드 시작</color>");
 
+        ClearAllGameData();
+        this.userId = userId;
         if(dbReference == null) dbReference = FirebaseDatabase.DefaultInstance.RootReference;
         
         var task = dbReference.Child("users").Child(userId).GetValueAsync();
@@ -194,5 +197,76 @@ public class DBManager : MonoBehaviour
 
         EventManager.Instance.TriggerEvent("ServerDataChange");
     }
+
+    // 모든 유저 관련 휘발성 데이터를 여기서 초기화
+    public void ClearData() {
+        userId = "";
+        userName = "";
+        IsDataLoaded = false;
+        tempJsonData = "";
+    }
+
+
+public void ClearAllGameData()
+{
+    if (DataManager.Instance == null) return;
+
+    Debug.Log("<color=red>[DBManager] 모든 게임 데이터를 강제 초기화합니다.</color>");
+
+    var data = DataManager.Instance;
+
+    // 1. 기초 스탯 및 스테이지 초기화
+    data.currentStageNum = 1;
+    data.Gold = 0;
+    data.Scrap = 0;
+    data.Gem = 0;
+    
+    data.AtkLv = 1;
+    data.HpLv = 1;
+    data.RecoverLv = 1;
+    data.AtSpeedLv = 1;
+    data.CritPerLv = 1;
+    data.CritDmgLv = 1;
+
+    // 2. 던전 티켓 초기화
+    data.GoldDungeonTicket = 2;
+    data.BossRushTicket = 2;
+    data.DwarfKingTicket = 2;
+
+    // 3. 딕셔너리(인벤토리, 퀘스트 등) 통째로 비우기
+    data.InventoryDict = new Dictionary<int, ItemSaveData>();
+    data.CompanionDict = new Dictionary<int, ItemSaveData>();
+    data.SkillDict = new Dictionary<int, ItemSaveData>();
+    data.QuestDict = new Dictionary<int, QuestSaveData>();
+    
+    // 4. 리스트 및 슬롯 정보 초기화
+    data.SynergyName = new List<string>();
+    data.EquipSlot = new int[4];
+    data.SkillSlot = new int[] { 0, 1, 2, -1, -1, -1 };
+    data.CompanionSlot = new int[] { -1, -1, -1 };
+    
+    // 5. 상점 정보 초기화
+    data.ShopLevels = new int[] { 1, 1, 1 };
+    data.ShopExps = new int[] { 0, 0, 0 };
+
+    // 6. 특성(Trait) 초기화
+    data.TraitSlots = new TraitSaveData[5];
+    for (int i = 0; i < 5; i++)
+    {
+        data.TraitSlots[i] = new TraitSaveData { slotIndex = i, traitId = 0, isLocked = false };
+    }
+
+    // 7. DBManager 본인의 정보도 초기화
+    this.userId = "";
+    this.userName = "";
+    this.IsDataLoaded = false;
+    this.tempJsonData = "";
+
+    // UI 갱신 이벤트 발생 (필요 시)
+    if (EventManager.Instance != null) 
+        EventManager.Instance.TriggerEvent("CurrencyChange");
+        
+    Debug.Log("<color=lime>[DBManager] 메모리 클린업 완료!</color>");
+}
 
 }

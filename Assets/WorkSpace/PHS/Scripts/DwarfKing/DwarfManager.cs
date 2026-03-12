@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Quaternion = UnityEngine.Quaternion;
 
 public class DwarfManager : MonoBehaviour
@@ -36,6 +37,12 @@ public class DwarfManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
+    private void Start()
+    {
+        DataManager.Instance.currentStageNum = 32;
+        EnterDungeon();
+        
+    }
 
     //던전 입장 로직
     public void EnterDungeon()
@@ -56,11 +63,11 @@ public class DwarfManager : MonoBehaviour
         currentTime = timeLimit;
         currentSection = 0;
 
-        CalculateNextSectionHp(); //0구간 체력 세팅
+        
 
         if (currentBoss == null && bossPrefab != null && spawnPoint != null)
         {
-            currentBoss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
+            currentBoss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity, transform.parent);
         }
         else if (currentBoss != null)
         {
@@ -68,8 +75,14 @@ public class DwarfManager : MonoBehaviour
             currentBoss.transform.position = spawnPoint.position;
             currentBoss.SetActive(true);
         }
+        CalculateNextSectionHp(); //0구간 체력 세팅
+        OnBossHpChanged?.Invoke(currentSection, currentBossHp, currentBossMaxHp);
 
+        EnemyBase eb = currentBoss.GetComponent<EnemyBase>();
+        eb.maxHp = currentBossMaxHp;
+        eb.hp = currentBossHp;
         isPlaying = true;
+        if(isPlaying) eb.isDungeon = true;
 
         Debug.Log("드워프 킹 던전 입장!");
     }
@@ -129,6 +142,11 @@ public class DwarfManager : MonoBehaviour
     private void EndDungeon()
     {
         isPlaying = false;
+        if (!isPlaying)
+        {
+            EnemyBase eb = currentBoss.GetComponent<EnemyBase>();
+            eb.isDungeon = false;
+        }
 
         if (currentBoss != null)
         {
@@ -151,6 +169,7 @@ public class DwarfManager : MonoBehaviour
                 () => {
                     //원래 스테이지 로비로 복귀하는 로직 추가해주기
                     Debug.Log("로비 복귀");
+                    SceneManager.LoadScene("Game Scene_1st");
                 }
             );
         }

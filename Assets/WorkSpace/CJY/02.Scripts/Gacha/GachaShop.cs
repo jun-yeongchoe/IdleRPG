@@ -283,6 +283,8 @@ public class GachaShop : MonoBehaviour
         GachaShop_Display myDisplay = GetComponent<GachaShop_Display>();
         if (myDisplay != null) myDisplay.UpdateDisplay();
 
+        EventManager.Instance.TriggerEvent("UpdateCoinUI");
+
         // 2. 결과창(Panel_Result)의 UI도 실시간 갱신
         // Panel_Result 객체에 GachaShop_Display 스크립트가 붙어있어야 합니다.
         GachaShop_Display resultDisplay = resultPanel.GetComponent<GachaShop_Display>();
@@ -331,7 +333,7 @@ public class GachaShop : MonoBehaviour
                                 break;
                         }
                     }
-                    // --- [데이터 확인용 디버그 로그 끝] ---
+                    
                 }
             }
         }

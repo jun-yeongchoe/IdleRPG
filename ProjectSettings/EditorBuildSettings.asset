@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/WorkSpace/Build/2nd_Build/01.Scenes/Game Scene_1st.unity
     guid: f7f288cf9b76f9c45ae38f4a08bcf66d
+  - enabled: 1
+    path: Assets/WorkSpace/Build/2nd_Build/01.Scenes/DwarfKingDungeon.unity
+    guid: fafb6ac5f1986d44b9723bbe25f8678f
+  - enabled: 1
+    path: Assets/WorkSpace/Build/2nd_Build/01.Scenes/BossRushDungeon.unity
+    guid: c4a307a50bfbb0141a1f67c8d317c66e
   m_configObjects: {}
