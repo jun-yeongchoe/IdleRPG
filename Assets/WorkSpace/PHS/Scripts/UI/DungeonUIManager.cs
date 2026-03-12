@@ -56,7 +56,7 @@ public class DungeonUIManager : MonoBehaviour
         {
             DataManager.Instance.BossRushTicket--;
 
-            SceneManager.LoadScene("BossRushManager");
+            SceneManager.LoadScene("BossRushDungeon");
         }
         else
             CommonPopup.Instance.ShowAlert("입장권 부족!", "입장권이 부족합니다!");

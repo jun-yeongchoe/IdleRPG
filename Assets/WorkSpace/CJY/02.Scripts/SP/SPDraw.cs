@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEditor;
 
 [Serializable]
 public class SynergyEffectData
@@ -111,8 +112,9 @@ public class SPDraw : MonoBehaviour
     // 실제 슬롯 데이터를 갱신하는 핵심 로직
     private void ExecuteDrawLogic()
     {
-        foreach (var slot in spSlots)
+        for (int i = 0; i < spSlots.Count; i++)
         {
+            var slot = spSlots[i];
             if (slot.isLocked) continue;
 
             string randRank = Loader.GetRandomRank();
@@ -120,6 +122,7 @@ public class SPDraw : MonoBehaviour
 
             string randSynergy = synergyNames[UnityEngine.Random.Range(0, synergyNames.Length)];
             SynergyIconData icon = GetSynergyData(randSynergy);
+            SaveSynergyName(randSynergy, i);
 
             if (result != null && icon != null)
             {
@@ -203,9 +206,21 @@ public class SPDraw : MonoBehaviour
 
         foreach (var ui in synergyLevelUIs)
         {
-            if (counts.ContainsKey(ui.synergyName.ToLower()))
-                ui.UpdateLevel(counts[ui.synergyName.ToLower()]);
+            if (counts.ContainsKey(ui.synergyName.ToLower())) ui.UpdateLevel(counts[ui.synergyName.ToLower()]);
         }
+
+
+        for(int i = 0; i <= synergyNames.Length-1; i++)
+        {
+            float effectValue = CSV_LoadManager.Instance.SP_CSV.GetSynergyEffect(synergyNames[i], counts[synergyNames[i]]);
+    
+            if (i < PlayerStat.instance.hasSynergy.Count) PlayerStat.instance.hasSynergy[i] = effectValue;
+            else PlayerStat.instance.hasSynergy.Add(effectValue);
+            
+            // PlayerStat.instance.hasSynergy[i] = CSV_LoadManager.Instance.SP_CSV.GetSynergyEffect(synergyNames[i], counts[synergyNames[i]]);
+        }
+
+        
     }
 
    
@@ -246,6 +261,20 @@ public class SPDraw : MonoBehaviour
         int lockCount = spSlots.Count(slot => slot.isLocked);
         if (drawButton != null) drawButton.interactable = (lockCount < spSlots.Count);
         oneDrawScrap.text = (lockCount >= spSlots.Count) ? "--" : CurrentTotalCost.ToString();
+    }
+
+    private void SaveSynergyName(string name, int idx)
+    {
+        while (DataManager.Instance.SynergyName.Count < 5)
+        {
+            DataManager.Instance.SynergyName.Add(""); 
+        }
+
+        if (idx >= 0 && idx < 5)
+        {
+            DataManager.Instance.SynergyName[idx] = name;
+        }
+     
     }
 
     private void OnDestroy()
