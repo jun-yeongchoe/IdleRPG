@@ -11,14 +11,16 @@ public class Logout : MonoBehaviour
 
     public void OnClickLogout()
     {
+        DBManager.Instance.SaveSOData();
+
         GoogleLogin.isLogoutCalled = true;
 
         FirebaseAuth.DefaultInstance.SignOut();
 
         GoogleSignIn.DefaultInstance.SignOut();
+        GoogleSignIn.DefaultInstance.Disconnect();
 
-        DBManager.Instance.userId = "";
-        DBManager.Instance.userName = "";
+        DBManager.Instance.ClearData();
 
         SceneManager.LoadScene(loginScene);
     }

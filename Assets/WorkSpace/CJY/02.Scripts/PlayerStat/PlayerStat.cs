@@ -140,6 +140,7 @@ public class PlayerStat : MonoBehaviour
         criticalDamage = crit_d_Data.BaseValue + ((DataManager.Instance.CritDmgLv - 1) * crit_d_Data.GrowthPerLevel) + totalCritDamageBonus;
 
         EventManager.Instance.TriggerEvent("PlayerStatChange");
+        DBManager.Instance.SaveSOData();
     }
 
     /// <summary>
