@@ -76,7 +76,7 @@ public class EnemyBase : MonoBehaviour
         if (animator != null)
         {
             animator.SetBool("IsMoving", false);
-            animator.SetBool("IsAttacking", false);
+            animator.SetTrigger("Attack");
             animator.Play("Idle", 0, 0f);
         }
     }
@@ -112,7 +112,6 @@ public class EnemyBase : MonoBehaviour
     { 
         isAttacking=true;
 
-        animator.SetBool("IsAttacking", true);
         animator.SetTrigger("Attack");
 
         PlayerHP playerHP=target.GetComponent<PlayerHP>();
@@ -123,7 +122,6 @@ public class EnemyBase : MonoBehaviour
 
         yield return new WaitForSeconds(attackCooldown);
 
-        animator.SetBool("IsAttacking", false);
         isAttacking = false;
     }
 
@@ -141,7 +139,7 @@ public class EnemyBase : MonoBehaviour
             return;
         }
         hp -= damage;
-        if (hp < 0) hp = 0; // 마이너스 방지
+        if (hp < 0) hp = 0; //마이너스 방지
 
         if (DamageTextManager.Instance != null)
             DamageTextManager.Instance.ShowDamage(damage, transform.position);
